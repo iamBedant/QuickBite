@@ -8,7 +8,7 @@ import com.iambedant.nanodegree.quickbite.injection.component.DaggerApplicationC
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
 
 
-public class BoilerplateApplication extends Application  {
+public class myApplication extends Application  {
 
     ApplicationComponent mApplicationComponent;
 
@@ -22,8 +22,8 @@ public class BoilerplateApplication extends Application  {
 //        }
     }
 
-    public static BoilerplateApplication get(Context context) {
-        return (BoilerplateApplication) context.getApplicationContext();
+    public static myApplication get(Context context) {
+        return (myApplication) context.getApplicationContext();
     }
 
     public ApplicationComponent getComponent() {
