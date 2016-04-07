@@ -10,6 +10,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivityComponent().inject(this);
         setContentView(R.layout.activity_login);
     }
 
