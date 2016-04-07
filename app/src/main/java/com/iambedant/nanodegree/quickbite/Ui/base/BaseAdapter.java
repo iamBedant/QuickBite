@@ -24,7 +24,9 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Base adapter encapsulating list data
+ */
 public abstract class BaseAdapter<T, V extends View> extends RecyclerView.Adapter<BaseAdapter.ViewHolder<V>> {
 
     private List<T> list = Collections.emptyList();
