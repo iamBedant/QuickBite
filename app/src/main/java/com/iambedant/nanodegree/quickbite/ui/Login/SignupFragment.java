@@ -1,4 +1,4 @@
-package com.iambedant.nanodegree.quickbite.Ui.Login;
+package com.iambedant.nanodegree.quickbite.ui.Login;
 
 import android.app.Fragment;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.iambedant.nanodegree.quickbite.Ui.base;
+package com.iambedant.nanodegree.quickbite.ui.base;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for

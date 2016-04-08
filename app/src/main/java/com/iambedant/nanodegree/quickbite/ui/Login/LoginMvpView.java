@@ -1,6 +1,6 @@
-package com.iambedant.nanodegree.quickbite.Ui.Login;
+package com.iambedant.nanodegree.quickbite.ui.Login;
 
-import com.iambedant.nanodegree.quickbite.Ui.base.MvpView;
+import com.iambedant.nanodegree.quickbite.ui.base.MvpView;
 
 /**
  * Created by Kuliza-193 on 4/7/2016.

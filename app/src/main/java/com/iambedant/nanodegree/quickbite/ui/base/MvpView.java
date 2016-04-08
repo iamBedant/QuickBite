@@ -1,4 +1,4 @@
-package com.iambedant.nanodegree.quickbite.Ui.base;
+package com.iambedant.nanodegree.quickbite.ui.base;
 
 
 /**

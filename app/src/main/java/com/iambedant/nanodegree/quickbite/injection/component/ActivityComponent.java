@@ -1,11 +1,11 @@
 package com.iambedant.nanodegree.quickbite.injection.component;
 
-import com.iambedant.nanodegree.quickbite.Ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.injection.PerActivity;
 import com.iambedant.nanodegree.quickbite.injection.module.ActivityModule;
+import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
+import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
 
 import dagger.Component;
-
 
 /**
  * This component inject dependencies to all Activities across the application
@@ -14,6 +14,8 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(BaseActivity mainActivity);
+    void inject(MainActivity mainActivity);
+    void inject(LoginActivity loginActivity);
+
 
 }

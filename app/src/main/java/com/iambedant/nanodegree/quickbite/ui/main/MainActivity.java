@@ -1,12 +1,12 @@
-package com.iambedant.nanodegree.quickbite.Ui.main;
+package com.iambedant.nanodegree.quickbite.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.iambedant.nanodegree.quickbite.R;
-import com.iambedant.nanodegree.quickbite.Ui.base.BaseActivity;
-import com.iambedant.nanodegree.quickbite.util.DialogFactory;
+import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
+import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
@@ -17,8 +17,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     private static final String EXTRA_TRIGGER_SYNC_FLAG =
             "uk.co.ribot.androidboilerplate.ui.main.MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
 
-    @Inject MainPresenter mMainPresenter;
-
+    @Inject
+    MainPresenter mMainPresenter;
+//
+//    @Bind(R.id.recycler_view)
+//    RecyclerView mRecyclerView;
 
     /**
      * Return an Intent to start this Activity.
@@ -37,11 +40,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         getActivityComponent().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         mMainPresenter.attachView(this);
-       // mMainPresenter.loadRibots();
-
-
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -58,12 +59,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading))
-                .show();
+//        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots))
+//                .show();
     }
 
     @Override
-    public void showDataEmpty() {
-
+    public void showRibotsEmpty() {
+//        mRibotsAdapter.setRibots(Collections.<Ribot>emptyList());
+//        mRibotsAdapter.notifyDataSetChanged();
+        ///  Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
     }
+
 }
