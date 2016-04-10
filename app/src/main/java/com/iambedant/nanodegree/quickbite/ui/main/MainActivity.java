@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     DrawerLayout mDrawerLayout;
 
     @Bind(R.id.nav_view)
-            NavigationView mNavigationView;
+    NavigationView mNavigationView;
 
     View mHeaderView;
 
@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         ButterKnife.bind(this);
         mMainPresenter.attachView(this);
         setUpToolbar();
+        mMainPresenter.updateNavHeader();
     }
 
     @Override
@@ -95,7 +96,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         setUpNavDrawer();
     }
 
-    private void setUpNavDrawer(){
+    private void setUpNavDrawer() {
         if (mToolbar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
@@ -113,10 +114,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
 
     }
 
-
     @Override
     public void setUpNavHeader(String userName, String email) {
-        mHeaderView = getLayoutInflater().inflate(R.layout.nav_header, null, false);
         TextView mTextViewUsername = (TextView) mHeaderView.findViewById(R.id.username);
         mTextViewUsername.setText(userName);
         TextView mTextViewEmail = (TextView) mHeaderView.findViewById(R.id.email);

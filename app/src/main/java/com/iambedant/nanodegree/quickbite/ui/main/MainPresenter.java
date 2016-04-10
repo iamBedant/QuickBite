@@ -2,6 +2,7 @@ package com.iambedant.nanodegree.quickbite.ui.main;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,12 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
+    public void updateNavHeader(){
+        getMvpView().setUpNavHeader(mDataManager.getPreferencesHelper()
+                                                .getString(Constants.USER_NAME,"hello"),
+                                    mDataManager.getPreferencesHelper()
+                                                .getString(Constants.USER_EMAIL,"hi"));
+    }
 
 
 }

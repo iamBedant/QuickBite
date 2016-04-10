@@ -18,13 +18,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'MY_FIREBASE_URL', UniqueFirebaseUrl
+    }
 }
 
 dependencies {
     final PLAY_SERVICES_VERSION = '8.4.0'
     final SUPPORT_LIBRARY_VERSION = '23.2.1'
     final RETROFIT_VERSION = '2.0.1'
-
+    final FIREBASE_VERSION = '2.5.2+'
     final DAGGER_VERSION = '2.0.2'
     def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -42,8 +50,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-
-    compile  "com.google.dagger:dagger:$DAGGER_VERSION"
+    compile "com.firebase:firebase-client-android:$FIREBASE_VERSION"
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
     apt daggerCompiler
 }
