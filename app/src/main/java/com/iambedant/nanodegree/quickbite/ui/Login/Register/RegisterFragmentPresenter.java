@@ -11,8 +11,9 @@ import javax.inject.Inject;
 public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvpView> {
     private final DataManager mDataManager;
 
+
     @Inject
-    public RegisterFragmentPresenter(DataManager dataManager){
+    public RegisterFragmentPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
@@ -24,6 +25,10 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
     @Override
     public void detachView() {
         super.detachView();
+    }
+
+    public void createCustomUser(String email, String pasword) {
+        mDataManager.createCustomUser(email, pasword);
     }
 }
 

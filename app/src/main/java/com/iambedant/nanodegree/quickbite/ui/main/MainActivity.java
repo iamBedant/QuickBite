@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     NavigationView mNavigationView;
 
     View mHeaderView;
+    Context mContext;
 
     /**
      * Return an Intent to start this Activity.
@@ -58,9 +60,13 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         getActivityComponent().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mContext = this;
         mMainPresenter.attachView(this);
         setUpToolbar();
         mMainPresenter.updateNavHeader();
+
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -138,6 +144,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         } else if (id == R.id.account) {
 
         } else if (id == R.id.logout) {
+
 
         }
 

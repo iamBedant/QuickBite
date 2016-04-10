@@ -27,10 +27,11 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/scrim"/>
+                android:src="@drawable/scrim" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/htab_toolbar"
@@ -47,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
+                android:layout_margin="@dimen/margin_medium"
                 android:elevation="4dp"
                 app:layout_anchor="@+id/appbar"
                 app:tabIndicatorColor="@color/colorPrimary"
