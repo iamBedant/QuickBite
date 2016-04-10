@@ -12,11 +12,11 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/Widget.QuickBite.HomeToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:layout_scrollFlags="scroll|enterAlways">
 
 
         </android.support.v7.widget.Toolbar>
@@ -27,7 +27,6 @@
             android:layout_marginBottom="@dimen/searchview_top_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-
             android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -43,10 +42,10 @@
 
                     <ImageView
                         android:layout_width="@dimen/search_icon_width"
-                        android:alpha=".5"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:alpha=".5"
                         android:src="@drawable/ic_search_black_24dp" />
 
                 </RelativeLayout>
