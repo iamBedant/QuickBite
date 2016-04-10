@@ -11,13 +11,20 @@
     <dimen name="text_small_body">14sp</dimen>
     <dimen name="text_size_medium">20sp</dimen>
     <dimen name="margin_medium">16dp</dimen>
-    <dimen name="overlap">80dp</dimen>
+
     <dimen name="card_radius">4dp</dimen>
-    <dimen name="padding_small">8dp</dimen>
+    <dimen name="overlap">80dp</dimen>
+
     <dimen name="login_collapsing_image_height">250dp</dimen>
     <dimen name="search_view_height">45dp</dimen>
     <dimen name="searchview_top_margin">15dp</dimen>
     <dimen name="search_icon_width">25dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
     <dimen name="Search_text_size">17sp</dimen>
+
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_xsmall">4dp</dimen>
+
+    <dimen name="nav_header_height">190dp</dimen>
 </resources>

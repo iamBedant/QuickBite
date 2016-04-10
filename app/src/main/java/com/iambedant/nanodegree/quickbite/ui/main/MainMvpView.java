@@ -11,4 +11,6 @@ public interface MainMvpView extends MvpView {
 
     void showError();
 
+   void setUpNavHeader(String userName, String email);
+
 }
