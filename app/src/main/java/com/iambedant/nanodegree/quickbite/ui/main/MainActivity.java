@@ -3,6 +3,7 @@ package com.iambedant.nanodegree.quickbite.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
@@ -10,6 +11,7 @@ import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -19,9 +21,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Inject
     MainPresenter mMainPresenter;
-//
-//    @Bind(R.id.recycler_view)
-//    RecyclerView mRecyclerView;
+    //
+    @Bind(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
     /**
      * Return an Intent to start this Activity.

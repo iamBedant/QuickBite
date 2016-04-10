@@ -1,7 +1,5 @@
 package com.iambedant.nanodegree.quickbite.ui.Login;
 
-import android.util.Log;
-
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 
@@ -30,9 +28,4 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     }
 
-
-    public void printValue()
-    {
-        Log.d("myTest","Success");
-    }
 }

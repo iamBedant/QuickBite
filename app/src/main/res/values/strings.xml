@@ -9,4 +9,10 @@
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="or">OR</string>
+    <string name="coffee">COFFEE</string>
+    <string name="lunch_dinner">LUNCH / DINNER</string>
+    <string name="grab_a_beer">GRAB A BEER</string>
+    <string name="my_favourites">MY FAVOURITES</string>
+    <string name="my_account">MY ACCOUNT</string>
+    <string name="log_out">LOG OUT</string>
 </resources>

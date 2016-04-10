@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group >
+        <item
+            android:id="@+id/coffee"
+            android:icon="@drawable/ic_action_food_1"
+            android:title="@string/coffee" />
+        <item
+            android:id="@+id/lunch"
+            android:icon="@drawable/ic_action_food_3"
+            android:title="@string/lunch_dinner" />
+        <item
+            android:id="@+id/beer"
+            android:icon="@drawable/ic_action_food_2"
+            android:title="@string/grab_a_beer" />
+        <item
+            android:id="@+id/favourites"
+            android:icon="@drawable/ic_action_favorite"
+            android:title="@string/my_favourites" />
+        <item
+            android:id="@+id/account"
+            android:icon="@drawable/ic_action_beginner_unselected_icon"
+            android:title="@string/my_account" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_action_arrow"
+            android:title="@string/log_out" />
+    </group>
+
+
+</menu>

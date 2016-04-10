@@ -5,10 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
         android:orientation="horizontal">
 
         <View
@@ -34,4 +34,13 @@
             android:background="@color/colorSeparator" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Facebook" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Google" />
 </LinearLayout>
