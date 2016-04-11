@@ -3,6 +3,7 @@ package com.iambedant.nanodegree.quickbite.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
 import com.squareup.otto.Bus;
 
@@ -41,10 +42,10 @@ public class ApplicationModule {
 
 
 
-//    @Provides
-//    @Singleton
-//    RibotsService provideRibotsService() {
-//        return RibotsService.Creator.newRibotsService();
-//    }
+    @Provides
+    @Singleton
+    QuickBiteAPIClient provideQuickBiteAPIClient() {
+        return QuickBiteAPIClient.Creator.newQuickBiteAPIClient();
+    }
 
 }

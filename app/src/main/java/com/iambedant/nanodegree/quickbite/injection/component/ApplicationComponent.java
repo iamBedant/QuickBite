@@ -6,6 +6,7 @@ import android.content.Context;
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
+import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
 import com.squareup.otto.Bus;
@@ -24,7 +25,7 @@ public interface ApplicationComponent {
     Context context();
     Application application();
     FireBaseClient fireBaseClient();
-   // RibotsService ribotsService();
+    QuickBiteAPIClient quickBiteAPIClient();
     PreferencesHelper preferencesHelper();
   //  DatabaseHelper databaseHelper();
     DataManager dataManager();

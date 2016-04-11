@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
-import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -64,9 +63,9 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         mMainPresenter.attachView(this);
         setUpToolbar();
         mMainPresenter.updateNavHeader();
-
-        Intent intent = new Intent(mContext, LoginActivity.class);
-        startActivity(intent);
+        mMainPresenter.loadInitialData();
+//        Intent intent = new Intent(mContext, LoginActivity.class);
+//        startActivity(intent);
     }
 
     @Override

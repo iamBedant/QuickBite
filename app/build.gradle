@@ -25,6 +25,7 @@ android {
     }
     buildTypes.each {
         it.buildConfigField 'String', 'MY_FIREBASE_URL', UniqueFirebaseUrl
+        it.buildConfigField 'String', 'ZOMATO_API_KEY', ZomatoApiKey
     }
 }
 
