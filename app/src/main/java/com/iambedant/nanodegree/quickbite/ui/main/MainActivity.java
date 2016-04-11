@@ -13,7 +13,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,6 +46,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     View mHeaderView;
     Context mContext;
 
+    RestaurantAdapter mRestaurantAdapter;
     /**
      * Return an Intent to start this Activity.
      * triggerDataSyncOnCreate allows disabling the background sync service onCreate. Should
@@ -63,7 +68,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         mMainPresenter.attachView(this);
         setUpToolbar();
         mMainPresenter.updateNavHeader();
-        mMainPresenter.loadInitialData();
+        if(NetworkUtil.isNetworkConnected(mContext)){
+            mMainPresenter.loadInitialData();
+        }
+       else {
+            //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
+        }
 //        Intent intent = new Intent(mContext, LoginActivity.class);
 //        startActivity(intent);
     }
@@ -125,6 +135,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         mTextViewUsername.setText(userName);
         TextView mTextViewEmail = (TextView) mHeaderView.findViewById(R.id.email);
         mTextViewEmail.setText(email);
+    }
+
+    @Override
+    public void showRestaurants(List<Restaurant> mRestaurantList) {
+        mRestaurantAdapter.setItems(mRestaurantList);
     }
 
     @Override

@@ -1,11 +1,10 @@
 package com.iambedant.nanodegree.quickbite.ui.main;
 
-import android.util.Log;
-
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 import com.iambedant.nanodegree.quickbite.util.Constants;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.HashMap;
 
@@ -47,7 +46,8 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
 
     public void loadInitialData() {
-        HashMap<String, String> params = new HashMap<String, String>();
+
+         HashMap<String, String> params = new HashMap<String, String>();
         params.put("q", "whitefield");
         Observable<SearchResult> obj = mDataManager.getSearchData(params);
         mSubscription = obj.subscribeOn(Schedulers.io())
@@ -60,12 +60,13 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("API_TEST", "On Error Called->" + e.toString());
+                        Logger.d("API_TEST", "On Error Called->" + e.toString());
                     }
 
                     @Override
                     public void onNext(SearchResult searchResult) {
-                        Log.d("API_TEST", searchResult.getResultsStart() + "");
+                        Logger.d("API_TEST", searchResult.getResultsStart() + "");
+                        getMvpView().showRestaurants(searchResult.getRestaurants());
                     }
                 });
     }

@@ -1,16 +1,19 @@
 package com.iambedant.nanodegree.quickbite.ui.main;
 
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.base.MvpView;
+
+import java.util.List;
 
 
 public interface MainMvpView extends MvpView {
 
-//    void showRibots(List<Ribot> ribots);
 
     void showRibotsEmpty();
 
     void showError();
 
-   void setUpNavHeader(String userName, String email);
+    void setUpNavHeader(String userName, String email);
 
+    void showRestaurants(List<Restaurant> mRestaurantList);
 }
