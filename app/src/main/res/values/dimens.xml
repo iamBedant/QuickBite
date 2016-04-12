@@ -27,4 +27,5 @@
     <dimen name="padding_xsmall">4dp</dimen>
 
     <dimen name="nav_header_height">190dp</dimen>
+    <dimen name="restaurant_image_height">150dp</dimen>
 </resources>
