@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -31,7 +32,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
 
     @Inject
     MainPresenter mMainPresenter;
-    //
+
+    @Inject
+    RestaurantAdapter mRestaurantAdapter;
+
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @Bind(R.id.toolbar)
@@ -46,7 +50,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     View mHeaderView;
     Context mContext;
 
-    RestaurantAdapter mRestaurantAdapter;
+
     /**
      * Return an Intent to start this Activity.
      * triggerDataSyncOnCreate allows disabling the background sync service onCreate. Should
@@ -68,6 +72,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         mMainPresenter.attachView(this);
         setUpToolbar();
         mMainPresenter.updateNavHeader();
+        initRecyclerView();
         if(NetworkUtil.isNetworkConnected(mContext)){
             mMainPresenter.loadInitialData();
         }
@@ -76,6 +81,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         }
 //        Intent intent = new Intent(mContext, LoginActivity.class);
 //        startActivity(intent);
+    }
+
+    private void initRecyclerView(){
+        LinearLayoutManager mManager = new LinearLayoutManager(mContext);
+        mRecyclerView.setLayoutManager(mManager);
+        mRecyclerView.setAdapter(mRestaurantAdapter);
     }
 
     @Override

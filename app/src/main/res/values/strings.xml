@@ -15,4 +15,7 @@
     <string name="my_favourites">MY FAVOURITES</string>
     <string name="my_account">MY ACCOUNT</string>
     <string name="log_out">LOG OUT</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="address">Brookfield</string>
+    <string name="cuisine">Cafe Amarican,Continental</string>
 </resources>

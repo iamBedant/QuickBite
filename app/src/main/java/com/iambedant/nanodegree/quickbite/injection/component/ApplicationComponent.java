@@ -27,6 +27,7 @@ public interface ApplicationComponent {
     FireBaseClient fireBaseClient();
     QuickBiteAPIClient quickBiteAPIClient();
     PreferencesHelper preferencesHelper();
+//    RestaurantAdapter restaurantAdapter();
   //  DatabaseHelper databaseHelper();
     DataManager dataManager();
     Bus eventBus();

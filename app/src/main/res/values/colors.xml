@@ -5,5 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorSeparator">#efefef</color>
     <color name="white">#ffffff</color>
+    <color name="off_white">#efefef</color>
     <color name="colorTextSecondary">#808080</color>
 </resources>
