@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#efefef"
+    android:id="@+id/card"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground">
 
@@ -36,7 +37,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_toLeftOf="@id/rating"
+                android:textSize="@dimen/text_size_medium"
                 tools:text="@string/restaurant_name" />
 
             <TextView

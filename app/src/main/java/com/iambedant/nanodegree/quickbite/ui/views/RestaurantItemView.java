@@ -39,6 +39,9 @@ public class RestaurantItemView extends CardView {
     @Bind(R.id.address)
     TextView mTextViewAddress;
 
+    @Bind(R.id.card)
+    CardView mCardView;
+
     public RestaurantItemView(Context context) {
         super(context);
         initView();
@@ -99,13 +102,13 @@ public class RestaurantItemView extends CardView {
         mImageViewImage.setImageBitmap(bitmap);
     }
 
-//    public void setOnLessonClickListener(OnClickListener listener) {
-//        lessonImageView.setOnClickListener(listener);
-//    }
+    public void setOnRestaurantClickListener(OnClickListener listener) {
+        mCardView.setOnClickListener(listener);
+    }
 
-//    public ImageView getLessonImageView() {
-//        return lessonImageView;
-//    }
+    public ImageView getLessonImageView() {
+        return mImageViewImage;
+    }
 
     public void restartAnimation() {
         set.cancel();

@@ -47,7 +47,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
     public void loadInitialData() {
 
-         HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("q", "whitefield");
         Observable<SearchResult> obj = mDataManager.getSearchData(params);
         mSubscription = obj.subscribeOn(Schedulers.io())
