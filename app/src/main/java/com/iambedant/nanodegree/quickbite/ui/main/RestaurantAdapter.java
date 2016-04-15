@@ -81,5 +81,6 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
 
     public void onRestaurantClicked(Restaurant restaurant, RestaurantItemView restaurantItemView) {
         Logger.d(TAG,"Clicked On "+ restaurant.getRestaurant().getName());
+        mMainPresenter.navigateToDetailActivity(restaurantItemView);
     }
 }

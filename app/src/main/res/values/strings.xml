@@ -18,4 +18,5 @@
     <string name="restaurant_name">Restaurant Name</string>
     <string name="address">Brookfield</string>
     <string name="cuisine">Cafe Amarican,Continental</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

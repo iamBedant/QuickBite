@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.iambedant.nanodegree.quickbite.injection.PerActivity;
 import com.iambedant.nanodegree.quickbite.injection.module.ActivityModule;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
 import com.iambedant.nanodegree.quickbite.ui.main.RestaurantAdapter;
 
@@ -20,6 +21,8 @@ public interface ActivityComponent {
     void inject(MainActivity mainActivity);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(DetailActivity detailActivity);
 
     void inject(RestaurantAdapter restaurantAdapter);
 
