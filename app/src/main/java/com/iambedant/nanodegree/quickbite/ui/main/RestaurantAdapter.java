@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by Kuliza-193 on 4/11/2016.
@@ -26,7 +25,8 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     private String TAG = RestaurantAdapter.class.getSimpleName();
     private boolean animationEnabled = DEFAULT_ANIMATION_ENABLED;
     protected List<Restaurant> mRestaurantList = new ArrayList<>();
-    private MainPresenter mMainPresenter;
+
+    private OnRestaurantClick mItemListener;
 
     public void enableAnimation() {
         animationEnabled = true;
@@ -40,10 +40,9 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
         super(context);
     }
 
-    @Inject
-    public RestaurantAdapter(Activity activity, MainPresenter presenter) {
+    public RestaurantAdapter(Activity activity, OnRestaurantClick restaurantClickListener) {
         super(activity);
-        this.mMainPresenter = presenter;
+        mItemListener = restaurantClickListener;
     }
 
 //    @Inject
@@ -58,12 +57,11 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     }
 
     @Override
-    protected void bind(final Restaurant restaurant,final RestaurantItemView view, ViewHolder<RestaurantItemView> holder) {
+    protected void bind(final Restaurant restaurant, final RestaurantItemView view, ViewHolder<RestaurantItemView> holder) {
         if (restaurant != null) {
             view.setName(restaurant.getRestaurant().getName());
             view.setCuisine(restaurant.getRestaurant().getCuisines());
-            view.setRating(restaurant.getRestaurant().getUserRating().getAggregateRating()+"");
-            String imagePath = restaurant.getRestaurant().getThumb();
+            view.setRating(restaurant.getRestaurant().getUserRating().getAggregateRating() + "");
             Glide.with(context).load(restaurant.getRestaurant().getFeaturedImage())
                     .into(view.getLessonImageView());
             if (animationEnabled) {
@@ -80,7 +78,10 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     }
 
     public void onRestaurantClicked(Restaurant restaurant, RestaurantItemView restaurantItemView) {
-        Logger.d(TAG,"Clicked On "+ restaurant.getRestaurant().getName());
-        mMainPresenter.navigateToDetailActivity(restaurantItemView);
+        mItemListener.onItemClick(restaurant.getRestaurant(), restaurantItemView);
+    }
+
+    public interface OnRestaurantClick {
+        void onItemClick(Restaurant_ restaurant, RestaurantItemView itemView);
     }
 }

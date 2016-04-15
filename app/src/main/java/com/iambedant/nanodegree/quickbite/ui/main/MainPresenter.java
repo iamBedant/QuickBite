@@ -1,6 +1,7 @@
 package com.iambedant.nanodegree.quickbite.ui.main;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
@@ -24,6 +25,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
     @Inject
     public MainPresenter(DataManager dataManager) {
+        Logger.d("AAA","Presenter Created");
         mDataManager = dataManager;
     }
 
@@ -72,7 +74,8 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 });
     }
 
-    public void navigateToDetailActivity(RestaurantItemView restaurantItemView) {
-
+    public void navigateToDetailActivity(RestaurantItemView restaurantItemView,Restaurant_ restaurant) {
+        getMvpView().navigateToDetailActivity(restaurantItemView,restaurant);
     }
+
 }

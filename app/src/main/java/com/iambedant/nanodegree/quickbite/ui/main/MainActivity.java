@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
+import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.List;
@@ -33,7 +36,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     @Inject
     MainPresenter mMainPresenter;
 
-    @Inject
+
     RestaurantAdapter mRestaurantAdapter;
 
     @Bind(R.id.recycler_view)
@@ -73,17 +76,17 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         setUpToolbar();
         mMainPresenter.updateNavHeader();
         initRecyclerView();
-        if(NetworkUtil.isNetworkConnected(mContext)){
+        if (NetworkUtil.isNetworkConnected(mContext)) {
             mMainPresenter.loadInitialData();
-        }
-       else {
+        } else {
             //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
         }
 //        Intent intent = new Intent(mContext, LoginActivity.class);
 //        startActivity(intent);
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
+        mRestaurantAdapter = new RestaurantAdapter(this, mItemClickListener);
         LinearLayoutManager mManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.setAdapter(mRestaurantAdapter);
@@ -154,6 +157,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     }
 
     @Override
+    public void navigateToDetailActivity(RestaurantItemView restaurantItemView, Restaurant_ restaurant) {
+        Intent intent = new Intent(mContext, DetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -196,5 +205,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
+
+    RestaurantAdapter.OnRestaurantClick mItemClickListener = new RestaurantAdapter.OnRestaurantClick() {
+        @Override
+        public void onItemClick(Restaurant_ restaurant, RestaurantItemView itemView) {
+            mMainPresenter.navigateToDetailActivity(itemView, restaurant);
+        }
+    };
 
 }
