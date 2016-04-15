@@ -19,4 +19,6 @@
     <string name="address">Brookfield</string>
     <string name="cuisine">Cafe Amarican,Continental</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="restaurant_featured_image">Restaurant Featured Image</string>
+    <string name="restaurant_cover_transition">cover</string>
 </resources>

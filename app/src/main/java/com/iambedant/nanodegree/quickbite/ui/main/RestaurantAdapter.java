@@ -12,7 +12,6 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
-import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +61,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
             view.setName(restaurant.getRestaurant().getName());
             view.setCuisine(restaurant.getRestaurant().getCuisines());
             view.setRating(restaurant.getRestaurant().getUserRating().getAggregateRating() + "");
+            view.setAddress(restaurant.getRestaurant().getLocation().getAddress());
             Glide.with(context).load(restaurant.getRestaurant().getFeaturedImage())
                     .into(view.getLessonImageView());
             if (animationEnabled) {

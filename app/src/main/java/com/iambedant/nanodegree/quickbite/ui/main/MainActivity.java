@@ -2,8 +2,10 @@ package com.iambedant.nanodegree.quickbite.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -159,7 +161,21 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     @Override
     public void navigateToDetailActivity(RestaurantItemView restaurantItemView, Restaurant_ restaurant) {
         Intent intent = new Intent(mContext, DetailActivity.class);
-        startActivity(intent);
+        intent.putExtra("image",restaurant.getFeaturedImage());
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this, (View)restaurantItemView.getLessonImageView(), "cover");
+            startActivity(intent, options.toBundle());
+        }
+        else {
+            startActivity(intent);
+        }
+
+
+
+
+
     }
 
     @Override
