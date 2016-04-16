@@ -62,17 +62,8 @@ public class DataContract {
         public static final String COLUMN_RESTAURANT_PRICE = "restaurant_price";
         public static final String COLUMN_RESTAURANT_PHONE = "restaurant_phone";
 
-        public static Uri buildWeatherUri(long id) {
+        public static Uri buildRestaurantUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
-
-        /*
-            Student: This is the buildWeatherLocation function you filled in.
-         */
-        public static Uri buildWeatherLocation(String locationSetting) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
-        }
-
-
     }
 }
