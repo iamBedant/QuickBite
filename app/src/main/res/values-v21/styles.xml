@@ -8,6 +8,14 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="AppTheme.Details">
+        <item name="android:windowSharedElementEnterTransition">@transition/dribbble_shot_shared_enter</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/dribbble_shot_shared_return</item>
+        <item name="android:windowEnterTransition">@transition/dribbble_shot_enter</item>
+        <item name="android:windowReturnTransition">@transition/dribbble_shot_return</item>
+    </style>
+
+
     <style name="Widget.QuickBite.Toolbar">
         <item name="android:titleTextAppearance">
             @android:style/TextAppearance.Material.Widget.ActionBar.Title

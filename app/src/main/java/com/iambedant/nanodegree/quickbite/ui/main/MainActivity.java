@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
+import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
@@ -194,7 +195,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         } else if (id == R.id.account) {
 
         } else if (id == R.id.logout) {
-
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
 
         }
 

@@ -26,7 +26,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String url = getIntent().getStringExtra("image");
-        ImageView img = (ImageView) findViewById(R.id.image);
+        ImageView img = (ImageView) findViewById(R.id.container);
         Glide.with(this).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .priority(Priority.IMMEDIATE)
