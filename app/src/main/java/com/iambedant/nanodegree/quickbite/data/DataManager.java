@@ -6,6 +6,7 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
+import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
@@ -28,6 +29,7 @@ public class DataManager {
     private final EventPosterHelper mEventPoster;
     private final FireBaseClient mFireBaseClient;
     private final QuickBiteAPIClient mQuickBiteApiClient;
+
 
 //    @Inject
 //    public DataManager(RibotsService ribotsService, PreferencesHelper preferencesHelper,
@@ -99,6 +101,10 @@ public class DataManager {
 
     public Observable<SearchResult> getSearchData(Map<String, String> queryParams) {
         return mQuickBiteApiClient.getSearchResult(queryParams);
+    }
+
+    public Observable<Cuisines> getNearbyCuisines(Map<String,String> queryParams){
+        return mQuickBiteApiClient.getCuisines(queryParams);
     }
 
 

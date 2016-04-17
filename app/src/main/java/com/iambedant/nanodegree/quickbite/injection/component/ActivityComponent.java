@@ -3,6 +3,7 @@ package com.iambedant.nanodegree.quickbite.injection.component;
 import com.iambedant.nanodegree.quickbite.injection.PerActivity;
 import com.iambedant.nanodegree.quickbite.injection.module.ActivityModule;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
+import com.iambedant.nanodegree.quickbite.ui.SplashScreen.SplashScreen;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
 
@@ -20,6 +21,8 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(DetailActivity detailActivity);
+
+    void inject(SplashScreen splashScreen);
 
 //    void inject(RestaurantAdapter restaurantAdapter, RestaurantAdapter.OnRestaurantClick onRestaurantClick);
 //
