@@ -1,6 +1,9 @@
 package com.iambedant.nanodegree.quickbite.ui.SplashScreen;
 
+import android.content.ContentValues;
+
 import com.iambedant.nanodegree.quickbite.data.DataManager;
+import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisine;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
@@ -8,6 +11,7 @@ import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import javax.inject.Inject;
 
@@ -61,17 +65,38 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
 
                     @Override
                     public void onNext(Cuisines searchResult) {
-                        Logger.d("API_TEST", "Cusines Result");
-                        Logger.d("API_TEST", searchResult.getCuisines() + "");
+                        Logger.d("API_TEST on next Cuisine", searchResult.getCuisines().size() + "");
                         saveCuisinesToDb(searchResult.getCuisines());
 
                     }
                 });
     }
 
-    public void saveCuisinesToDb(List<Cuisine> cuisines){
+    public void saveCuisinesToDb(List<Cuisine> cuisines) {
 
-   //    TODO// Save Data To DB
-        getMvpView().gotoManinScreen();
+        Logger.d("content", cuisines.size() + "");
+   //     ContentValues[] returnContentValues = new ContentValues[cuisines.size()];
+
+//        for (int i = 0; i < cuisines.size(); i++) {
+//            Cuisine currentCuisine = cuisines.get(i);
+//            ContentValues cuisinesValues = new ContentValues();
+//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_NAME, currentCuisine.getCuisine().getCuisineName());
+//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_ID, currentCuisine.getCuisine().getCuisineId());
+//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE, 0);
+//            returnContentValues[i++] = cuisinesValues;
+//        }
+
+        Vector<ContentValues> cVVector = new Vector<ContentValues>(cuisines.size());
+        for (int i = 0; i < cuisines.size(); i++) {
+            Cuisine currentCuisine = cuisines.get(i);
+            ContentValues cuisinesValues = new ContentValues();
+
+            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_NAME, currentCuisine.getCuisine().getCuisineName());
+            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_ID, currentCuisine.getCuisine().getCuisineId());
+            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE, 0);
+            cVVector.add(cuisinesValues);
+        }
+
+        getMvpView().gotoManinScreen(cVVector);
     }
 }

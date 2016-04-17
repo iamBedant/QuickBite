@@ -27,7 +27,7 @@ public interface QuickBiteAPIClient {
     @GET("search")
     Observable<SearchResult> getSearchResult( @QueryMap Map<String, String> options);
 
-    @GET("search")
+    @GET("cuisines")
     Observable<Cuisines> getCuisines(@QueryMap Map<String, String> options);
 
     class Creator {

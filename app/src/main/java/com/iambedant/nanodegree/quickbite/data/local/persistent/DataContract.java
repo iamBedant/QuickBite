@@ -28,8 +28,10 @@ public class DataContract {
 
         // Table name
         public static final String TABLE_NAME = "cuisines";
+
+
         public static final String COLUMN_CUISINE_NAME = "cuisine_name";
-        public static final String COLUMN_CUISINE_ID = "cuisine_id";
+        public static final String COLUMN_CUISINE_ID = "cuisine_unique_id";
         public static final String COLUMN_IS_FAVOURITE = "cuisine_is_favourite";
 
 

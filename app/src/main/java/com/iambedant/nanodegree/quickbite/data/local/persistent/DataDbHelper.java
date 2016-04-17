@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Kuliza-193 on 4/16/2016.
  */
 public class DataDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
 
     static final String DATABASE_NAME = "quickbite.db";
 
@@ -20,10 +20,10 @@ public class DataDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         final String SQL_CREATE_CUISINE_TABLE = "CREATE TABLE " + DataContract.CuisinesEntry.TABLE_NAME + " (" +
-                DataContract.CuisinesEntry._ID + " INTEGER PRIMARY KEY," +
+                DataContract.CuisinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DataContract.CuisinesEntry.COLUMN_CUISINE_NAME + " TEXT UNIQUE NOT NULL, " +
-                DataContract.CuisinesEntry.COLUMN_CUISINE_ID + " TEXT NOT NULL, " +
-                DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE + "  INTEGER NOT NULL, " +
+                DataContract.CuisinesEntry.COLUMN_CUISINE_ID + " INTEGER NOT NULL, " +
+                DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE + "  INTEGER NOT NULL " +
                 " );";
 
         final String SQL_CREATE_RESTAURANT_TABLE = "CREATE TABLE " + DataContract.RestaurantEntry.TABLE_NAME + " (" +
@@ -32,10 +32,10 @@ public class DataDbHelper extends SQLiteOpenHelper {
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME + " TEXT NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE + "  TEXT NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT + " REAL NOT NULL, " +
-                DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG + " REAL NOT NULL " +
-                DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE + " REAL NOT NULL " +
-                DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE + " REAL NOT NULL " +
-                DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE + "  INTEGER NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG + " REAL NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE + " REAL NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE + " REAL NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE + "  INTEGER NOT NULL " +
                 " );";
 
 
