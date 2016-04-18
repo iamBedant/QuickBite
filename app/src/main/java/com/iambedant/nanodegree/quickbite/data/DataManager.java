@@ -1,11 +1,13 @@
 package com.iambedant.nanodegree.quickbite.data;
 
+import android.content.ContentValues;
 import android.util.Log;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
+import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
@@ -13,6 +15,7 @@ import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 
 import java.util.Map;
+import java.util.Vector;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,6 +32,7 @@ public class DataManager {
     private final EventPosterHelper mEventPoster;
     private final FireBaseClient mFireBaseClient;
     private final QuickBiteAPIClient mQuickBiteApiClient;
+    private final ProviderHelper mProviderHelper;
 
 
 //    @Inject
@@ -41,11 +45,12 @@ public class DataManager {
 //    }
 
     @Inject
-    public DataManager(PreferencesHelper preferencesHelper, EventPosterHelper eventPosterHelper, FireBaseClient fireBaseClient, QuickBiteAPIClient quickBiteAPIClient) {
+    public DataManager(PreferencesHelper preferencesHelper, EventPosterHelper eventPosterHelper, FireBaseClient fireBaseClient, QuickBiteAPIClient quickBiteAPIClient, ProviderHelper providerHelper) {
         mPreferencesHelper = preferencesHelper;
         mEventPoster = eventPosterHelper;
         mFireBaseClient = fireBaseClient;
         mQuickBiteApiClient = quickBiteAPIClient;
+        mProviderHelper = providerHelper;
     }
 
 
@@ -103,9 +108,12 @@ public class DataManager {
         return mQuickBiteApiClient.getSearchResult(queryParams);
     }
 
-    public Observable<Cuisines> getNearbyCuisines(Map<String,String> queryParams){
+    public Observable<Cuisines> getNearbyCuisines(Map<String, String> queryParams) {
         return mQuickBiteApiClient.getCuisines(queryParams);
     }
 
+    public void saveCusinesToDb(Vector<ContentValues> cVVector) {
+        mProviderHelper.saveCusinesToDb(cVVector);
+    }
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
+import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
@@ -27,6 +28,7 @@ public interface ApplicationComponent {
     FireBaseClient fireBaseClient();
     QuickBiteAPIClient quickBiteAPIClient();
     PreferencesHelper preferencesHelper();
+    ProviderHelper providerHelper();
 //    RestaurantAdapter restaurantAdapter();
   //  DatabaseHelper databaseHelper();
     DataManager dataManager();

@@ -96,7 +96,7 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
             cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE, 0);
             cVVector.add(cuisinesValues);
         }
-
-        getMvpView().gotoManinScreen(cVVector);
+        mDataManager.saveCusinesToDb(cVVector);
+        getMvpView().gotoManinScreen();
     }
 }

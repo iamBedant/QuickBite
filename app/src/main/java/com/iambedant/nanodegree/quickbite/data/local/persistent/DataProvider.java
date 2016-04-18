@@ -1,12 +1,18 @@
 package com.iambedant.nanodegree.quickbite.data.local.persistent;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+
+import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
+
+import javax.inject.Inject;
 
 /**
  * Created by Kuliza-193 on 4/16/2016.
@@ -18,6 +24,7 @@ public class DataProvider extends ContentProvider {
     static final int RESTAURANT = 100;
     static final int RESTAURANTS = 101;
     static final int CUISINES = 102;
+
 
 
     @Override
