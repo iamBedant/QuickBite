@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#efefef"
-    android:id="@+id/card"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="@drawable/mid_grey_ripple">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView
             android:id="@+id/image"
-            android:contentDescription="@string/restaurant_featured_image"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:foreground="@drawable/scrim"
+            android:minHeight="@dimen/shot_collapsed_app_bar_height"
+            android:stateListAnimator="@animator/app_bar_pin"
             android:transitionName="@string/restaurant_cover_transition"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/restaurant_image_height"
-            android:scaleType="centerCrop" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/restaurant_image_height"
-            android:background="@drawable/scrim_nav_header" />
+            app:maxScrimAlpha="0.4"
+            app:parallaxFactor="-0.5"
+            app:scrimAlpha="0"
+            app:scrimColor="@color/scrim" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,6 +36,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
@@ -41,14 +45,15 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_large"
                 tools:text="4.5" />
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_toLeftOf="@id/rating"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_medium"
                 tools:text="@string/restaurant_name" />
 
@@ -65,12 +70,12 @@
 
             <TextView
                 android:id="@+id/address"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cuisine"
                 android:layout_marginTop="@dimen/margin_xxsmall"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/off_white"
                 android:textSize="@dimen/text_size_small"
                 tools:text="@string/address" />

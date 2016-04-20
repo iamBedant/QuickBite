@@ -1,17 +1,24 @@
 package com.iambedant.nanodegree.quickbite.ui.main;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     private String TAG = RestaurantAdapter.class.getSimpleName();
     private boolean animationEnabled = DEFAULT_ANIMATION_ENABLED;
     protected List<Restaurant> mRestaurantList = new ArrayList<>();
+    Activity host;
 
     private OnRestaurantClick mItemListener;
 
@@ -41,6 +49,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
 
     public RestaurantAdapter(Activity activity, OnRestaurantClick restaurantClickListener) {
         super(activity);
+        this.host = activity;
         mItemListener = restaurantClickListener;
     }
 
@@ -56,22 +65,73 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     }
 
     @Override
-    protected void bind(final Restaurant restaurant, final RestaurantItemView view, ViewHolder<RestaurantItemView> holder) {
+    protected void bind(final Restaurant restaurant, final RestaurantItemView view, final ViewHolder<RestaurantItemView> holder) {
         if (restaurant != null) {
             view.setName(restaurant.getRestaurant().getName());
             view.setCuisine(restaurant.getRestaurant().getCuisines());
             view.setRating(restaurant.getRestaurant().getUserRating().getAggregateRating() + "");
             view.setAddress(restaurant.getRestaurant().getLocation().getAddress());
-            Glide.with(context).load(restaurant.getRestaurant().getFeaturedImage())
+            Glide.with(host)
+                    .load(restaurant.getRestaurant().getFeaturedImage())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .fitCenter()
                     .into(view.getLessonImageView());
             if (animationEnabled) {
                 view.restartAnimation();
             }
 
+//            view.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Logger.d("Test_click","Inside Click Listenr");
+//                    Intent intent = new Intent(host, DetailActivity.class);
+//                    intent.putExtra("image",restaurant.getRestaurant().getFeaturedImage());
+//
+//                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+////                        ActivityOptionsCompat options = ActivityOptionsCompat.
+////                                makeSceneTransitionAnimation(this, (View)v.getLessonImageView(), "cover");
+////                        startActivity(intent, options.toBundle());
+//
+//                        ActivityOptions options =
+//                                ActivityOptions.makeSceneTransitionAnimation(host,
+//                                        Pair.create(v, host.getString(R.string.restaurant_cover_transition)),
+//                                        Pair.create(v, host.getString(R.string
+//                                                .transition_background)));
+//                        host.startActivity(intent, options.toBundle());
+//
+//                    }
+//                    else {
+//                       host. startActivity(intent);
+//                    }
+//                }
+//            });
+
             view.setOnRestaurantClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onRestaurantClicked(restaurant, view);
+                   // onRestaurantClicked(restaurant, view);
+
+                    Logger.d("Test_click","Inside Click Listenr");
+                    Intent intent = new Intent(host, DetailActivity.class);
+                    intent.putExtra("image",restaurant.getRestaurant().getFeaturedImage());
+
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                                makeSceneTransitionAnimation(this, (View)v.getLessonImageView(), "cover");
+//                        startActivity(intent, options.toBundle());
+
+                        ActivityOptions options =
+                                ActivityOptions.makeSceneTransitionAnimation(host,
+                                        Pair.create(v, host.getString(R.string.restaurant_cover_transition)),
+                                        Pair.create(v, host.getString(R.string
+                                                .transition_background)));
+                        host.startActivity(intent, options.toBundle());
+
+                    }
+                    else {
+                        host. startActivity(intent);
+                    }
                 }
             });
         }

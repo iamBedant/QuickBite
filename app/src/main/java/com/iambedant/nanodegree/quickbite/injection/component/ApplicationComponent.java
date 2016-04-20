@@ -29,8 +29,6 @@ public interface ApplicationComponent {
     QuickBiteAPIClient quickBiteAPIClient();
     PreferencesHelper preferencesHelper();
     ProviderHelper providerHelper();
-//    RestaurantAdapter restaurantAdapter();
-  //  DatabaseHelper databaseHelper();
     DataManager dataManager();
     Bus eventBus();
 

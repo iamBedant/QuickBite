@@ -19,7 +19,7 @@
         <activity
             android:name=".ui.detail.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Translucent.Details" />
         <activity
             android:name=".ui.SplashScreen.SplashScreen"
             android:theme="@style/AppTheme.SplashScreen">

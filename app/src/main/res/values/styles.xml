@@ -5,7 +5,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="android:textColorHint">@color/hint_disabled_dark</item>
+        <item name="android:windowBackground">@color/background_light</item>
+
     </style>
+
+    <style name="AppTheme.Translucent">
+        <!-- using a semi-transparent window background for the drag-back gesture -->
+        <item name="android:windowBackground">@color/scrim</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
 
     <style name="AppTheme" parent="Base.AppTheme"></style>
 
