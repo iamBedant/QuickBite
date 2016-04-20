@@ -1,13 +1,16 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.SearchResult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class UserRating {
+public class UserRating implements Parcelable {
 
     @SerializedName("aggregate_rating")
     @Expose
@@ -23,7 +26,7 @@ public class UserRating {
     private String votes;
 
     /**
-     * 
+     *
      * @return
      *     The aggregateRating
      */
@@ -32,7 +35,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @param aggregateRating
      *     The aggregate_rating
      */
@@ -41,7 +44,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @return
      *     The ratingText
      */
@@ -50,7 +53,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @param ratingText
      *     The rating_text
      */
@@ -59,7 +62,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @return
      *     The ratingColor
      */
@@ -68,7 +71,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @param ratingColor
      *     The rating_color
      */
@@ -77,7 +80,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @return
      *     The votes
      */
@@ -86,7 +89,7 @@ public class UserRating {
     }
 
     /**
-     * 
+     *
      * @param votes
      *     The votes
      */
@@ -94,4 +97,37 @@ public class UserRating {
         this.votes = votes;
     }
 
+
+    protected UserRating(Parcel in) {
+        aggregateRating = in.readString();
+        ratingText = in.readString();
+        ratingColor = in.readString();
+        votes = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(aggregateRating);
+        dest.writeString(ratingText);
+        dest.writeString(ratingColor);
+        dest.writeString(votes);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<UserRating> CREATOR = new Parcelable.Creator<UserRating>() {
+        @Override
+        public UserRating createFromParcel(Parcel in) {
+            return new UserRating(in);
+        }
+
+        @Override
+        public UserRating[] newArray(int size) {
+            return new UserRating[size];
+        }
+    };
 }

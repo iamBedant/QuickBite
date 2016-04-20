@@ -53,7 +53,7 @@ public class DataContract {
         public static final String TABLE_NAME = "restaurants";
 
 
-        public static final String COLUMN_RESTAURANT_ID = "restaurant_id";
+        public static final String COLUMN_RESTAURANT_ID = "restaurant_unique_id";
         public static final String COLUMN_RESTAURANT_NAME = "restaurant_name";
         public static final String COLUMN_RESTAURANT_COVER_IMAGE = "restaurant_cover_image";
         public static final String COLUMN_RESTAURANT_CUISINE = "restaurant_cuisine";

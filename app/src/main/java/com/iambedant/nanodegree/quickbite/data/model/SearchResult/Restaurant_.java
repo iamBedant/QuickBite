@@ -1,6 +1,9 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.SearchResult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Restaurant_ {
+public class Restaurant_ implements Parcelable {
 
     @SerializedName("R")
     @Expose
@@ -83,7 +86,7 @@ public class Restaurant_ {
     private List<Object> establishmentTypes = new ArrayList<Object>();
 
     /**
-     * 
+     *
      * @return
      *     The R
      */
@@ -92,7 +95,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param R
      *     The R
      */
@@ -101,7 +104,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The apikey
      */
@@ -110,7 +113,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param apikey
      *     The apikey
      */
@@ -119,7 +122,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The id
      */
@@ -128,7 +131,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param id
      *     The id
      */
@@ -137,7 +140,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The name
      */
@@ -146,7 +149,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param name
      *     The name
      */
@@ -155,7 +158,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The url
      */
@@ -164,7 +167,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param url
      *     The url
      */
@@ -173,7 +176,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The location
      */
@@ -182,7 +185,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param location
      *     The location
      */
@@ -191,7 +194,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The cuisines
      */
@@ -200,7 +203,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param cuisines
      *     The cuisines
      */
@@ -209,7 +212,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The averageCostForTwo
      */
@@ -218,7 +221,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param averageCostForTwo
      *     The average_cost_for_two
      */
@@ -227,7 +230,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The priceRange
      */
@@ -236,7 +239,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param priceRange
      *     The price_range
      */
@@ -245,7 +248,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The currency
      */
@@ -254,7 +257,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param currency
      *     The currency
      */
@@ -263,7 +266,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The offers
      */
@@ -272,7 +275,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param offers
      *     The offers
      */
@@ -281,7 +284,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The thumb
      */
@@ -290,7 +293,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param thumb
      *     The thumb
      */
@@ -299,7 +302,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The userRating
      */
@@ -308,7 +311,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param userRating
      *     The user_rating
      */
@@ -317,7 +320,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The photosUrl
      */
@@ -326,7 +329,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param photosUrl
      *     The photos_url
      */
@@ -335,7 +338,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The menuUrl
      */
@@ -344,7 +347,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param menuUrl
      *     The menu_url
      */
@@ -353,7 +356,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The featuredImage
      */
@@ -362,7 +365,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param featuredImage
      *     The featured_image
      */
@@ -371,7 +374,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The hasOnlineDelivery
      */
@@ -380,7 +383,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param hasOnlineDelivery
      *     The has_online_delivery
      */
@@ -389,7 +392,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The isDeliveringNow
      */
@@ -398,7 +401,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param isDeliveringNow
      *     The is_delivering_now
      */
@@ -407,7 +410,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The deeplink
      */
@@ -416,7 +419,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param deeplink
      *     The deeplink
      */
@@ -425,7 +428,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The orderUrl
      */
@@ -434,7 +437,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param orderUrl
      *     The order_url
      */
@@ -443,7 +446,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The orderDeeplink
      */
@@ -452,7 +455,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param orderDeeplink
      *     The order_deeplink
      */
@@ -461,7 +464,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The eventsUrl
      */
@@ -470,7 +473,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param eventsUrl
      *     The events_url
      */
@@ -479,7 +482,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @return
      *     The establishmentTypes
      */
@@ -488,7 +491,7 @@ public class Restaurant_ {
     }
 
     /**
-     * 
+     *
      * @param establishmentTypes
      *     The establishment_types
      */
@@ -496,4 +499,115 @@ public class Restaurant_ {
         this.establishmentTypes = establishmentTypes;
     }
 
+
+    protected Restaurant_(Parcel in) {
+        R = (com.iambedant.nanodegree.quickbite.data.model.SearchResult.R) in.readValue(com.iambedant.nanodegree.quickbite.data.model.SearchResult.R.class.getClassLoader());
+        apikey = in.readString();
+        id = in.readString();
+        name = in.readString();
+        url = in.readString();
+        location = (Location) in.readValue(Location.class.getClassLoader());
+        cuisines = in.readString();
+        averageCostForTwo = in.readByte() == 0x00 ? null : in.readInt();
+        priceRange = in.readByte() == 0x00 ? null : in.readInt();
+        currency = in.readString();
+        if (in.readByte() == 0x01) {
+            offers = new ArrayList<Object>();
+            in.readList(offers, Object.class.getClassLoader());
+        } else {
+            offers = null;
+        }
+        thumb = in.readString();
+        userRating = (UserRating) in.readValue(UserRating.class.getClassLoader());
+        photosUrl = in.readString();
+        menuUrl = in.readString();
+        featuredImage = in.readString();
+        hasOnlineDelivery = in.readByte() == 0x00 ? null : in.readInt();
+        isDeliveringNow = in.readByte() == 0x00 ? null : in.readInt();
+        deeplink = in.readString();
+        orderUrl = in.readString();
+        orderDeeplink = in.readString();
+        eventsUrl = in.readString();
+        if (in.readByte() == 0x01) {
+            establishmentTypes = new ArrayList<Object>();
+            in.readList(establishmentTypes, Object.class.getClassLoader());
+        } else {
+            establishmentTypes = null;
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(R);
+        dest.writeString(apikey);
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(url);
+        dest.writeValue(location);
+        dest.writeString(cuisines);
+        if (averageCostForTwo == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(averageCostForTwo);
+        }
+        if (priceRange == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(priceRange);
+        }
+        dest.writeString(currency);
+        if (offers == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(offers);
+        }
+        dest.writeString(thumb);
+        dest.writeValue(userRating);
+        dest.writeString(photosUrl);
+        dest.writeString(menuUrl);
+        dest.writeString(featuredImage);
+        if (hasOnlineDelivery == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(hasOnlineDelivery);
+        }
+        if (isDeliveringNow == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(isDeliveringNow);
+        }
+        dest.writeString(deeplink);
+        dest.writeString(orderUrl);
+        dest.writeString(orderDeeplink);
+        dest.writeString(eventsUrl);
+        if (establishmentTypes == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(establishmentTypes);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Restaurant_> CREATOR = new Parcelable.Creator<Restaurant_>() {
+        @Override
+        public Restaurant_ createFromParcel(Parcel in) {
+            return new Restaurant_(in);
+        }
+
+        @Override
+        public Restaurant_[] newArray(int size) {
+            return new Restaurant_[size];
+        }
+    };
 }

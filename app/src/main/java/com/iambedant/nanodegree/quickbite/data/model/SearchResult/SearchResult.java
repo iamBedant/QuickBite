@@ -1,6 +1,9 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.SearchResult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class SearchResult {
+public class SearchResult implements Parcelable {
 
     @SerializedName("results_found")
     @Expose
@@ -26,7 +29,7 @@ public class SearchResult {
     private List<Restaurant> restaurants = new ArrayList<Restaurant>();
 
     /**
-     * 
+     *
      * @return
      *     The resultsFound
      */
@@ -35,7 +38,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @param resultsFound
      *     The results_found
      */
@@ -44,7 +47,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @return
      *     The resultsStart
      */
@@ -53,7 +56,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @param resultsStart
      *     The results_start
      */
@@ -62,7 +65,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @return
      *     The resultsShown
      */
@@ -71,7 +74,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @param resultsShown
      *     The results_shown
      */
@@ -80,7 +83,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @return
      *     The restaurants
      */
@@ -89,7 +92,7 @@ public class SearchResult {
     }
 
     /**
-     * 
+     *
      * @param restaurants
      *     The restaurants
      */
@@ -97,4 +100,62 @@ public class SearchResult {
         this.restaurants = restaurants;
     }
 
+
+    protected SearchResult(Parcel in) {
+        resultsFound = in.readByte() == 0x00 ? null : in.readInt();
+        resultsStart = in.readByte() == 0x00 ? null : in.readInt();
+        resultsShown = in.readByte() == 0x00 ? null : in.readInt();
+        if (in.readByte() == 0x01) {
+            restaurants = new ArrayList<Restaurant>();
+            in.readList(restaurants, Restaurant.class.getClassLoader());
+        } else {
+            restaurants = null;
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (resultsFound == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(resultsFound);
+        }
+        if (resultsStart == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(resultsStart);
+        }
+        if (resultsShown == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(resultsShown);
+        }
+        if (restaurants == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(restaurants);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SearchResult> CREATOR = new Parcelable.Creator<SearchResult>() {
+        @Override
+        public SearchResult createFromParcel(Parcel in) {
+            return new SearchResult(in);
+        }
+
+        @Override
+        public SearchResult[] newArray(int size) {
+            return new SearchResult[size];
+        }
+    };
 }

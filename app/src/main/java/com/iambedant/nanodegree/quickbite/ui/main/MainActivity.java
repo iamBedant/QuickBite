@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainMvpView, NavigationView.OnNavigationItemSelectedListener {
 
- @Inject
+    @Inject
     MainPresenter mMainPresenter;
 
 

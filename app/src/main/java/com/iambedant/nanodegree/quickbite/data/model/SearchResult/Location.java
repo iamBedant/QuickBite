@@ -1,13 +1,16 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.SearchResult;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Location {
+public class Location implements Parcelable {
 
     @SerializedName("address")
     @Expose
@@ -35,7 +38,7 @@ public class Location {
     private Integer countryId;
 
     /**
-     * 
+     *
      * @return
      *     The address
      */
@@ -44,7 +47,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param address
      *     The address
      */
@@ -53,7 +56,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The locality
      */
@@ -62,7 +65,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param locality
      *     The locality
      */
@@ -71,7 +74,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The city
      */
@@ -80,7 +83,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param city
      *     The city
      */
@@ -89,7 +92,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The cityId
      */
@@ -98,7 +101,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param cityId
      *     The city_id
      */
@@ -107,7 +110,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The latitude
      */
@@ -116,7 +119,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param latitude
      *     The latitude
      */
@@ -125,7 +128,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The longitude
      */
@@ -134,7 +137,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param longitude
      *     The longitude
      */
@@ -143,7 +146,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The zipcode
      */
@@ -152,7 +155,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param zipcode
      *     The zipcode
      */
@@ -161,7 +164,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @return
      *     The countryId
      */
@@ -170,7 +173,7 @@ public class Location {
     }
 
     /**
-     * 
+     *
      * @param countryId
      *     The country_id
      */
@@ -178,4 +181,55 @@ public class Location {
         this.countryId = countryId;
     }
 
+
+    protected Location(Parcel in) {
+        address = in.readString();
+        locality = in.readString();
+        city = in.readString();
+        cityId = in.readByte() == 0x00 ? null : in.readInt();
+        latitude = in.readString();
+        longitude = in.readString();
+        zipcode = in.readString();
+        countryId = in.readByte() == 0x00 ? null : in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(address);
+        dest.writeString(locality);
+        dest.writeString(city);
+        if (cityId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(cityId);
+        }
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(zipcode);
+        if (countryId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(countryId);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
 }
