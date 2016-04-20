@@ -2,10 +2,8 @@ package com.iambedant.nanodegree.quickbite.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +15,8 @@ import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
-import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
-import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
-import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.List;
@@ -33,10 +28,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainMvpView, NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String EXTRA_TRIGGER_SYNC_FLAG =
-            "uk.co.ribot.androidboilerplate.ui.main.MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
-
-    @Inject
+ @Inject
     MainPresenter mMainPresenter;
 
 
@@ -64,7 +56,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
      */
     public static Intent getStartIntent(Context context, boolean triggerDataSyncOnCreate) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(EXTRA_TRIGGER_SYNC_FLAG, triggerDataSyncOnCreate);
         return intent;
     }
 
@@ -84,12 +75,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         } else {
             //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
         }
-//        Intent intent = new Intent(mContext, LoginActivity.class);
-//        startActivity(intent);
     }
 
     private void initRecyclerView() {
-        mRestaurantAdapter = new RestaurantAdapter(this, mItemClickListener);
+        mRestaurantAdapter = new RestaurantAdapter(this);
         LinearLayoutManager mManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.setAdapter(mRestaurantAdapter);
@@ -159,25 +148,6 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         mRestaurantAdapter.setItems(mRestaurantList);
     }
 
-    @Override
-    public void navigateToDetailActivity(RestaurantItemView restaurantItemView, Restaurant_ restaurant) {
-        Intent intent = new Intent(mContext, DetailActivity.class);
-        intent.putExtra("image",restaurant.getFeaturedImage());
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, (View)restaurantItemView.getLessonImageView(), "cover");
-            startActivity(intent, options.toBundle());
-        }
-        else {
-            startActivity(intent);
-        }
-
-
-
-
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -223,12 +193,5 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-
-    RestaurantAdapter.OnRestaurantClick mItemClickListener = new RestaurantAdapter.OnRestaurantClick() {
-        @Override
-        public void onItemClick(Restaurant_ restaurant, RestaurantItemView itemView) {
-            mMainPresenter.navigateToDetailActivity(itemView, restaurant);
-        }
-    };
 
 }

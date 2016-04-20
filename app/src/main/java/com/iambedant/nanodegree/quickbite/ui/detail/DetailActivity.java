@@ -10,7 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.graphics.Palette;
+import android.transition.Transition;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -21,6 +23,7 @@ import com.bumptech.glide.request.target.Target;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView;
+import com.iambedant.nanodegree.quickbite.util.AnimUtils;
 import com.iambedant.nanodegree.quickbite.util.ColorUtils;
 import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
 import com.iambedant.nanodegree.quickbite.util.ViewUtils;
@@ -46,7 +49,9 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         mContext = this;
         String url = getIntent().getStringExtra("image");
         img = (ParallaxScrimageView) findViewById(R.id.container);
-
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getSharedElementReturnTransition().addListener(shotReturnHomeListener);
+        }
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("My Name");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -56,6 +61,7 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .priority(Priority.IMMEDIATE)
+                    .centerCrop()
                     .into(img);
         }
         else {
@@ -199,4 +205,26 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
             }
         }
     }
+
+    private Transition.TransitionListener shotReturnHomeListener = new AnimUtils
+            .TransitionListenerAdapter() {
+        @Override
+        public void onTransitionStart(Transition transition) {
+            super.onTransitionStart(transition);
+            // hide the fab as for some reason it jumps position??  TODO work out why
+           // fab.setVisibility(View.INVISIBLE);
+            // fade out the "toolbar" & list as we don't want them to be visible during return
+            // animation
+//            back.animate()
+//                    .alpha(0f)
+//                    .setDuration(100)
+//                    .setInterpolator(getLinearOutSlowInInterpolator(DribbbleShot.this));
+            img.setElevation(1f);
+//            back.setElevation(0f);
+//            commentsList.animate()
+//                    .alpha(0f)
+//                    .setDuration(50)
+//                    .setInterpolator(getLinearOutSlowInInterpolator(DribbbleShot.this));
+        }
+    };
 }

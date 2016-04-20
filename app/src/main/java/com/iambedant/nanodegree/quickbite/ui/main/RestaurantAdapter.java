@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
-import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
@@ -32,10 +31,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
     private boolean animationEnabled = DEFAULT_ANIMATION_ENABLED;
     protected List<Restaurant> mRestaurantList = new ArrayList<>();
     Activity host;
-
-    private OnRestaurantClick mItemListener;
-
-    public void enableAnimation() {
+  public void enableAnimation() {
         animationEnabled = true;
     }
 
@@ -47,10 +43,9 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
         super(context);
     }
 
-    public RestaurantAdapter(Activity activity, OnRestaurantClick restaurantClickListener) {
+    public RestaurantAdapter(Activity activity) {
         super(activity);
         this.host = activity;
-        mItemListener = restaurantClickListener;
     }
 
 //    @Inject
@@ -74,53 +69,19 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
             Glide.with(host)
                     .load(restaurant.getRestaurant().getFeaturedImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .fitCenter()
+                    .centerCrop()
                     .into(view.getLessonImageView());
             if (animationEnabled) {
                 view.restartAnimation();
             }
-
-//            view.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    Logger.d("Test_click","Inside Click Listenr");
-//                    Intent intent = new Intent(host, DetailActivity.class);
-//                    intent.putExtra("image",restaurant.getRestaurant().getFeaturedImage());
-//
-//                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-////                        ActivityOptionsCompat options = ActivityOptionsCompat.
-////                                makeSceneTransitionAnimation(this, (View)v.getLessonImageView(), "cover");
-////                        startActivity(intent, options.toBundle());
-//
-//                        ActivityOptions options =
-//                                ActivityOptions.makeSceneTransitionAnimation(host,
-//                                        Pair.create(v, host.getString(R.string.restaurant_cover_transition)),
-//                                        Pair.create(v, host.getString(R.string
-//                                                .transition_background)));
-//                        host.startActivity(intent, options.toBundle());
-//
-//                    }
-//                    else {
-//                       host. startActivity(intent);
-//                    }
-//                }
-//            });
-
             view.setOnRestaurantClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // onRestaurantClicked(restaurant, view);
-
-                    Logger.d("Test_click","Inside Click Listenr");
+                    Logger.d("Test_click", "Inside Click Listenr");
                     Intent intent = new Intent(host, DetailActivity.class);
-                    intent.putExtra("image",restaurant.getRestaurant().getFeaturedImage());
+                    intent.putExtra("image", restaurant.getRestaurant().getFeaturedImage());
 
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        ActivityOptionsCompat options = ActivityOptionsCompat.
-//                                makeSceneTransitionAnimation(this, (View)v.getLessonImageView(), "cover");
-//                        startActivity(intent, options.toBundle());
-
                         ActivityOptions options =
                                 ActivityOptions.makeSceneTransitionAnimation(host,
                                         Pair.create(v, host.getString(R.string.restaurant_cover_transition)),
@@ -128,20 +89,12 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
                                                 .transition_background)));
                         host.startActivity(intent, options.toBundle());
 
-                    }
-                    else {
-                        host. startActivity(intent);
+                    } else {
+                        host.startActivity(intent);
                     }
                 }
             });
         }
     }
 
-    public void onRestaurantClicked(Restaurant restaurant, RestaurantItemView restaurantItemView) {
-        mItemListener.onItemClick(restaurant.getRestaurant(), restaurantItemView);
-    }
-
-    public interface OnRestaurantClick {
-        void onItemClick(Restaurant_ restaurant, RestaurantItemView itemView);
-    }
 }
