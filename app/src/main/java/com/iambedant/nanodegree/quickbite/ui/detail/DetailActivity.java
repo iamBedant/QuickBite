@@ -8,11 +8,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -21,65 +27,108 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView;
 import com.iambedant.nanodegree.quickbite.util.AnimUtils;
 import com.iambedant.nanodegree.quickbite.util.ColorUtils;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
 import com.iambedant.nanodegree.quickbite.util.ViewUtils;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import static com.iambedant.nanodegree.quickbite.util.AnimUtils.getFastOutSlowInInterpolator;
 
-public class DetailActivity extends BaseActivity implements DetailMvpView {
+public class DetailActivity extends BaseActivity implements DetailMvpView, View.OnClickListener {
 
+
+    @Bind(R.id.scrim)
+    ParallaxScrimageView mScrimView;
+
+    @Bind(R.id.container)
+    ParallaxScrimageView mImageViewCover;
+
+    @Bind(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    Restaurant_ mRestaurant;
 
 
     @Inject
     DetailPresenter mDetailPresenter;
     Context mContext;
-    ParallaxScrimageView img;
+
     private static final float SCRIM_ADJUSTMENT = 0.075f;
     CollapsingToolbarLayout collapsingToolbarLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        ButterKnife.bind(this);
         mContext = this;
-        String url = getIntent().getStringExtra("image");
-        img = (ParallaxScrimageView) findViewById(R.id.container);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getSharedElementReturnTransition().addListener(shotReturnHomeListener);
-        }
+        mRestaurant = getIntent().getExtras().getParcelable(Constants.CURRENT_RESTAURANT);
+
+        mDetailPresenter.attachView(this);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("My Name");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mScrimView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
             Glide.with(this)
-                    .load(url)
+                    .load(mRestaurant.getFeaturedImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .priority(Priority.IMMEDIATE)
                     .centerCrop()
-                    .into(img);
-        }
-        else {
+                    .into(mImageViewCover);
+        } else {
             Glide.with(this)
-                    .load(url)
+                    .load(mRestaurant.getFeaturedImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .priority(Priority.IMMEDIATE)
                     .listener(shotLoadListener)
-                    .into(img);
+                    .centerCrop()
+                    .into(mImageViewCover);
         }
 
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int toolBarHeight = mToolbar.getMeasuredHeight();
+                final int statusBarHeight = statusBarHeight(getResources());
+                int appBarHeight = mAppBarLayout.getMeasuredHeight();
+                appBarHeight = appBarHeight - toolBarHeight;
+                final int half = appBarHeight / 2;
+                final float factor = (float) 255 / half;
+                verticalOffset = verticalOffset - statusBarHeight;
+                if ((-verticalOffset) >= half) {
+                    Float f = factor * (-verticalOffset - half);
+                    mScrimView.getBackground().setAlpha(Math.round(f));
+                    Log.d("Alpha", Math.round(f) + "");
+                } else {
+                    mScrimView.getBackground().setAlpha(0);
+                }
+            }
+        });
 
+    }
 
+    private static int statusBarHeight(android.content.res.Resources res) {
+        return (int) (24 * res.getDisplayMetrics().density);
     }
 
     @Override
     public void onBackPressed() {
-        expandImageAndFinish();
+        supportFinishAfterTransition();
 
     }
 
@@ -124,12 +173,13 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
                                         isDark, SCRIM_ADJUSTMENT);
                                 // set a light status bar on M+
                                 if (!isDark && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    ViewUtils.setLightStatusBar(img);
+                                    ViewUtils.setLightStatusBar(mImageViewCover);
                                 }
                             }
 
                             if (statusBarColor != getWindow().getStatusBarColor()) {
-//                                img.setScrimColor(statusBarColor);
+                                mScrimView.setBackgroundColor(statusBarColor);
+//                                mImageViewCover.setScrimColor(statusBarColor);
                                 ValueAnimator statusBarColorAnim = ValueAnimator.ofArgb(
                                         getWindow().getStatusBarColor(), statusBarColor);
                                 statusBarColorAnim.addUpdateListener(new ValueAnimator
@@ -177,54 +227,21 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
         }
     };
 
-    private void expandImageAndFinish() {
-        if (img.getOffset() != 0f) {
-            Animator expandImage = ObjectAnimator.ofFloat(img, ParallaxScrimageView.OFFSET,
-                    0f);
-            expandImage.setDuration(80);
-            expandImage.setInterpolator(getFastOutSlowInInterpolator(this));
-            expandImage.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                        finishAfterTransition();
-                    }
-                    else {
-                        supportFinishAfterTransition();
-                    }
-
-                }
-            });
-            expandImage.start();
-        } else {
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                finishAfterTransition();
-            }
-            else {
-                supportFinishAfterTransition();
-            }
-        }
+    @OnClick(R.id.img_btn_favourite)
+    public void saveFavouriteRestaurant(){
+        mDetailPresenter.saveRestaurant(mRestaurant);
     }
 
-    private Transition.TransitionListener shotReturnHomeListener = new AnimUtils
-            .TransitionListenerAdapter() {
-        @Override
-        public void onTransitionStart(Transition transition) {
-            super.onTransitionStart(transition);
-            // hide the fab as for some reason it jumps position??  TODO work out why
-           // fab.setVisibility(View.INVISIBLE);
-            // fade out the "toolbar" & list as we don't want them to be visible during return
-            // animation
-//            back.animate()
-//                    .alpha(0f)
-//                    .setDuration(100)
-//                    .setInterpolator(getLinearOutSlowInInterpolator(DribbbleShot.this));
-            img.setElevation(1f);
-//            back.setElevation(0f);
-//            commentsList.animate()
-//                    .alpha(0f)
-//                    .setDuration(50)
-//                    .setInterpolator(getLinearOutSlowInInterpolator(DribbbleShot.this));
-        }
-    };
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mDetailPresenter.detachView();
+    }
 }

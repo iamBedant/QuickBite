@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:transitionName="@string/transition_background"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:transitionName="@string/transition_background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -18,35 +18,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView
-                android:id="@+id/container"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_grey"
-                android:foreground="@drawable/scrim"
-                android:scaleType="centerCrop"
-                android:minHeight="@dimen/shot_collapsed_app_bar_height"
-                android:stateListAnimator="@animator/app_bar_pin"
-                android:transitionName="@string/restaurant_cover_transition"
-                app:maxScrimAlpha="0.4"
-                app:parallaxFactor="-0.5"
-                app:scrimAlpha="0"
-                app:scrimColor="@color/scrim" />
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                android:id="@+id/frame_picture">
+
+                <com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:foreground="@drawable/scrim"
+                    android:minHeight="@dimen/shot_collapsed_app_bar_height"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
+                    android:stateListAnimator="@animator/app_bar_pin"
+                    android:transitionName="@string/restaurant_cover_transition"
+                     />
+                <com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView
+                    android:id="@+id/scrim"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:alpha="1"
+                    android:fitsSystemWindows="true"
+                    android:minHeight="@dimen/shot_collapsed_app_bar_height"
+                    android:scaleType="centerCrop" />
+
+            </FrameLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin"/>
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </android.support.v4.widget.NestedScrollView>
+    <include layout="@layout/restaurant_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
 </android.support.design.widget.CoordinatorLayout>
 
 

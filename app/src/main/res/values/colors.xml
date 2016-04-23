@@ -15,4 +15,5 @@
     <color name="mid_grey">#40808080</color>
     <color name="dribbble">#fff06292</color>
     <color name="dribbble_super_dark">#ff33292d</color>
+    <color name="transparent">#00000000</color>
 </resources>

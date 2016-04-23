@@ -47,5 +47,6 @@
     <dimen name="z_drawer">16dp</dimen>
     <dimen name="z_dialog">24dp</dimen>
 
-    <dimen name="shot_collapsed_app_bar_height">168dp</dimen>
+    <dimen name="shot_collapsed_app_bar_height">256dp</dimen>
+    <dimen name="imagebutton_top_padding">5dp</dimen>
 </resources>

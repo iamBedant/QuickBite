@@ -1,6 +1,7 @@
 package com.iambedant.nanodegree.quickbite.ui.detail;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -27,5 +28,9 @@ public class DetailPresenter extends BasePresenter<DetailMvpView> {
     public void detachView() {
         super.detachView();
         if (mSubscription != null) mSubscription.unsubscribe();
+    }
+
+    public void saveRestaurant(Restaurant_ mRestaurant) {
+        //TODO: Save It To LocalDB and firebase
     }
 }

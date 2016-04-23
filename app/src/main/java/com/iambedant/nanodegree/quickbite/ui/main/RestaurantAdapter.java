@@ -17,6 +17,7 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
                 public void onClick(View v) {
                     Logger.d("Test_click", "Inside Click Listenr");
                     Intent intent = new Intent(host, DetailActivity.class);
-                    intent.putExtra("image", restaurant.getRestaurant().getFeaturedImage());
+                    intent.putExtra(Constants.CURRENT_RESTAURANT,restaurant.getRestaurant());
 
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         ActivityOptions options =

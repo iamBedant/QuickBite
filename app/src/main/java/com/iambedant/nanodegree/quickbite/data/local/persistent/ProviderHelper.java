@@ -41,4 +41,19 @@ public class ProviderHelper
             Logger.d("Bulk Insert After", count+"");
         }
     }
+
+    public void saveFavouriteRestaurant(){
+
+    }
+    public void updateFavouriteRestaurant(){
+
+    }
+    public void deleteFavouriteRestaurant(){
+
+    }
+//    public Observable<Restaurant_> getFavouriteRestaurants(){
+//        Observable<Restaurant_>  favouriteRestaurants;
+//
+//        return favouriteRestaurants;
+//    }
 }

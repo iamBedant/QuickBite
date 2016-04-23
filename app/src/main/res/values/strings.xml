@@ -23,4 +23,9 @@
     <string name="restaurant_cover_transition">cover</string>
     <string name="content_authority">com.iambedant.nanodegree.quickbite</string>
     <string name="transition_background">background_transition</string>
+    <string name="restaurant_details">DETAILS</string>
+    <string name="c_d_get_direction_button">Get Direction Button</string>
+    <string name="c_d_add_to_my_favourite_button">Add to my favourite Button</string>
+    <string name="c_d_view_on_zomato_button">View on Zomato Button</string>
+    <string name="cuisines">Cuisines :</string>
 </resources>
