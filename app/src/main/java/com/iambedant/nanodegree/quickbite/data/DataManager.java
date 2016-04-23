@@ -7,12 +7,15 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
+import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
+import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.Map;
 import java.util.Vector;
@@ -25,24 +28,13 @@ import rx.functions.Action0;
 
 @Singleton
 public class DataManager {
-
-    //    private final RibotsService mRibotsService;
-//    private final DatabaseHelper mDatabaseHelper;
+    
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
     private final FireBaseClient mFireBaseClient;
     private final QuickBiteAPIClient mQuickBiteApiClient;
     private final ProviderHelper mProviderHelper;
 
-
-//    @Inject
-//    public DataManager(RibotsService ribotsService, PreferencesHelper preferencesHelper,
-//                       DatabaseHelper databaseHelper, EventPosterHelper eventPosterHelper) {
-//        mRibotsService = ribotsService;
-//        mPreferencesHelper = preferencesHelper;
-//        mDatabaseHelper = databaseHelper;
-//        mEventPoster = eventPosterHelper;
-//    }
 
     @Inject
     public DataManager(PreferencesHelper preferencesHelper, EventPosterHelper eventPosterHelper, FireBaseClient fireBaseClient, QuickBiteAPIClient quickBiteAPIClient, ProviderHelper providerHelper) {
@@ -116,4 +108,21 @@ public class DataManager {
         mProviderHelper.saveCusinesToDb(cVVector);
     }
 
+    public void saveFavouriteRestaurant(Restaurant_ mRestaurant) {
+        if (mProviderHelper.isRestaurantPresent(mRestaurant.getId())) {
+            Logger.d("Insert","Already in Favourite");
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ID, mRestaurant.getId());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME, mRestaurant.getName());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE, mRestaurant.getFeaturedImage());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE, mRestaurant.getCuisines());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT, mRestaurant.getLocation().getLatitude());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG, mRestaurant.getLocation().getLongitude());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS, mRestaurant.getLocation().getAddress());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE, mRestaurant.getUserRating().getAggregateRating());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getPriceRange());
+            mProviderHelper.saveFavouriteRestaurant(values);
+        }
+    }
 }

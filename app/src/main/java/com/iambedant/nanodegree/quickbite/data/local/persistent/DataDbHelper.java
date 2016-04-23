@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Kuliza-193 on 4/16/2016.
  */
 public class DataDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
 
     static final String DATABASE_NAME = "quickbite.db";
 
@@ -33,7 +33,8 @@ public class DataDbHelper extends SQLiteOpenHelper {
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE + "  TEXT NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT + " REAL NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG + " REAL NOT NULL, " +
-                DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE + " REAL NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS + " TEXT NOT NULL, " +
+                DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE + " TEXT NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE + " REAL NOT NULL, " +
                 DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE + "  INTEGER NOT NULL " +
                 " );";

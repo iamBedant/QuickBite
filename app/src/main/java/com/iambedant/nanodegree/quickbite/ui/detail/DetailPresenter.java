@@ -1,6 +1,9 @@
 package com.iambedant.nanodegree.quickbite.ui.detail;
 
+import android.content.ContentValues;
+
 import com.iambedant.nanodegree.quickbite.data.DataManager;
+import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 
@@ -14,6 +17,7 @@ import rx.Subscription;
 public class DetailPresenter extends BasePresenter<DetailMvpView> {
     private final DataManager mDataManager;
     private Subscription mSubscription;
+
     @Inject
     public DetailPresenter(DataManager dataManager) {
         mDataManager = dataManager;
@@ -31,6 +35,10 @@ public class DetailPresenter extends BasePresenter<DetailMvpView> {
     }
 
     public void saveRestaurant(Restaurant_ mRestaurant) {
+
+        mDataManager.saveFavouriteRestaurant(mRestaurant);
         //TODO: Save It To LocalDB and firebase
     }
+
+
 }

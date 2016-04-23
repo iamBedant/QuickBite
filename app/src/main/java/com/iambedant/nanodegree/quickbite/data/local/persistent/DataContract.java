@@ -62,10 +62,15 @@ public class DataContract {
         public static final String COLUMN_RESTAURANT_LONG = "restaurant_long";
         public static final String COLUMN_RESTAURANT_RATINGE = "restaurant_rating";
         public static final String COLUMN_RESTAURANT_PRICE = "restaurant_price";
-        public static final String COLUMN_RESTAURANT_PHONE = "restaurant_phone";
+       // public static final String COLUMN_RESTAURANT_PHONE = "restaurant_phone";
 
         public static Uri buildRestaurantUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+
+        public static Uri buildRestaurantUri(String locationSetting) {
+            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
         }
     }
 }

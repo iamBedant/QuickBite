@@ -74,6 +74,8 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
         setContentView(R.layout.activity_detail);
 
         ButterKnife.bind(this);
+
+        getActivityComponent().inject(this);
         mContext = this;
         mRestaurant = getIntent().getExtras().getParcelable(Constants.CURRENT_RESTAURANT);
 

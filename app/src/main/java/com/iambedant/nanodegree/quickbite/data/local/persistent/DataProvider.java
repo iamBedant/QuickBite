@@ -25,6 +25,18 @@ public class DataProvider extends ContentProvider {
         return true;
     }
 
+    public Cursor getRestaurant(String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        return mOpenHelper.getReadableDatabase().query(
+                DataContract.RestaurantEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
+
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
@@ -32,10 +44,10 @@ public class DataProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
 
-//            case RESTAURANT: {
-//                retCursor = getRestaurant(uri, projection, sortOrder);
-//                break;
-//            }
+            case RESTAURANT: {
+                retCursor = getRestaurant(projection, selection, selectionArgs, sortOrder);
+                break;
+            }
             case RESTAURANTS: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DataContract.RestaurantEntry.TABLE_NAME,
@@ -95,7 +107,7 @@ public class DataProvider extends ContentProvider {
         Uri returnUri;
 
         switch (match) {
-            case RESTAURANT: {
+            case RESTAURANTS: {
                 long _id = db.insert(DataContract.RestaurantEntry.TABLE_NAME, null, values);
                 if (_id > 0)
                     returnUri = DataContract.RestaurantEntry.buildRestaurantUri(_id);
@@ -119,7 +131,7 @@ public class DataProvider extends ContentProvider {
         if (null == selection) selection = "1";
         switch (match) {
 
-            case RESTAURANT:
+            case RESTAURANTS:
                 rowsDeleted = db.delete(
                         DataContract.RestaurantEntry.TABLE_NAME, selection, selectionArgs);
                 break;
