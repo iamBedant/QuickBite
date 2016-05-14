@@ -25,12 +25,18 @@ public class PreferencesHelper {
         mPref.edit().clear().apply();
     }
 
-    public String getString(String KEY, String DEFAULT){
-        return mPref.getString(KEY,DEFAULT);
+    public String getString(String KEY, String DEFAULT) {
+        return mPref.getString(KEY, DEFAULT);
     }
 
-    public void putString(String KEY, String VALUE){
-        mPref.edit().putString(KEY,VALUE).apply();
+    public void putString(String KEY, String VALUE) {
+        mPref.edit().putString(KEY, VALUE).apply();
     }
 
+    public void putDouble(String KEY, Double VALUE) {
+        mPref.edit().putLong(KEY, Double.doubleToRawLongBits(VALUE)).apply();
+    }
+    public Double getDouble(String KEY, Double DEFAULT){
+        return Double.longBitsToDouble(mPref.getLong(KEY, Double.doubleToLongBits(DEFAULT)));
+    }
 }

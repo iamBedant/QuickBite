@@ -71,6 +71,7 @@ public interface QuickBiteAPIClient {
                 }
             });
 
+
             return builder.build();
         }
     }

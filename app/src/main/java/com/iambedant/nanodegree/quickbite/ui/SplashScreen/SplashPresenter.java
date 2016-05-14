@@ -27,6 +27,7 @@ import rx.schedulers.Schedulers;
 public class SplashPresenter extends BasePresenter<SplashMvpView> {
     private final DataManager mDataManager;
     private Subscription mSubscription;
+    private final String TAG = SplashPresenter.class.getSimpleName();
 
     @Inject
     public SplashPresenter(DataManager dataManager) {
@@ -44,11 +45,11 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
-    public void loadCuisineslData() {
+    public void loadCuisineslData(Double lat, Double lon) {
 
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("lat", "12.9539974");
-        params.put("lon", "77.6309395");
+        params.put("lat", lat+"");
+        params.put("lon", lon+"");
         Observable<Cuisines> obj = mDataManager.getNearbyCuisines(params);
         mSubscription = obj.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,12 +61,13 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.d("API_TEST", "On Error Called->" + e.toString());
+                        //TODO: If network error Implement a Retry with  Exponential Backoff.
+                        getMvpView().ShowErrorDialog();
                     }
 
                     @Override
                     public void onNext(Cuisines searchResult) {
-                        Logger.d("API_TEST on next Cuisine", searchResult.getCuisines().size() + "");
+                        Logger.d(TAG, searchResult.getCuisines().size() + "");
                         saveCuisinesToDb(searchResult.getCuisines());
 
                     }
@@ -85,7 +87,14 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
             cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE, 0);
             cVVector.add(cuisinesValues);
         }
+
         mDataManager.saveCusinesToDb(cVVector);
         getMvpView().gotoManinScreen();
     }
+
+    public void saveLocation(Double lat, Double lon, String locality){
+        mDataManager.saveCurrentLocation(lat,lon,locality);
+    }
+
+
 }

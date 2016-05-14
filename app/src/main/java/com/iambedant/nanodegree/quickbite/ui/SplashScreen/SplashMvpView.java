@@ -7,4 +7,6 @@ import com.iambedant.nanodegree.quickbite.ui.base.MvpView;
  */
 public interface SplashMvpView extends MvpView {
     public void gotoManinScreen();
+
+    void ShowErrorDialog();
 }

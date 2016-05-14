@@ -21,4 +21,12 @@ public class Constants {
     public static final int TYPE_BAR = 4;
     public static final int TYPE_COFFEE = 5;
     public static final int TYPE_FAVOURITE = 6;
+
+
+
+    public static final String LAST_KNOWN_LAT = "_last_known_lat";
+    public static final String LAST_KNOWN_LON = "_last_known_lon";
+    public static final String LAST_KNOWN_LOCALITY = "_last_known_locality";
+
+
 }

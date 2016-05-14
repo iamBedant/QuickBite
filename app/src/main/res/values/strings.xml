@@ -38,4 +38,8 @@
     <string name="lunch">TAKE AWAY</string>
     <string name="you_are_at">You are at</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="error_title">OOps !!</string>
+    <string name="error_message_generic">Something Went wrong. May be your internet gone Down :(</string>
+    <string name="retry">Retry</string>
+    <string name="close">Close</string>
 </resources>

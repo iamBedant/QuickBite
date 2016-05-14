@@ -28,7 +28,7 @@
     <dimen name="search_icon_width">25dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
     <dimen name="Search_text_size">17sp</dimen>
-
+    <dimen name="loading_bar_bottom_margin">25dp</dimen>
 
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_xsmall">4dp</dimen>

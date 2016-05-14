@@ -7,8 +7,9 @@ import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
-import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
+import com.iambedant.nanodegree.quickbite.ui.list.ListActivity;
 import com.iambedant.nanodegree.quickbite.util.Constants;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class Home extends BaseActivity implements HomeMvpView {
+
+    private final String TAG= Home.class.getSimpleName();
 
     @Inject
     HomePresenter mHomePresenter;
@@ -36,8 +39,8 @@ public class Home extends BaseActivity implements HomeMvpView {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         mContext = this;
-
         mHomePresenter.attachView(this);
+        mHomePresenter.loadLastKnownLocation();
     }
 
     @Override
@@ -50,40 +53,40 @@ public class Home extends BaseActivity implements HomeMvpView {
     @OnClick(R.id.rl_lunch)
     public void openLunchActivity() {
 
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtra(Constants.TYPE_EXTRA_KEY,Constants.TYPE_TAKE_AWAY);
+        Intent intent = new Intent(mContext, ListActivity.class);
+        intent.putExtra(Constants.TYPE_EXTRA_KEY, Constants.TYPE_TAKE_AWAY);
         startActivity(intent);
 
     }
 
     @OnClick(R.id.rl_dinner)
     public void openDinnerActivity() {
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtra(Constants.TYPE_EXTRA_KEY,Constants.TYPE_DINNER);
+        Intent intent = new Intent(mContext, ListActivity.class);
+        intent.putExtra(Constants.TYPE_EXTRA_KEY, Constants.TYPE_DINNER);
         startActivity(intent);
 
     }
 
     @OnClick(R.id.rl_breakfast)
     public void openBreakfastActivity() {
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtra(Constants.TYPE_EXTRA_KEY,Constants.TYPE_BREAKFAST);
+        Intent intent = new Intent(mContext, ListActivity.class);
+        intent.putExtra(Constants.TYPE_EXTRA_KEY, Constants.TYPE_BREAKFAST);
         startActivity(intent);
 
     }
 
     @OnClick(R.id.rl_bar)
     public void openBarActivity() {
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtra(Constants.TYPE_EXTRA_KEY,Constants.TYPE_BAR);
+        Intent intent = new Intent(mContext, ListActivity.class);
+        intent.putExtra(Constants.TYPE_EXTRA_KEY, Constants.TYPE_BAR);
         startActivity(intent);
 
     }
 
     @OnClick(R.id.rl_coffee)
     public void openCoffeeActivity() {
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtra(Constants.TYPE_EXTRA_KEY,Constants.TYPE_COFFEE);
+        Intent intent = new Intent(mContext, ListActivity.class);
+        intent.putExtra(Constants.TYPE_EXTRA_KEY, Constants.TYPE_COFFEE);
         startActivity(intent);
 
     }
@@ -91,5 +94,14 @@ public class Home extends BaseActivity implements HomeMvpView {
     @OnClick(R.id.rl_favourite)
     public void openFavouriteActivity() {
 
+    }
+
+    @Override
+    public void showLocation(String location) {
+
+        Logger.d(TAG,"Setting Location "+ location);
+        if (!location.isEmpty()) {
+            mTextViewLocation.setText(location);
+        }
     }
 }

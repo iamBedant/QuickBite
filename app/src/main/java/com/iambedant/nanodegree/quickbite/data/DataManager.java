@@ -14,6 +14,7 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
@@ -28,6 +29,8 @@ import rx.functions.Action0;
 
 @Singleton
 public class DataManager {
+
+    private final String TAG = DataManager.class.getSimpleName();
 
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
@@ -105,13 +108,16 @@ public class DataManager {
     }
 
     public void saveCusinesToDb(Vector<ContentValues> cVVector) {
-       // mProviderHelper.deleteAllCuisines();
+
+        mProviderHelper.deleteAllCuisines();
+        Logger.d(TAG,"Old Cuisines Deleted");
         mProviderHelper.saveAllCuisines(cVVector);
+        Logger.d(TAG,"New Cuisines Stored");
     }
 
     public void saveFavouriteRestaurant(Restaurant_ mRestaurant) {
         if (mProviderHelper.isRestaurantPresent(mRestaurant.getId())) {
-            Logger.d("Insert","Already in Favourite");
+            Logger.d(TAG, "Already in Favourite");
         } else {
             ContentValues values = new ContentValues();
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ID, mRestaurant.getId());
@@ -128,6 +134,16 @@ public class DataManager {
     }
 
     public void deleteFavouriteRestaurant(String id) {
-            mProviderHelper.deleteSingleRestaurant(id);
+        mProviderHelper.deleteSingleRestaurant(id);
+    }
+
+    public void saveCurrentLocation(Double lat, Double lon, String locality) {
+        mPreferencesHelper.putString(Constants.LAST_KNOWN_LOCALITY, locality);
+        mPreferencesHelper.putDouble(Constants.LAST_KNOWN_LAT, lat);
+        mPreferencesHelper.putDouble(Constants.LAST_KNOWN_LON, lon);
+    }
+
+    public String getLastKnownLocation() {
+        return mPreferencesHelper.getString(Constants.LAST_KNOWN_LOCALITY, "");
     }
 }

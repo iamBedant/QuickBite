@@ -19,4 +19,7 @@ public class HomePresenter extends BasePresenter<HomeMvpView> {
         mDataManager = dataManager;
     }
 
+    public void loadLastKnownLocation() {
+        getMvpView().showLocation(mDataManager.getLastKnownLocation());
+    }
 }

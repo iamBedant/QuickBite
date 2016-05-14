@@ -144,6 +144,11 @@ public class DataProvider extends ContentProvider {
                 rowsDeleted = db.delete(
                         DataContract.RestaurantEntry.TABLE_NAME,selection,selectionArgs);
                 break;
+
+            case CUISINES:
+                rowsDeleted = db.delete(
+                        DataContract.CuisinesEntry.TABLE_NAME,selection,selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

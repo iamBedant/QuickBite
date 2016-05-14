@@ -33,7 +33,7 @@ dependencies {
     final PLAY_SERVICES_VERSION = '8.4.0'
     final SUPPORT_LIBRARY_VERSION = '23.2.1'
     final RETROFIT_VERSION = '2.0.1'
-//    final FIREBASE_VERSION = '2.5.2+'
+    final GOOGLE_PLAY_VERSION = '8.4.0'
     final FIREBASE_VERSION = '2.5.2'
     final DAGGER_VERSION = '2.0.2'
     def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
@@ -58,5 +58,7 @@ dependencies {
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.google.android.gms:play-services-location:$GOOGLE_PLAY_VERSION"
+
     apt daggerCompiler
 }
