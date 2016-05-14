@@ -3,6 +3,7 @@ package com.iambedant.nanodegree.quickbite.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,12 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.List;
@@ -48,6 +51,8 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
     View mHeaderView;
     Context mContext;
 
+    int SELECTION_TYPE=0;
+
 
     /**
      * Return an Intent to start this Activity.
@@ -70,12 +75,31 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         setUpToolbar();
         mMainPresenter.updateNavHeader();
         initRecyclerView();
-        if (NetworkUtil.isNetworkConnected(mContext)) {
-            mMainPresenter.loadInitialData();
-        } else {
-            //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
+
+        if(getIntent()!=null){
+            if(getIntent().getExtras()!=null){
+                SELECTION_TYPE = getIntent().getExtras().getInt(Constants.TYPE_EXTRA_KEY);
+            }
         }
+
+
+        if(savedInstanceState==null){
+            if (NetworkUtil.isNetworkConnected(mContext)) {
+                mMainPresenter.loadInitialData(SELECTION_TYPE);
+            } else {
+                //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
+            }
+        }
+
+
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+
 
     private void initRecyclerView() {
         mRestaurantAdapter = new RestaurantAdapter(this);
@@ -192,6 +216,22 @@ public class MainActivity extends BaseActivity implements MainMvpView, Navigatio
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
+    }
+
+    @Override
+    public void onActivityReenter(int requestCode, Intent data) {
+        super.onActivityReenter(requestCode, data);
+        postponeEnterTransition();
+        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                // TODO: figure out why it is necessary to request layout here in order to get a smooth transition.
+                 mRecyclerView.requestLayout();
+                startPostponedEnterTransition();
+                return true;
+            }
+        });
     }
 
 }

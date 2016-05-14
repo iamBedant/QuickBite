@@ -74,17 +74,6 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
 
     public void saveCuisinesToDb(List<Cuisine> cuisines) {
 
-        Logger.d("content", cuisines.size() + "");
-   //     ContentValues[] returnContentValues = new ContentValues[cuisines.size()];
-
-//        for (int i = 0; i < cuisines.size(); i++) {
-//            Cuisine currentCuisine = cuisines.get(i);
-//            ContentValues cuisinesValues = new ContentValues();
-//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_NAME, currentCuisine.getCuisine().getCuisineName());
-//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_CUISINE_ID, currentCuisine.getCuisine().getCuisineId());
-//            cuisinesValues.put(DataContract.CuisinesEntry.COLUMN_IS_FAVOURITE, 0);
-//            returnContentValues[i++] = cuisinesValues;
-//        }
 
         Vector<ContentValues> cVVector = new Vector<ContentValues>(cuisines.size());
         for (int i = 0; i < cuisines.size(); i++) {

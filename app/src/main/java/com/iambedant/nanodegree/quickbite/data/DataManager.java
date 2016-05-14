@@ -28,7 +28,7 @@ import rx.functions.Action0;
 
 @Singleton
 public class DataManager {
-    
+
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
     private final FireBaseClient mFireBaseClient;
@@ -105,7 +105,8 @@ public class DataManager {
     }
 
     public void saveCusinesToDb(Vector<ContentValues> cVVector) {
-        mProviderHelper.saveCusinesToDb(cVVector);
+       // mProviderHelper.deleteAllCuisines();
+        mProviderHelper.saveAllCuisines(cVVector);
     }
 
     public void saveFavouriteRestaurant(Restaurant_ mRestaurant) {
@@ -122,7 +123,11 @@ public class DataManager {
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS, mRestaurant.getLocation().getAddress());
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE, mRestaurant.getUserRating().getAggregateRating());
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getPriceRange());
-            mProviderHelper.saveFavouriteRestaurant(values);
+            mProviderHelper.saveSingleRestaurant(values);
         }
+    }
+
+    public void deleteFavouriteRestaurant(String id) {
+            mProviderHelper.deleteSingleRestaurant(id);
     }
 }

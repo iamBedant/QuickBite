@@ -35,8 +35,11 @@ public class DataContract {
         public static final String COLUMN_IS_FAVOURITE = "cuisine_is_favourite";
 
 
-        public static Uri buildLocationUri(long id) {
+        public static Uri buildSingleCuisineUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+        public static Uri buildSingleCuisineUri(String id) {
+            return CONTENT_URI.buildUpon().appendPath(id).build();
         }
     }
 
@@ -64,13 +67,13 @@ public class DataContract {
         public static final String COLUMN_RESTAURANT_PRICE = "restaurant_price";
        // public static final String COLUMN_RESTAURANT_PHONE = "restaurant_phone";
 
-        public static Uri buildRestaurantUri(long id) {
+        public static Uri  buildRestaurantUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
 
-        public static Uri buildRestaurantUri(String locationSetting) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
+        public static Uri buildRestaurantUri(String restaurantId) {
+            return CONTENT_URI.buildUpon().appendPath(restaurantId).build();
         }
     }
 }

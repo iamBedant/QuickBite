@@ -28,4 +28,14 @@
     <string name="c_d_add_to_my_favourite_button">Add to my favourite Button</string>
     <string name="c_d_view_on_zomato_button">View on Zomato Button</string>
     <string name="cuisines">Cuisines :</string>
+    <string name="cost">Cost</string>
+    <string name="delivery">Delivery</string>
+    <string name="location_dummy_text">Whitefield</string>
+    <string name="favourite">FAVOURITE</string>
+    <string name="bar">BAR</string>
+    <string name="breakfast">BREAKFAST</string>
+    <string name="dinner">DINE OUT</string>
+    <string name="lunch">TAKE AWAY</string>
+    <string name="you_are_at">You are at</string>
+    <string name="title_activity_list">ListActivity</string>
 </resources>

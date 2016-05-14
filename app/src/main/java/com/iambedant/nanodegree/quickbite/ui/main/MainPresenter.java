@@ -23,7 +23,6 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
     @Inject
     public MainPresenter(DataManager dataManager) {
-        Logger.d("AAA","Presenter Created");
         mDataManager = dataManager;
     }
 
@@ -46,10 +45,30 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     }
 
 
-    public void loadInitialData() {
+    public void loadInitialData(int SELECTION_TYPE) {
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("q", "whitefield");
+        switch (SELECTION_TYPE){
+            case Constants.TYPE_DINNER:
+               params.put("category","2");
+                break;
+            case Constants.TYPE_TAKE_AWAY:
+                params.put("category","5");
+                break;
+            case Constants.TYPE_BREAKFAST:
+                params.put("category","8");
+                break;
+            case Constants.TYPE_COFFEE:
+                params.put("category","6");
+                break;
+            case Constants.TYPE_BAR:
+                params.put("category","3");
+                break;
+        }
+
+
+
         Observable<SearchResult> obj = mDataManager.getSearchData(params);
         mSubscription = obj.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

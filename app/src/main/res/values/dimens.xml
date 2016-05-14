@@ -11,7 +11,8 @@
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="text_size_xlarge">20sp</dimen>
     <dimen name="text_size_xxlarge">22sp</dimen>
-
+    <dimen name="text_size_home_button_size">25sp</dimen>
+    <dimen name="text_size_home_text_size">30sp</dimen>
 
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
@@ -49,4 +50,7 @@
 
     <dimen name="shot_collapsed_app_bar_height">256dp</dimen>
     <dimen name="imagebutton_top_padding">5dp</dimen>
+    <dimen name="home_image_height">256dp</dimen>
+    <dimen name="home_page_button_height">78dp</dimen>
+    <dimen name="padding_username_home">200dp</dimen>
 </resources>

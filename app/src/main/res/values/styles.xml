@@ -26,13 +26,16 @@
 
     <style name="AppTheme" parent="Base.AppTheme"></style>
 
-    <style name="AppTheme.Details">
+    <style name="AppTheme.Home" parent="Base.AppTheme">
+
     </style>
+
+    <style name="AppTheme.Details"></style>
+
     <style name="AppTheme.SplashScreen" parent="Base.AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
     <!-- Base application theme. -->
-
 
 
     <style name="Widget.QuickBite" parent="android:Widget" />

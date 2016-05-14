@@ -1,10 +1,9 @@
 package com.iambedant.nanodegree.quickbite.ui.detail;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,11 +12,10 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +28,6 @@ import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.ParallaxScrimageView;
-import com.iambedant.nanodegree.quickbite.util.AnimUtils;
 import com.iambedant.nanodegree.quickbite.util.ColorUtils;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
@@ -48,10 +45,10 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
 
 
     @Bind(R.id.scrim)
-    ParallaxScrimageView mScrimView;
+    ImageView mScrimView;
 
     @Bind(R.id.container)
-    ParallaxScrimageView mImageViewCover;
+    ImageView mImageViewCover;
 
     @Bind(R.id.app_bar_layout)
     AppBarLayout mAppBarLayout;
@@ -68,39 +65,31 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
     private static final float SCRIM_ADJUSTMENT = 0.075f;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition();
+        }
 
         ButterKnife.bind(this);
 
         getActivityComponent().inject(this);
         mContext = this;
-        mRestaurant = getIntent().getExtras().getParcelable(Constants.CURRENT_RESTAURANT);
-
         mDetailPresenter.attachView(this);
+        final Intent intent = getIntent();
+        if (intent.hasExtra(Constants.CURRENT_RESTAURANT)) {
+            mRestaurant = getIntent().getExtras().getParcelable(Constants.CURRENT_RESTAURANT);
+            loadSharedElement();
+        }
+
+
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("My Name");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mScrimView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            Glide.with(this)
-                    .load(mRestaurant.getFeaturedImage())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .priority(Priority.IMMEDIATE)
-                    .centerCrop()
-                    .into(mImageViewCover);
-        } else {
-            Glide.with(this)
-                    .load(mRestaurant.getFeaturedImage())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .priority(Priority.IMMEDIATE)
-                    .listener(shotLoadListener)
-                    .centerCrop()
-                    .into(mImageViewCover);
-        }
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -121,6 +110,41 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
                 }
             }
         });
+
+    }
+
+    private void loadSharedElement() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mScrimView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            Glide.with(this)
+                    .load(mRestaurant.getFeaturedImage())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .priority(Priority.IMMEDIATE)
+                    .into(mImageViewCover);
+
+
+        } else {
+            Glide.with(this)
+                    .load(mRestaurant.getFeaturedImage())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .priority(Priority.IMMEDIATE)
+                    .listener(shotLoadListener)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            startPostponedEnterTransition();
+                            return false;
+                        }
+                    })
+                    .into(mImageViewCover);
+
+        }
 
     }
 
@@ -230,8 +254,13 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
     };
 
     @OnClick(R.id.img_btn_favourite)
-    public void saveFavouriteRestaurant(){
+    public void saveFavouriteRestaurant() {
         mDetailPresenter.saveRestaurant(mRestaurant);
+    }
+
+    @OnClick(R.id.img_btn_direction)
+    public void getDirectionToTheRestaurant() {
+        mDetailPresenter.deleteRestaurant(mRestaurant.getId());
     }
 
 
@@ -246,4 +275,17 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
 
         mDetailPresenter.detachView();
     }
+
+//    public void startPostponedEnterTransition() {
+//
+//        mScrimView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                mScrimView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                startPostponedEnterTransition();
+//                return true;
+//            }
+//        });
+//
+//    }
 }

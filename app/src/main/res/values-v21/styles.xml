@@ -3,13 +3,18 @@
 
     <style name="AppTheme" parent="Base.AppTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <!--<item name="android:navigationBarColor">@color/colorPrimaryDark</item>-->
 
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
+
+    <style name="AppTheme.Home" parent="Base.AppTheme">
+        <item name="android:statusBarColor">@color/dribbble_super_dark</item>
+        <item name="android:navigationBarColor">@color/dribbble_super_dark</item>
     </style>
 
     <style name="AppTheme.Translucent">

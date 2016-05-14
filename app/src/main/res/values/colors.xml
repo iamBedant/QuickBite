@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff7900</color>
-    <color name="colorPrimaryDark">#ce6201</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3c2e34</color>
+    <color name="colorPrimaryDark">#ff33292d</color>
+    <color name="colorAccent">#69F0AE</color>
     <color name="colorSeparator">#efefef</color>
     <color name="white">#ffffff</color>
     <color name="off_white">#efefef</color>
@@ -16,4 +16,15 @@
     <color name="dribbble">#fff06292</color>
     <color name="dribbble_super_dark">#ff33292d</color>
     <color name="transparent">#00000000</color>
+
+    <color name="location_text_color">#acacac</color>
+    
+    
+    
+    <color name="color_dinner">#A6688e8c</color>
+    <color name="color_lunch">#A63b3e53</color>
+    <color name="color_breakfast">#A65b5e42</color>
+    <color name="color_bar">#A6554444</color>
+    <color name="color_coffee">#A6b9a0a0</color>
+    <color name="color_favourite">#A6221c1c</color>
 </resources>

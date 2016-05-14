@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
-import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
+import com.iambedant.nanodegree.quickbite.ui.home.Home;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import javax.inject.Inject;
@@ -71,7 +71,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView {
 
 
 
-        Intent intent = new Intent(mContext, MainActivity.class);
+        Intent intent = new Intent(mContext, Home.class);
         startActivity(intent);
         finish();
     }

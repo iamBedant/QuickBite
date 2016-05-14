@@ -115,6 +115,10 @@ public class DataProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
             }
+            case RESTAURANT:{
+
+
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -134,6 +138,11 @@ public class DataProvider extends ContentProvider {
             case RESTAURANTS:
                 rowsDeleted = db.delete(
                         DataContract.RestaurantEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+
+            case RESTAURANT:
+                rowsDeleted = db.delete(
+                        DataContract.RestaurantEntry.TABLE_NAME,selection,selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

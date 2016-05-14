@@ -70,7 +70,8 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant, RestaurantItemVie
             Glide.with(host)
                     .load(restaurant.getRestaurant().getFeaturedImage())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .centerCrop()
+                    .skipMemoryCache(true)
+                    .dontTransform()
                     .into(view.getLessonImageView());
             if (animationEnabled) {
                 view.restartAnimation();

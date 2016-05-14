@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iambedant.nanodegree.quickbite.ui.home.Home">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_image_height"
+                android:foreground="@drawable/scrim"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_bg" />
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:id="@+id/tv_user_name"
+                android:layout_marginTop="@dimen/padding_username_home"
+                android:layout_width="wrap_content"
+                android:text="Hi, Bedant"
+                android:textSize="@dimen/text_size_home_text_size"
+                app:font="SourceSansPro-Light"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/home_content"/>
+
+        </FrameLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@drawable/toolbar_scrim">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:textColor="@color/location_text_color"
+                app:font="SourceSansPro-Regular"
+                tools:text="@string/location_dummy_text" />
+
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_location"
+                android:textColor="@color/location_text_color"
+                app:font="SourceSansPro-Light"
+                android:layout_marginRight="@dimen/margin_xsmall"
+                android:text="@string/you_are_at" />
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+</FrameLayout>
