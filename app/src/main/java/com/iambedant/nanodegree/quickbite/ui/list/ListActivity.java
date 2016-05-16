@@ -32,7 +32,7 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     ListAdapter mListAdapter;
 
-    int SELECTION_TYPE=0;
+    int SELECTION_TYPE = 0;
 
 
     @Override
@@ -47,14 +47,14 @@ public class ListActivity extends BaseActivity implements ListMvpView {
         setUpToolbar();
         initRecyclerView();
 
-        if(getIntent()!=null){
-            if(getIntent().getExtras()!=null){
+        if (getIntent() != null) {
+            if (getIntent().getExtras() != null) {
                 SELECTION_TYPE = getIntent().getExtras().getInt(Constants.TYPE_EXTRA_KEY);
             }
         }
 
 
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
             if (NetworkUtil.isNetworkConnected(mContext)) {
                 mListPresenter.loadInitialData(SELECTION_TYPE);
             } else {
@@ -65,11 +65,12 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     }
 
-
     private void setUpToolbar() {
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
     }

@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
 import com.iambedant.nanodegree.quickbite.util.Logger;
@@ -22,10 +24,12 @@ public class ProviderHelper {
 
     ContentResolver mContentResolver;
     public static String TAG = ProviderHelper.class.getSimpleName();
+    Context mContext;
 
     @Inject
     public ProviderHelper(@ApplicationContext Context context) {
         mContentResolver = context.getContentResolver();
+        mContext = context;
     }
 
     public ContentResolver getContentResolver() {
@@ -144,5 +148,9 @@ public class ProviderHelper {
                 null);
 
         return cursor;
+    }
+
+    public Loader<Cursor> getFavouriteRestaurants() {
+        return new CursorLoader(mContext,DataContract.RestaurantEntry.CONTENT_URI,null,null,null,null);
     }
 }

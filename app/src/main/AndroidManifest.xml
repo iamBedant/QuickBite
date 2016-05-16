@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".myApplication"
@@ -38,16 +38,20 @@
 
         <activity
             android:name=".ui.home.Home"
-            android:theme="@style/AppTheme.Home"></activity>
+            android:theme="@style/AppTheme.Home" />
         <activity
             android:name=".ui.list.ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity
+            android:name=".ui.favourites.Favourites"
+            android:label="@string/title_activity_avourites"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

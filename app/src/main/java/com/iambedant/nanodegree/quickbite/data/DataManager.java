@@ -1,6 +1,8 @@
 package com.iambedant.nanodegree.quickbite.data;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.firebase.client.AuthData;
@@ -110,9 +112,9 @@ public class DataManager {
     public void saveCusinesToDb(Vector<ContentValues> cVVector) {
 
         mProviderHelper.deleteAllCuisines();
-        Logger.d(TAG,"Old Cuisines Deleted");
+        Logger.d(TAG, "Old Cuisines Deleted");
         mProviderHelper.saveAllCuisines(cVVector);
-        Logger.d(TAG,"New Cuisines Stored");
+        Logger.d(TAG, "New Cuisines Stored");
     }
 
     public void saveFavouriteRestaurant(Restaurant_ mRestaurant) {
@@ -145,5 +147,9 @@ public class DataManager {
 
     public String getLastKnownLocation() {
         return mPreferencesHelper.getString(Constants.LAST_KNOWN_LOCALITY, "");
+    }
+
+    public Loader<Cursor> getFavouriteRestaurants() {
+        return mProviderHelper.getFavouriteRestaurants();
     }
 }
