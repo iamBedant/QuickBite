@@ -12,6 +12,11 @@
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
+    <style name="AppTheme.SplashScreen" parent="Base.AppTheme">
+        <item name="android:statusBarColor">@color/color_black</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <style name="AppTheme.Home" parent="Base.AppTheme">
         <item name="android:statusBarColor">@color/dribbble_super_dark</item>
         <item name="android:navigationBarColor">@color/dribbble_super_dark</item>

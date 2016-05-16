@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
@@ -30,7 +31,7 @@ public class RestaurantItemView extends CardView {
     TextView mTextViewCuisine;
 
     @Bind(R.id.image)
-    ParallaxScrimageView mImageViewImage;
+    ImageView mImageViewImage;
 
     @Bind(R.id.rating)
     TextView mTextViewRating;
@@ -105,7 +106,7 @@ public class RestaurantItemView extends CardView {
         mCardView.setOnClickListener(listener);
     }
 
-    public ParallaxScrimageView getLessonImageView() {
+    public ImageView getLessonImageView() {
         return mImageViewImage;
     }
 

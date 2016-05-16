@@ -32,7 +32,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    private static int SPLASH_TIME_OUT;
     Context mContext;
     private Location mLastLocation;
     private final String TAG = SplashScreen.class.getSimpleName();
@@ -48,7 +47,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         getActivityComponent().inject(this);
-        SPLASH_TIME_OUT = 2000;
         mContext = this;
         mSplashPresenter.attachView(this);
         if (checkPlayServices()) {
