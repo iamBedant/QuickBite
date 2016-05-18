@@ -147,9 +147,14 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation == null) {
                 Logger.d(TAG, "Location Null");
-
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequestHighAccuracy, this);
-
+                if(mGoogleApiClient.isConnected()) {
+                    Logger.d(TAG, "Client Connected");
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequestHighAccuracy, this);
+                }
+                else {
+                    Logger.d(TAG, "Client not connected");
+                    mGoogleApiClient.connect();
+                }
 
             } else {
                 handleLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
@@ -347,7 +352,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         mLocationRequestHighAccuracy.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequestHighAccuracy.setInterval(Constants.LOCATION_INTERVAL_MILLISECONDS);
         mLocationRequestHighAccuracy.setFastestInterval(Constants.LOCATION_INTERVAL_MILLISECONDS / 10);
-        
+
 //        mLocationRequestBalancedPowerAccuracy = new LocationRequest();
 //        mLocationRequestBalancedPowerAccuracy.setInterval(Constants.LOCATION_INTERVAL_MILLISECONDS);
 //        mLocationRequestBalancedPowerAccuracy.setFastestInterval(Constants.LOCATION_INTERVAL_MILLISECONDS / 100);

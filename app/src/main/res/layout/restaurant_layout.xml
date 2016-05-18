@@ -3,14 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
+    app:behavior_overlapTop="@dimen/top_overlap"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <com.iambedant.nanodegree.quickbite.ui.views.MaxWidthLinearLayout
         android:layout_width="match_parent"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/padding_small"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        android:maxWidth="@dimen/max_width_detail_layout"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -148,5 +155,5 @@
             </RelativeLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </com.iambedant.nanodegree.quickbite.ui.views.MaxWidthLinearLayout>
 </android.support.v4.widget.NestedScrollView>

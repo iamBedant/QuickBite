@@ -53,4 +53,6 @@
     <dimen name="home_image_height">256dp</dimen>
     <dimen name="home_page_button_height">78dp</dimen>
     <dimen name="padding_username_home">200dp</dimen>
+    <dimen name="max_width_detail_layout">600dp</dimen>
+    <dimen name="top_overlap">0dp</dimen>
 </resources>

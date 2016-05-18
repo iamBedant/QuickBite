@@ -9,10 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.iambedant.nanodegree.quickbite.R;
-import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,9 +52,8 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
 
     }
 
-
     @Override
-    public void showRestaurants(List<Restaurant> mRestaurantList) {
+    public void NavigateToDetailPage() {
 
     }
 
@@ -75,4 +71,5 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     public void onLoaderReset(Loader<Cursor> loader) {
         mFavouriteAdapter.swapCursor(null);
     }
+
 }

@@ -28,5 +28,6 @@ public class Constants {
     public static final String LAST_KNOWN_LON = "_last_known_lon";
     public static final String LAST_KNOWN_LOCALITY = "_last_known_locality";
 
+    public static final int LOCATION_INTERVAL_MILLISECONDS = 5000;
 
 }
