@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/restaurant_details"
                 android:textSize="@dimen/text_size_large"
-                app:font="roboto-mono-regular" />
+                app:font="SourceSansPro-Semibold" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -102,11 +102,13 @@
                     android:id="@+id/tv_cuisines_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cuisines" />
+                    android:text="@string/cuisines"
+                    app:font="SourceSansPro-Regular"/>
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_cuisines"
                     tools:text="Cafe Amarican"
+                    app:font="SourceSansPro-Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_cuisines_display" />
@@ -118,6 +120,7 @@
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_cost_display"
                     android:layout_width="wrap_content"
+                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
                     android:text="@string/cost" />
 
@@ -125,6 +128,7 @@
                     android:id="@+id/tv_cost"
                     tools:text="250(for 2 people)"
                     android:layout_width="wrap_content"
+                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_cost_display" />
             </RelativeLayout>
@@ -135,12 +139,14 @@
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_delivery_display"
                     android:layout_width="wrap_content"
+                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
                     android:text="@string/delivery" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_delivery"
                     tools:text="Available"
+                    app:font="SourceSansPro-Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_delivery_display" />
@@ -153,6 +159,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address_tv"
+                android:textSize="@dimen/text_size_large"
+                app:font="SourceSansPro-Semibold" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/address_layout_height">
+                <RelativeLayout
+                    android:layout_width="@dimen/zero_dp"
+                    android:layout_weight="@integer/three"
+                    android:layout_height="wrap_content">
+                    <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                        android:layout_width="match_parent"
+                        app:font="SourceSansPro-Regular"
+                        tools:text="This is a dummy Address, Whitefield, Bengaluru, Near somewhere, 560066"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="@dimen/zero_dp"
+                    android:layout_weight="@integer/four"
+                    android:background="@drawable/home_bg"
+                    android:layout_height="match_parent">
+
+                </FrameLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
     </com.iambedant.nanodegree.quickbite.ui.views.MaxWidthLinearLayout>

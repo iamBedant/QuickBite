@@ -23,10 +23,18 @@ public class Constants {
     public static final int TYPE_FAVOURITE = 6;
 
 
+    public static final String REVIEW_COUNT = "5";
+    public static final String REVIEW_COUNT_KEY = "count";
+    public static final String RESTAURANT_ID_KEY ="res_id";
 
     public static final String LAST_KNOWN_LAT = "_last_known_lat";
     public static final String LAST_KNOWN_LON = "_last_known_lon";
     public static final String LAST_KNOWN_LOCALITY = "_last_known_locality";
+
+
+    public static final String LAT_KEY ="lat";
+    public static final String LON_KEY ="lon";
+    public static final String CATEGORY_KEY ="category";
 
     public static final int LOCATION_INTERVAL_MILLISECONDS = 5000;
 

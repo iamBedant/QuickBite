@@ -44,25 +44,25 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
     public void loadInitialData(int SELECTION_TYPE) {
 
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("q", "whitefield");
-        switch (SELECTION_TYPE){
+        params.put(Constants.LAT_KEY, mDataManager.getLat());
+        params.put(Constants.LON_KEY,mDataManager.getLon());
+        switch (SELECTION_TYPE) {
             case Constants.TYPE_DINNER:
-                params.put("category","2");
+                params.put(Constants.CATEGORY_KEY, "2");
                 break;
             case Constants.TYPE_TAKE_AWAY:
-                params.put("category","5");
+                params.put(Constants.CATEGORY_KEY, "5");
                 break;
             case Constants.TYPE_BREAKFAST:
-                params.put("category","8");
+                params.put(Constants.CATEGORY_KEY, "8");
                 break;
             case Constants.TYPE_COFFEE:
-                params.put("category","6");
+                params.put(Constants.CATEGORY_KEY, "6");
                 break;
             case Constants.TYPE_BAR:
-                params.put("category","3");
+                params.put(Constants.CATEGORY_KEY, "3");
                 break;
         }
-
 
 
         Observable<SearchResult> obj = mDataManager.getSearchData(params);
@@ -85,6 +85,10 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
                         getMvpView().showRestaurants(searchResult.getRestaurants());
                     }
                 });
+
+
+
+
     }
 
 }

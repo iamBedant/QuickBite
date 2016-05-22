@@ -55,4 +55,5 @@
     <dimen name="padding_username_home">200dp</dimen>
     <dimen name="max_width_detail_layout">600dp</dimen>
     <dimen name="top_overlap">0dp</dimen>
+    <dimen name="address_layout_height">120dp</dimen>
 </resources>

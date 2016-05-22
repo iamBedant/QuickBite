@@ -3,6 +3,7 @@ package com.iambedant.nanodegree.quickbite.data.remote;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
+import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 
@@ -29,6 +30,12 @@ public interface QuickBiteAPIClient {
 
     @GET("cuisines")
     Observable<Cuisines> getCuisines(@QueryMap Map<String, String> options);
+
+
+    @GET("reviews")
+    Observable<Reviews> getReviews(@QueryMap Map<String, String> options);
+
+
 
     class Creator {
         private static OkHttpClient okHttpClient = buildClient();

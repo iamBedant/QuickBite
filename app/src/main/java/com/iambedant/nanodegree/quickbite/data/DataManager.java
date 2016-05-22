@@ -12,6 +12,7 @@ import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
 import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
+import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
@@ -20,6 +21,7 @@ import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -143,6 +145,7 @@ public class DataManager {
         mPreferencesHelper.putString(Constants.LAST_KNOWN_LOCALITY, locality);
         mPreferencesHelper.putDouble(Constants.LAST_KNOWN_LAT, lat);
         mPreferencesHelper.putDouble(Constants.LAST_KNOWN_LON, lon);
+
     }
 
     public String getLastKnownLocation() {
@@ -151,5 +154,18 @@ public class DataManager {
 
     public Loader<Cursor> getFavouriteRestaurants() {
         return mProviderHelper.getFavouriteRestaurants();
+    }
+
+    public Observable<Reviews> getReviews(HashMap<String, String> params) {
+        return mQuickBiteApiClient.getReviews(params);
+    }
+
+    public String getLon() {
+      return   mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LON,0.0)+"";
+    }
+
+
+    public String getLat() {
+        return   mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LAT,0.0)+"";
     }
 }

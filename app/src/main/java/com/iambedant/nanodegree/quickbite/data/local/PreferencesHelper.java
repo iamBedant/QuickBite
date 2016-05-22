@@ -39,4 +39,12 @@ public class PreferencesHelper {
     public Double getDouble(String KEY, Double DEFAULT){
         return Double.longBitsToDouble(mPref.getLong(KEY, Double.doubleToLongBits(DEFAULT)));
     }
+
+    public Boolean getBoolean(String KEY, Boolean DEFAULT) {
+        return mPref.getBoolean(KEY, DEFAULT);
+    }
+
+    public void putBoolean(String  KEY, Boolean VALUE) {
+        mPref.edit().putBoolean(KEY, VALUE).apply();
+    }
 }
