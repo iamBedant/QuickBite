@@ -38,4 +38,11 @@ public class Constants {
 
     public static final int LOCATION_INTERVAL_MILLISECONDS = 5000;
 
+    public static final String BUNDLE_IS_DATA_LOADED= "bundle_is_data_loaded";
+    public static final String BUNDLE_LIST_RESTAURANTS = "bundle_list_restaurant";
+
+    public static final int ERROR_TYPE_NETWORK =1;
+    public static final int ERROR_TYPE_NO_DATA =2;
+    public static final int ERROR_TYPE_DEFAULT =999;
+
 }

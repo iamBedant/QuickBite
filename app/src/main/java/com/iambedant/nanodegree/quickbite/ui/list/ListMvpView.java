@@ -11,5 +11,7 @@ import java.util.List;
 public interface ListMvpView extends MvpView {
 
    void showRestaurants(List<Restaurant> mRestaurantList);
+   void controlLoading(Boolean isLoading);
+   void showErrorView(int TYPE);
 
 }

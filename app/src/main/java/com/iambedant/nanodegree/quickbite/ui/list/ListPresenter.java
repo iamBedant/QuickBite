@@ -21,6 +21,8 @@ import rx.schedulers.Schedulers;
  */
 public class ListPresenter extends BasePresenter<ListMvpView> {
 
+    String TAG = ListPresenter.class.getSimpleName();
+
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
@@ -43,9 +45,10 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
     public void loadInitialData(int SELECTION_TYPE) {
 
+        getMvpView().controlLoading(true);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put(Constants.LAT_KEY, mDataManager.getLat());
-        params.put(Constants.LON_KEY,mDataManager.getLon());
+        params.put(Constants.LON_KEY, mDataManager.getLon());
         switch (SELECTION_TYPE) {
             case Constants.TYPE_DINNER:
                 params.put(Constants.CATEGORY_KEY, "2");
@@ -76,17 +79,23 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Logger.d("API_TEST", "On Error Called->" + e.toString());
+                        Logger.e(TAG, "On Error Called->" + e.toString());
+                        getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
                     }
 
                     @Override
                     public void onNext(SearchResult searchResult) {
-                        Logger.d("API_TEST", searchResult.getResultsStart() + "");
-                        getMvpView().showRestaurants(searchResult.getRestaurants());
+                        Logger.i(TAG,"Search successfull");
+                        getMvpView().controlLoading(false);
+                        if(searchResult.getRestaurants().size()>0){
+                            getMvpView().showRestaurants(searchResult.getRestaurants());
+                        }
+                        else {
+                            getMvpView().showErrorView(Constants.ERROR_TYPE_NO_DATA);
+                        }
+
                     }
                 });
-
-
 
 
     }

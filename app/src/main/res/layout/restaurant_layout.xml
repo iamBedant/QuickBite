@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
-    app:behavior_overlapTop="@dimen/top_overlap"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:orientation="vertical"
+    app:behavior_overlapTop="@dimen/top_overlap"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.iambedant.nanodegree.quickbite.ui.views.MaxWidthLinearLayout
         android:layout_width="match_parent"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/padding_small"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/white"
         android:maxWidth="@dimen/max_width_detail_layout"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/padding_small">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,16 +103,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cuisines"
-                    app:font="SourceSansPro-Regular"/>
+                    app:font="SourceSansPro-Regular" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_cuisines"
-                    tools:text="Cafe Amarican"
-                    app:font="SourceSansPro-Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_cuisines_display" />
+                    android:layout_toRightOf="@id/tv_cuisines_display"
+                    app:font="SourceSansPro-Regular"
+                    tools:text="Cafe Amarican" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -120,18 +121,19 @@
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_cost_display"
                     android:layout_width="wrap_content"
-                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
-                    android:text="@string/cost" />
+                    android:text="@string/cost"
+                    app:font="SourceSansPro-Regular" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_cost"
-                    tools:text="250(for 2 people)"
                     android:layout_width="wrap_content"
-                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_cost_display" />
+                    android:layout_toRightOf="@id/tv_cost_display"
+                    app:font="SourceSansPro-Regular"
+                    tools:text="250(for 2 people)" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -139,61 +141,92 @@
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_delivery_display"
                     android:layout_width="wrap_content"
-                    app:font="SourceSansPro-Regular"
                     android:layout_height="wrap_content"
-                    android:text="@string/delivery" />
+                    android:text="@string/delivery"
+                    app:font="SourceSansPro-Regular" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_delivery"
-                    tools:text="Available"
-                    app:font="SourceSansPro-Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_delivery_display" />
+                    android:layout_toRightOf="@id/tv_delivery_display"
+                    app:font="SourceSansPro-Regular"
+                    tools:text="Available" />
+
                 <Button
                     android:id="@+id/btn_order_now"
                     style="?attr/borderlessButtonStyle"
-                    android:textColor="@color/colorAccent"
-                    android:text="ORDER NOW"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="ORDER NOW"
+                    android:textColor="@color/colorAccent" />
             </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/address_tv"
                 android:textSize="@dimen/text_size_large"
                 app:font="SourceSansPro-Semibold" />
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/address_layout_height">
+                android:layout_height="@dimen/address_layout_height"
+                android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="@dimen/zero_dp"
-                    android:layout_weight="@integer/three"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@integer/three">
+
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         app:font="SourceSansPro-Regular"
-                        tools:text="This is a dummy Address, Whitefield, Bengaluru, Near somewhere, 560066"
-                        android:layout_height="wrap_content" />
+                        tools:text="This is a dummy Address, Whitefield, Bengaluru, Near somewhere, 560066" />
                 </RelativeLayout>
 
                 <FrameLayout
                     android:layout_width="@dimen/zero_dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="@integer/four"
-                    android:background="@drawable/home_bg"
-                    android:layout_height="match_parent">
+                    android:background="@drawable/home_bg">
 
                 </FrameLayout>
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews_tv"
+                android:textSize="@dimen/text_size_large"
+                app:font="SourceSansPro-Semibold" />
+
+            <LinearLayout
+                android:id="@+id/ll_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                style="?attr/borderlessButtonStyle"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/all_riview_button"/>
 
         </LinearLayout>
 

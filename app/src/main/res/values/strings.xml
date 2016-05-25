@@ -45,4 +45,6 @@
     <string name="title_activity_avourites">avourites</string>
     <string name="get_message">This is the message need to replace</string>
     <string name="address_tv">ADDRESS</string>
+    <string name="reviews_tv">REVIEWS</string>
+    <string name="all_riview_button">VIEW ALL REVIEWS</string>
 </resources>

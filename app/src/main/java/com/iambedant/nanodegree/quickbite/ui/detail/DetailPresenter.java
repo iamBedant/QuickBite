@@ -73,9 +73,9 @@ public class DetailPresenter extends BasePresenter<DetailMvpView> {
                     }
 
                     @Override
-                    public void onNext(Reviews searchResult) {
+                    public void onNext(Reviews reviews) {
                         Logger.i(TAG,  "On Next Called");
-
+                        getMvpView().showReviews(reviews.getUserReviews());
                     }
                 });
     }
