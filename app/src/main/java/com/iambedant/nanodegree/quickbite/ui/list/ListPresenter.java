@@ -79,6 +79,7 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        getMvpView().controlLoading(false);
                         Logger.e(TAG, "On Error Called->" + e.toString());
                         getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
                     }

@@ -53,7 +53,6 @@ public class ListActivity extends BaseActivity implements ListMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         getActivityComponent().inject(this);
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mContext = this;
         mListPresenter.attachView(this);
@@ -87,7 +86,6 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     public void initApiCall() {
         if (NetworkUtil.isNetworkConnected(mContext)) {
-
             mListPresenter.loadInitialData(SELECTION_TYPE);
         } else {
             //TODO: Show " No Network But you can Still Access your Favourite Restaurants"
@@ -142,11 +140,11 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     @Override
     public void showErrorView(int TYPE) {
-        switch (TYPE){
+        switch (TYPE) {
             case Constants.ERROR_TYPE_NETWORK:
 
                 //TODO: Attach a animated vector drawable
-               // mViewError.setBackground(R.drawable.);
+                // mViewError.setBackground(R.drawable.);
                 break;
             case Constants.ERROR_TYPE_NO_DATA:
 
