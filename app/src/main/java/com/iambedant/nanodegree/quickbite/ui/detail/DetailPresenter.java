@@ -2,6 +2,7 @@ package com.iambedant.nanodegree.quickbite.ui.detail;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
+import com.iambedant.nanodegree.quickbite.data.model.Reviews.UserReview;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 import com.iambedant.nanodegree.quickbite.util.Constants;
@@ -80,4 +81,7 @@ public class DetailPresenter extends BasePresenter<DetailMvpView> {
                 });
     }
 
+    public void openDetailReview(UserReview review) {
+
+    }
 }

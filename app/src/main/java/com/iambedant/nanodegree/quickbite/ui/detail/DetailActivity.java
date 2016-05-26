@@ -10,7 +10,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -45,6 +48,10 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+
+    @Bind(R.id.ll_review)
+    LinearLayout mLinearlayoutReviewContainer;
+
     Restaurant_ mRestaurant;
 
     @Inject
@@ -58,12 +65,12 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
     private SharedElementCallback sharedElementCallback = new SharedElementCallback() {
         @Override
         public void onSharedElementStart(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
-          //  super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots);
+            //  super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots);
         }
 
         @Override
         public void onSharedElementEnd(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
-         //   super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots);
+            //   super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots);
         }
     };
 
@@ -178,7 +185,32 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
         }
     }
 
-    private void addReviewLayout(UserReview review) {
+    private void addReviewLayout(final UserReview review) {
 
+        View reviewView = getLayoutInflater().inflate(R.layout.item_review, null, false);
+
+        TextView mTextViewName = (TextView) reviewView.findViewById(R.id.tv_name);
+        TextView mTextViewFoodieLevel = (TextView) reviewView.findViewById(R.id.tv_foodie_level);
+        TextView mTextViewRating = (TextView) reviewView.findViewById(R.id.tv_rating);
+        TextView mTextViewReview = (TextView) reviewView.findViewById(R.id.tv_review);
+        Button mButtonSeeMore = (Button) reviewView.findViewById(R.id.btn_see_more);
+
+        ImageView mImageViewProfilepic = (ImageView) reviewView.findViewById(R.id.iv_profile_pic);
+
+        mTextViewName.setText(review.getReview().getUser().getName());
+        mTextViewFoodieLevel.setText(review.getReview().getUser().getFoodieLevel());
+        mTextViewRating.setText(review.getReview().getRating() + "");
+        mTextViewReview.setText(review.getReview().getReviewText());
+        mButtonSeeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDetailPresenter.openDetailReview(review);
+            }
+        });
+        //TODO: use a fallback image in case of Glide error
+        Glide.with(mContext)
+                .load(review.getReview().getUser().getProfileImage())
+                .into(mImageViewProfilepic);
+        mLinearlayoutReviewContainer.addView(reviewView);
     }
 }

@@ -12,6 +12,8 @@
     <color name="scrim">#99323232</color>
     <color name="light_grey">#fff5f5f5</color>
 
+    <color name="devider">#99323232</color>
+
     <color name="mid_grey">#40808080</color>
     <color name="dribbble">#fff06292</color>
     <color name="dribbble_super_dark">#ff33292d</color>
