@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:transitionName="@string/transition_name_layout">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.iambedant.nanodegree.quickbite.ui.views.FourThreeImageView
+        android:id="@+id/container"
+        android:transitionName="image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+
+
+    <include
+        layout="@layout/restaurant_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
+
+
+</FrameLayout>
+
+

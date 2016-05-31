@@ -52,4 +52,12 @@
     <string name="foodie_level">Super Foodie</string>
     <string name="tools_rating">5.4</string>
     <string name="tools_name">Mr John Doe</string>
+    <string name="delivery_available_text">Available</string>
+    <string name="delivery_not_available">Not Available</string>
+    <string name="map_api">AIzaSyBxYSJZzEXKNTJmWsrEScgyapoU1Z2l9xY</string>
+    <string name="transition_name_layout">layout</string>
+    <string name="title_activity_recycl">Recycl</string>
+    <string name="title_activity_tail">TailActivity</string>
+    <string name="title_activity_full_review">FullReview</string>
+    <string name="title_activity_restaurant">RestaurantActivity</string>
 </resources>

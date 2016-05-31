@@ -1,50 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Base.AppTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
-        <item name="android:windowContentTransitions">true</item>
-        <!--<item name="android:navigationBarColor">@color/colorPrimaryDark</item>-->
-
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowSharedElementsUseOverlay">false</item>
+    <style name="App" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.SplashScreen" parent="Base.AppTheme">
-        <item name="android:statusBarColor">@color/color_black</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+    <style name="App.Home">
+        <item name="android:windowExitTransition">@transition/grid_exit</item>
+        <item name="android:windowReenterTransition">@transition/grid_reenter</item>
     </style>
 
-    <style name="AppTheme.Home" parent="Base.AppTheme">
-        <item name="android:statusBarColor">@color/dribbble_super_dark</item>
-        <item name="android:navigationBarColor">@color/dribbble_super_dark</item>
-    </style>
-
-    <style name="AppTheme.Translucent">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
-
-    <style name="AppTheme.Details">
+    <style name="App.Details">
         <item name="android:windowSharedElementEnterTransition">
-            @transition/dribbble_shot_shared_enter
+            @transition/shared_main_detail
         </item>
-        <item name="android:windowSharedElementReturnTransition">
-            @transition/dribbble_shot_shared_return
-        </item>
-        <item name="android:windowEnterTransition">@transition/dribbble_shot_enter</item>
-        <item name="android:windowReturnTransition">@transition/dribbble_shot_return</item>
     </style>
 
-
-    <style name="AppTheme.Translucent.Details">
-        <item name="android:colorPrimary">@color/dribbble</item>
-        <item name="android:colorAccent">@color/dribbble</item>
-        <item name="android:statusBarColor">@color/dribbble_super_dark</item>
-        <item name="android:navigationBarColor">@color/dribbble_super_dark</item>
-        <item name="android:colorControlActivated">?android:colorAccent</item>
-        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+    <style name="App.DetailsTest">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 

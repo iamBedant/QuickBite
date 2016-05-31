@@ -7,10 +7,11 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:padding="@dimen/padding_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_pic"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -21,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_small"
             android:layout_toRightOf="@id/iv_profile_pic"
             android:orientation="vertical">
 
@@ -61,8 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            style="@style/readable_text"
             android:maxLines="@integer/five"
-            app:font="SourceSansPro-Light"
+            app:font="SourceSansPro-Regular"
             tools:text="@string/lorem_ipsum" />
 
         <Button
@@ -75,8 +78,8 @@
             android:text="@string/see_more" />
 
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/devider"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/devider"/>-->
 </LinearLayout>

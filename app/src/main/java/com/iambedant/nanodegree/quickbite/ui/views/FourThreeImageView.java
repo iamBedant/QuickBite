@@ -31,7 +31,7 @@ public class FourThreeImageView extends ForegroundImageView {
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
-        int fourThreeHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthSpec) * 1 / 2,
+        int fourThreeHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthSpec) * 2 / 3,
                 View.MeasureSpec.EXACTLY);
         super.onMeasure(widthSpec, fourThreeHeight);
     }

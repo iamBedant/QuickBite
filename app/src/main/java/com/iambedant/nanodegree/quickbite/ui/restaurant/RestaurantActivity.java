@@ -1,18 +1,11 @@
-package com.iambedant.nanodegree.quickbite.ui.detail;
+package com.iambedant.nanodegree.quickbite.ui.restaurant;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +25,9 @@ import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.UserReview;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailMvpView;
+import com.iambedant.nanodegree.quickbite.ui.detail.DetailPresenter;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
@@ -41,20 +37,15 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.iambedant.nanodegree.quickbite.R.id.map;
 
-public class DetailActivity extends BaseActivity implements DetailMvpView, View.OnClickListener, OnMapReadyCallback {
-
+public class RestaurantActivity extends BaseActivity implements DetailMvpView, View.OnClickListener, OnMapReadyCallback {
     private String TAG = DetailActivity.class.getSimpleName();
 
-    @Bind(R.id.scrim)
-    ImageView mScrimView;
+
     @Bind(R.id.container)
     ImageView mImageViewCover;
-    @Bind(R.id.app_bar_layout)
-    AppBarLayout mAppBarLayout;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.ll_review)
@@ -72,96 +63,39 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
     Button mButtonOrderNow;
     @Bind(R.id.scroll)
     NestedScrollView mScrollView;
-    Restaurant_ mRestaurant;
 
+
+    Restaurant_ mRestaurant;
+    Context mContext;
     @Inject
     DetailPresenter mDetailPresenter;
-    Context mContext;
-
-    private static final float SCRIM_ADJUSTMENT = 0.075f;
-    CollapsingToolbarLayout collapsingToolbarLayout;
-
-
-//    private SharedElementCallback sharedElementCallback = new SharedElementCallback() {
-//        @Override
-//        public void onSharedElementStart(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
-//            //  super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots);
-//            mScrimView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-//
-//        }
-//
-//        @Override
-//        public void onSharedElementEnd(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
-//            forceSharedElementLayout(mScrollView);
-//
-//        }
-//    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_restaurant);
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
+
+
+     //   postponeEnterTransition();
+
         mContext = this;
         mDetailPresenter.attachView(this);
         final Intent intent = getIntent();
-//        setEnterSharedElementCallback(sharedElementCallback);
         if (intent.hasExtra(Constants.CURRENT_RESTAURANT)) {
             mRestaurant = getIntent().getExtras().getParcelable(Constants.CURRENT_RESTAURANT);
         }
-
-
-        bindUi();
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
         mapFragment.getMapAsync(this);
-
-
-        int slideDuration = getResources().getInteger(R.integer.slide_duration);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Slide slide = new Slide(Gravity.BOTTOM);
-            slide.addTarget(R.id.scroll);
-            slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator
-                    .linear_out_slow_in));
-            slide.setDuration(slideDuration);
-            getWindow().setEnterTransition(slide);
-        }
-
-
+        bindUi();
         if (savedInstanceState == null) {
             initApiCall();
         } else {
 
         }
-
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(mRestaurant.getName());
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-
-
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                int toolBarHeight = mToolbar.getMeasuredHeight();
-                final int statusBarHeight = statusBarHeight(getResources());
-                int appBarHeight = mAppBarLayout.getMeasuredHeight();
-                appBarHeight = appBarHeight - toolBarHeight;
-                final int half = appBarHeight / 2;
-                final float factor = (float) 255 / half;
-                verticalOffset = verticalOffset - statusBarHeight;
-                if ((-verticalOffset) >= half) {
-                    Float f = factor * (-verticalOffset - half);
-                    mScrimView.getBackground().setAlpha(Math.round(f));
-                    Log.d(TAG, "alpha ->" + Math.round(f));
-                } else {
-                    mScrimView.getBackground().setAlpha(0);
-                }
-            }
-        });
 
     }
 
@@ -174,25 +108,29 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
     }
 
 
-//    private void forceSharedElementLayout(View view) {
-//        int widthSpec = View.MeasureSpec.makeMeasureSpec(view.getWidth(),
-//                View.MeasureSpec.EXACTLY);
-//        int heightSpec = View.MeasureSpec.makeMeasureSpec(view.getHeight(),
-//                View.MeasureSpec.EXACTLY);
-//        view.measure(widthSpec, heightSpec);
-//        view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-//    }
-
     private void bindUi() {
         Glide.with(this)
                 .load(mRestaurant.getFeaturedImage())
-                .override(480,400)
+                .override(480, 400)
+//                .listener(new RequestListener<String, GlideDrawable>() {
+//                    @Override
+//                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                       startPostponedEnterTransition();
+//                        return true;
+//                    }
+//                })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .priority(Priority.IMMEDIATE)
                 .into(mImageViewCover);
 
         mTextViewAddress.setText(mRestaurant.getLocation().getAddress());
-        mTextViewCosts.setText(mRestaurant.getPriceRange() + "");
+        mTextViewCosts.setText("Rs "+ mRestaurant.getAverageCostForTwo() + "For two people(Approx) ");
+
         mTextViewCuisines.setText(mRestaurant.getCuisines());
         if (mRestaurant.getHasOnlineDelivery() == 0) {
             mTextViewDelivery.setText(R.string.delivery_available_text);
@@ -205,23 +143,6 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
             mTextViewDelivery.setText(R.string.delivery_not_available);
         }
     }
-
-
-    private static int statusBarHeight(android.content.res.Resources res) {
-        return (int) (24 * res.getDisplayMetrics().density);
-    }
-
-
-    @OnClick(R.id.img_btn_favourite)
-    public void saveFavouriteRestaurant() {
-        mDetailPresenter.saveRestaurant(mRestaurant);
-    }
-
-    @OnClick(R.id.img_btn_direction)
-    public void getDirectionToTheRestaurant() {
-        mDetailPresenter.deleteRestaurant(mRestaurant.getId());
-    }
-
 
     @Override
     public void onClick(View v) {

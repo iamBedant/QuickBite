@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface DetailMvpView extends MvpView {
     void showReviews(List<UserReview> mListReview);
+
 }

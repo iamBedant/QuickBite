@@ -2,8 +2,7 @@ package com.iambedant.nanodegree.quickbite.ui.list;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -99,10 +98,16 @@ public class ListActivity extends BaseActivity implements ListMvpView {
         //TODO: Save Current Filter and Current Item;
         outState.putBoolean(Constants.BUNDLE_IS_DATA_LOADED, isLoadingComplete);
         if (isLoadingComplete) {
-            outState.putParcelableArrayList(Constants.BUNDLE_LIST_RESTAURANTS, (ArrayList<? extends Parcelable>) mListAdapter.getItems());
+         //   outState.putParcelableArrayList(Constants.BUNDLE_LIST_RESTAURANTS, (ArrayList<? extends Parcelable>) mListAdapter.getItems());
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mListPresenter.detachView();
+    }
 
     private void setUpToolbar() {
 
@@ -116,9 +121,29 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     private void initRecyclerView() {
         mListAdapter = new ListAdapter(this);
-        LinearLayoutManager mManager = new LinearLayoutManager(mContext);
-        mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.setAdapter(mListAdapter);
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                /* emulating https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQsck9lUkgxNVZza1U/style_imagery_integration_scale1.png */
+//                switch (position % 6) {
+//                    case 5:
+//                        return 3;
+//                    case 3:
+//                        return 2;
+//                    default:
+//                        return 1;
+//                }
+                return 3;
+            }
+        });
+        mRecyclerView.setHasFixedSize(true);
+
+
+//        LinearLayoutManager mManager = new LinearLayoutManager(mContext);
+//        mRecyclerView.setLayoutManager(mManager);
+
     }
 
 

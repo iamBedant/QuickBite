@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.iambedant.nanodegree.quickbite.ui.views.MaxWidthFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:maxWidth="@dimen/max_width_detail_layout"
+    android:orientation="vertical">
+    <LinearLayout
+        android:padding="@dimen/padding_small"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/review_header_height"
+        android:background="@color/light_grey"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile_pic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_bg" />
+
+        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:font="SourceSansPro-Semibold"
+            tools:text="Mr John Doe" />
+
+        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:id="@+id/tv_foodie_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:font="SourceSansPro-Light"
+            tools:text="@string/foodie_level" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="PROFILE" />
+
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/review_header_height" />
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:font="SourceSansPro-Semibold"
+                    tools:text="@string/lorem_ipsum"
+                    android:id="@+id/fontTextView"
+                    style="@style/readable_text" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</com.iambedant.nanodegree.quickbite.ui.views.MaxWidthFrameLayout>

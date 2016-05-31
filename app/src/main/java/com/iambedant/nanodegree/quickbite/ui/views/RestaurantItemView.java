@@ -30,7 +30,7 @@ public class RestaurantItemView extends CardView {
     @Bind(R.id.cuisine)
     TextView mTextViewCuisine;
 
-    @Bind(R.id.image)
+    @Bind(R.id.container)
     ImageView mImageViewImage;
 
     @Bind(R.id.rating)

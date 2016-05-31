@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#efefef"
+    android:transitionName="@string/transition_name_layout"
     android:clickable="true"
     android:foreground="@drawable/mid_grey_ripple">
 
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/light_grey"
