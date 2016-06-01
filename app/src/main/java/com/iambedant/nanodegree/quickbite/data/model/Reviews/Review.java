@@ -1,13 +1,16 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.Reviews;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Review {
+public class Review implements Parcelable {
 
     @SerializedName("rating")
     @Expose
@@ -41,7 +44,7 @@ public class Review {
     private Integer commentsCount;
 
     /**
-     * 
+     *
      * @return
      *     The rating
      */
@@ -50,7 +53,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param rating
      *     The rating
      */
@@ -59,7 +62,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The reviewText
      */
@@ -68,7 +71,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param reviewText
      *     The review_text
      */
@@ -77,7 +80,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The id
      */
@@ -86,7 +89,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param id
      *     The id
      */
@@ -95,7 +98,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The ratingColor
      */
@@ -104,7 +107,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param ratingColor
      *     The rating_color
      */
@@ -113,7 +116,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The reviewTimeFriendly
      */
@@ -122,7 +125,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param reviewTimeFriendly
      *     The review_time_friendly
      */
@@ -131,7 +134,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The ratingText
      */
@@ -140,7 +143,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param ratingText
      *     The rating_text
      */
@@ -149,7 +152,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The timestamp
      */
@@ -158,7 +161,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param timestamp
      *     The timestamp
      */
@@ -167,7 +170,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The likes
      */
@@ -176,7 +179,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param likes
      *     The likes
      */
@@ -185,7 +188,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The user
      */
@@ -194,7 +197,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param user
      *     The user
      */
@@ -203,7 +206,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @return
      *     The commentsCount
      */
@@ -212,7 +215,7 @@ public class Review {
     }
 
     /**
-     * 
+     *
      * @param commentsCount
      *     The comments_count
      */
@@ -220,4 +223,69 @@ public class Review {
         this.commentsCount = commentsCount;
     }
 
+
+    protected Review(Parcel in) {
+        rating = in.readByte() == 0x00 ? null : in.readDouble();
+        reviewText = in.readString();
+        id = in.readString();
+        ratingColor = in.readString();
+        reviewTimeFriendly = in.readString();
+        ratingText = in.readString();
+        timestamp = in.readByte() == 0x00 ? null : in.readInt();
+        likes = in.readByte() == 0x00 ? null : in.readInt();
+        user = (User) in.readValue(User.class.getClassLoader());
+        commentsCount = in.readByte() == 0x00 ? null : in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (rating == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeDouble(rating);
+        }
+        dest.writeString(reviewText);
+        dest.writeString(id);
+        dest.writeString(ratingColor);
+        dest.writeString(reviewTimeFriendly);
+        dest.writeString(ratingText);
+        if (timestamp == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(timestamp);
+        }
+        if (likes == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(likes);
+        }
+        dest.writeValue(user);
+        if (commentsCount == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(commentsCount);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
+        @Override
+        public Review createFromParcel(Parcel in) {
+            return new Review(in);
+        }
+
+        @Override
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
+    };
 }

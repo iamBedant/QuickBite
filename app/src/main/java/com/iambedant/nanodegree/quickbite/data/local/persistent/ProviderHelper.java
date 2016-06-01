@@ -153,4 +153,12 @@ public class ProviderHelper {
     public Loader<Cursor> getFavouriteRestaurants() {
         return new CursorLoader(mContext,DataContract.RestaurantEntry.CONTENT_URI,null,null,null,null);
     }
+
+    public Cursor getAllCuisines(){
+        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
 }

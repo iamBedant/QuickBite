@@ -1,12 +1,16 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.Reviews;
 
-import javax.annotation.Generated;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Generated;
+
 @Generated("org.jsonschema2pojo")
-public class User {
+public class User implements Parcelable {
 
     @SerializedName("name")
     @Expose
@@ -34,7 +38,7 @@ public class User {
     private String profileDeeplink;
 
     /**
-     * 
+     *
      * @return
      *     The name
      */
@@ -43,7 +47,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param name
      *     The name
      */
@@ -52,7 +56,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The zomatoHandle
      */
@@ -61,7 +65,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param zomatoHandle
      *     The zomato_handle
      */
@@ -70,7 +74,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The foodieLevel
      */
@@ -79,7 +83,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param foodieLevel
      *     The foodie_level
      */
@@ -88,7 +92,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The foodieLevelNum
      */
@@ -97,7 +101,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param foodieLevelNum
      *     The foodie_level_num
      */
@@ -106,7 +110,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The foodieColor
      */
@@ -115,7 +119,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param foodieColor
      *     The foodie_color
      */
@@ -124,7 +128,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The profileUrl
      */
@@ -133,7 +137,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param profileUrl
      *     The profile_url
      */
@@ -142,7 +146,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The profileImage
      */
@@ -151,7 +155,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param profileImage
      *     The profile_image
      */
@@ -160,7 +164,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @return
      *     The profileDeeplink
      */
@@ -169,7 +173,7 @@ public class User {
     }
 
     /**
-     * 
+     *
      * @param profileDeeplink
      *     The profile_deeplink
      */
@@ -177,4 +181,50 @@ public class User {
         this.profileDeeplink = profileDeeplink;
     }
 
+
+    protected User(Parcel in) {
+        name = in.readString();
+        zomatoHandle = in.readString();
+        foodieLevel = in.readString();
+        foodieLevelNum = in.readByte() == 0x00 ? null : in.readInt();
+        foodieColor = in.readString();
+        profileUrl = in.readString();
+        profileImage = in.readString();
+        profileDeeplink = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(zomatoHandle);
+        dest.writeString(foodieLevel);
+        if (foodieLevelNum == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(foodieLevelNum);
+        }
+        dest.writeString(foodieColor);
+        dest.writeString(profileUrl);
+        dest.writeString(profileImage);
+        dest.writeString(profileDeeplink);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

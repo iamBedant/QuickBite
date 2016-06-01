@@ -17,6 +17,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+        <provider
+            android:name=".data.local.persistent.DataProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false"
+            android:syncable="true" />
+
 
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.Login.LoginActivity" />
@@ -34,12 +45,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".data.local.persistent.DataProvider"
-            android:authorities="@string/content_authority"
-            android:exported="false"
-            android:syncable="true" />
-
         <activity
             android:name=".ui.home.Home"
             android:theme="@style/App" />
@@ -47,10 +52,6 @@
             android:name=".ui.list.ListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/App.Home" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".ui.favourites.Favourites"
@@ -60,6 +61,11 @@
             android:name=".ui.restaurant.RestaurantActivity"
             android:label="@string/title_activity_restaurant"
             android:theme="@style/App"></activity>
+        <activity
+            android:name=".ui.review.FullReview"
+            android:theme="@style/App.Review" />
+
+        <activity android:name=".ui.searchCuisines.CuisineSearch" />
     </application>
 
 </manifest>

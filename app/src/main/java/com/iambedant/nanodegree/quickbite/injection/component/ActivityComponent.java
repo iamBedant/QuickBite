@@ -11,6 +11,7 @@ import com.iambedant.nanodegree.quickbite.ui.list.ListActivity;
 import com.iambedant.nanodegree.quickbite.ui.main.MainActivity;
 import com.iambedant.nanodegree.quickbite.ui.restaurant.RestaurantActivity;
 import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
+import com.iambedant.nanodegree.quickbite.ui.searchCuisines.CuisineSearch;
 
 
 import dagger.Component;
@@ -39,6 +40,8 @@ public interface ActivityComponent {
     void inject(FullReview fullReview);
 
     void inject(RestaurantActivity restaurantActivity);
+
+    void inject(CuisineSearch cuisineSearch);
 
 //    void inject(RestaurantAdapter restaurantAdapter, RestaurantAdapter.OnRestaurantClick onRestaurantClick);
 //

@@ -1,6 +1,9 @@
 
 package com.iambedant.nanodegree.quickbite.data.model.Reviews;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Reviews {
+public class Reviews implements Parcelable {
 
     @SerializedName("reviews_count")
     @Expose
@@ -29,7 +32,7 @@ public class Reviews {
     private String RespondToReviewsViaZomatoDashboard;
 
     /**
-     * 
+     *
      * @return
      *     The reviewsCount
      */
@@ -38,7 +41,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @param reviewsCount
      *     The reviews_count
      */
@@ -47,7 +50,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @return
      *     The reviewsStart
      */
@@ -56,7 +59,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @param reviewsStart
      *     The reviews_start
      */
@@ -65,7 +68,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @return
      *     The reviewsShown
      */
@@ -74,7 +77,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @param reviewsShown
      *     The reviews_shown
      */
@@ -83,7 +86,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @return
      *     The userReviews
      */
@@ -92,7 +95,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @param userReviews
      *     The user_reviews
      */
@@ -101,7 +104,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @return
      *     The RespondToReviewsViaZomatoDashboard
      */
@@ -110,7 +113,7 @@ public class Reviews {
     }
 
     /**
-     * 
+     *
      * @param RespondToReviewsViaZomatoDashboard
      *     The Respond to reviews via Zomato Dashboard
      */
@@ -118,4 +121,64 @@ public class Reviews {
         this.RespondToReviewsViaZomatoDashboard = RespondToReviewsViaZomatoDashboard;
     }
 
+
+    protected Reviews(Parcel in) {
+        reviewsCount = in.readByte() == 0x00 ? null : in.readInt();
+        reviewsStart = in.readByte() == 0x00 ? null : in.readInt();
+        reviewsShown = in.readByte() == 0x00 ? null : in.readInt();
+        if (in.readByte() == 0x01) {
+            userReviews = new ArrayList<UserReview>();
+            in.readList(userReviews, UserReview.class.getClassLoader());
+        } else {
+            userReviews = null;
+        }
+        RespondToReviewsViaZomatoDashboard = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (reviewsCount == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(reviewsCount);
+        }
+        if (reviewsStart == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(reviewsStart);
+        }
+        if (reviewsShown == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(reviewsShown);
+        }
+        if (userReviews == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(userReviews);
+        }
+        dest.writeString(RespondToReviewsViaZomatoDashboard);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Reviews> CREATOR = new Parcelable.Creator<Reviews>() {
+        @Override
+        public Reviews createFromParcel(Parcel in) {
+            return new Reviews(in);
+        }
+
+        @Override
+        public Reviews[] newArray(int size) {
+            return new Reviews[size];
+        }
+    };
 }

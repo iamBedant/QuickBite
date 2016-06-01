@@ -1,10 +1,14 @@
 package com.iambedant.nanodegree.quickbite.ui.restaurant;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +32,7 @@ import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailMvpView;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailPresenter;
+import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
@@ -37,6 +42,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.iambedant.nanodegree.quickbite.R.id.map;
 
@@ -63,7 +69,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     Button mButtonOrderNow;
     @Bind(R.id.scroll)
     NestedScrollView mScrollView;
-
+    Activity host;
 
     Restaurant_ mRestaurant;
     Context mContext;
@@ -79,9 +85,10 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         getActivityComponent().inject(this);
 
 
-     //   postponeEnterTransition();
+        //   postponeEnterTransition();
 
         mContext = this;
+        host = this;
         mDetailPresenter.attachView(this);
         final Intent intent = getIntent();
         if (intent.hasExtra(Constants.CURRENT_RESTAURANT)) {
@@ -128,8 +135,16 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 .priority(Priority.IMMEDIATE)
                 .into(mImageViewCover);
 
+
+        if (mDetailPresenter.isRestaurantPresent(mRestaurant.getId())) {
+// Filled Heart Icon
+        } else {
+//Outline Heart Icon
+        }
+
+
         mTextViewAddress.setText(mRestaurant.getLocation().getAddress());
-        mTextViewCosts.setText("Rs "+ mRestaurant.getAverageCostForTwo() + "For two people(Approx) ");
+        mTextViewCosts.setText("Rs " + mRestaurant.getAverageCostForTwo() + "For two people(Approx) ");
 
         mTextViewCuisines.setText(mRestaurant.getCuisines());
         if (mRestaurant.getHasOnlineDelivery() == 0) {
@@ -164,7 +179,6 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
 
-
     private void addReviewLayout(final UserReview review) {
 
         View reviewView = getLayoutInflater().inflate(R.layout.item_review, null, false);
@@ -175,7 +189,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         TextView mTextViewReview = (TextView) reviewView.findViewById(R.id.tv_review);
         Button mButtonSeeMore = (Button) reviewView.findViewById(R.id.btn_see_more);
 
-        ImageView mImageViewProfilepic = (ImageView) reviewView.findViewById(R.id.iv_profile_pic);
+        final ImageView mImageViewProfilepic = (ImageView) reviewView.findViewById(R.id.iv_profile_pic);
 
         mTextViewName.setText(review.getReview().getUser().getName());
         mTextViewFoodieLevel.setText(review.getReview().getUser().getFoodieLevel());
@@ -185,12 +199,22 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(mContext, FullReview.class);
+                intent.putExtra(Constants.CURRENT_REVIEW, review.getReview());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Pair<View, String> profileImagePair = new Pair<View, String>(mImageViewProfilepic, getString(R.string.reviewer_transition_name));
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(host,profileImagePair).toBundle());
+
+                } else {
+                    startActivity(intent);
+                }
 
             }
         });
         //TODO: use a fallback image in case of Glide error
         Glide.with(mContext)
                 .load(review.getReview().getUser().getProfileImage())
+                .override(480,400)
                 .into(mImageViewProfilepic);
         mLinearlayoutReviewContainer.addView(reviewView);
     }
@@ -205,5 +229,29 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(Double.parseDouble(mRestaurant.getLocation().getLatitude()), Double.parseDouble(mRestaurant.getLocation().getLongitude())))
                 .title(mRestaurant.getName()));
+    }
+
+
+    @OnClick(R.id.img_btn_favourite)
+    public void saveFavouriteRestaurant() {
+
+        if (mDetailPresenter.isRestaurantPresent(mRestaurant.getId())) {
+            mDetailPresenter.deleteRestaurant(mRestaurant.getId());
+            //Change Icon
+        } else {
+            mDetailPresenter.saveRestaurant(mRestaurant);
+            //change Icon
+        }
+
+    }
+
+    @OnClick(R.id.img_btn_direction)
+    public void getDirectionToTheRestaurant() {
+
+    }
+
+    @OnClick(R.id.img_btn_zomato)
+    public void openZomato() {
+        //TODO: Open Zomato Intent
     }
 }

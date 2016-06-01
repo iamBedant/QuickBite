@@ -16,6 +16,12 @@ public class Cuisine_ {
     @Expose
     private String cuisineName;
 
+
+    public Cuisine_(Integer cuisineId, String cuisineName) {
+        this.cuisineId = cuisineId;
+        this.cuisineName = cuisineName;
+    }
+
     /**
      * 
      * @return

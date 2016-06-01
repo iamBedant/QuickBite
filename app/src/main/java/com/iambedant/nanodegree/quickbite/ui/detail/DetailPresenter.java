@@ -80,4 +80,7 @@ public class DetailPresenter extends BasePresenter<DetailMvpView> {
                 });
     }
 
+    public boolean isRestaurantPresent(String id) {
+        return mDataManager.isRestaurantPresent(id);
+    }
 }

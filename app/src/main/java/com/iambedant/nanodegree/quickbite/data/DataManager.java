@@ -161,11 +161,21 @@ public class DataManager {
     }
 
     public String getLon() {
-      return   mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LON,0.0)+"";
+        return mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LON, 0.0) + "";
     }
 
 
     public String getLat() {
-        return   mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LAT,0.0)+"";
+        return mPreferencesHelper.getDouble(Constants.LAST_KNOWN_LAT, 0.0) + "";
+    }
+
+    public boolean isRestaurantPresent(String id) {
+        return mProviderHelper.isRestaurantPresent(id);
+    }
+
+    public Cursor getAllCuisines() {
+        Cursor mCursor = null;
+        mCursor = mProviderHelper.getAllCuisines();
+        return mCursor;
     }
 }

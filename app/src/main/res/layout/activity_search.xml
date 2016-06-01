@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            style="@style/BackButton" />
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchview"
+            android:iconifiedByDefault="false"
+            android:layout_width="match_parent"
+            app:font="SourceSansPro-Light"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/back"
+            android:hint="Start Typing Here..."
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="8dp">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="30dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</FrameLayout>

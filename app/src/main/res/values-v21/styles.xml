@@ -25,6 +25,11 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="App.Review">
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/shared_review_full
+        </item>
+    </style>
 
     <style name="Widget.QuickBite.Toolbar">
         <item name="android:titleTextAppearance">

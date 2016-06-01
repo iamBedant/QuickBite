@@ -12,6 +12,7 @@ public class Constants {
     public static final String ZOMATO_API_KEY = BuildConfig.ZOMATO_API_KEY;
 
     public static final String CURRENT_RESTAURANT = "current_restaurant";
+    public static final String CURRENT_REVIEW = "current_review";
 
     public static final String TYPE_EXTRA_KEY = "_selected_key";
 

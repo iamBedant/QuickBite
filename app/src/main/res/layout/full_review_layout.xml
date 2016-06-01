@@ -16,6 +16,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_pic"
+            android:transitionName="@string/reviewer_transition_name"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
@@ -23,6 +24,7 @@
             android:src="@drawable/home_bg" />
 
         <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -38,8 +40,10 @@
             tools:text="@string/foodie_level" />
 
         <Button
+            android:id="@+id/btn_view_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_gravity="center_horizontal"
             android:text="PROFILE" />
 
@@ -52,9 +56,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <Space
-                android:layout_width="match_parent"
+                android:layout_width="1dp"
                 android:layout_height="@dimen/review_header_height" />
             <LinearLayout
+                android:id="@+id/content"
+                android:padding="@dimen/padding_small"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -65,7 +71,7 @@
                     android:layout_height="match_parent"
                     app:font="SourceSansPro-Semibold"
                     tools:text="@string/lorem_ipsum"
-                    android:id="@+id/fontTextView"
+                    android:id="@+id/tv_review"
                     style="@style/readable_text" />
             </LinearLayout>
         </LinearLayout>

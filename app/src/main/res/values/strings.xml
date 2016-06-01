@@ -60,4 +60,5 @@
     <string name="title_activity_tail">TailActivity</string>
     <string name="title_activity_full_review">FullReview</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
+    <string name="reviewer_transition_name">reviewer_image</string>
 </resources>

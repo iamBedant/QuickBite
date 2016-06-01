@@ -15,6 +15,10 @@
 
     </style>
 
+    <style name="App.Review">
+
+    </style>
+
     <style name="App.SplashScreen">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
@@ -98,6 +102,14 @@
     <style name="restaurant_left_text">
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BackButton">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:background">@drawable/mid_grey_ripple</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
 
