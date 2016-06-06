@@ -18,6 +18,12 @@
         </item>
     </style>
 
+    <style name="App.Search">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="App.DetailsTest">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

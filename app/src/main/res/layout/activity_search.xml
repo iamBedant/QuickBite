@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/root_layout"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:elevation="8dp">
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/back"
             android:src="@drawable/ic_arrow_back_black_24dp"
             style="@style/BackButton" />
-        <android.support.v7.widget.SearchView
+        <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
             android:id="@+id/searchview"
             android:iconifiedByDefault="false"
             android:layout_width="match_parent"
@@ -30,8 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="@color/white"
-        android:elevation="8dp">
+        android:background="@color/white">
 
         <ProgressBar
             android:id="@+id/progress"

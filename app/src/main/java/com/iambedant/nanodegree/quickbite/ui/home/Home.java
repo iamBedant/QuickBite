@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.ui.favourites.Favourites;
 import com.iambedant.nanodegree.quickbite.ui.list.ListActivity;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
@@ -93,7 +94,8 @@ public class Home extends BaseActivity implements HomeMvpView {
 
     @OnClick(R.id.rl_favourite)
     public void openFavouriteActivity() {
-
+        Intent intent = new Intent(mContext, Favourites.class);
+        startActivity(intent);
     }
 
     @Override

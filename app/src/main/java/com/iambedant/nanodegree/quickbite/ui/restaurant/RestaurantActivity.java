@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,6 +71,10 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     Button mButtonOrderNow;
     @Bind(R.id.scroll)
     NestedScrollView mScrollView;
+    @Bind(R.id.img_btn_favourite)
+    ImageButton mimageButtonFavourite;
+
+
     Activity host;
 
     Restaurant_ mRestaurant;
@@ -137,9 +143,11 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
 
         if (mDetailPresenter.isRestaurantPresent(mRestaurant.getId())) {
-// Filled Heart Icon
+            mimageButtonFavourite.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_black_24dp));
+
         } else {
-//Outline Heart Icon
+            mimageButtonFavourite.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_border_black_24dp));
+
         }
 
 
@@ -203,7 +211,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 intent.putExtra(Constants.CURRENT_REVIEW, review.getReview());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Pair<View, String> profileImagePair = new Pair<View, String>(mImageViewProfilepic, getString(R.string.reviewer_transition_name));
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(host,profileImagePair).toBundle());
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(host, profileImagePair).toBundle());
 
                 } else {
                     startActivity(intent);
@@ -214,7 +222,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         //TODO: use a fallback image in case of Glide error
         Glide.with(mContext)
                 .load(review.getReview().getUser().getProfileImage())
-                .override(480,400)
+                .override(480, 400)
                 .into(mImageViewProfilepic);
         mLinearlayoutReviewContainer.addView(reviewView);
     }
@@ -237,10 +245,11 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
         if (mDetailPresenter.isRestaurantPresent(mRestaurant.getId())) {
             mDetailPresenter.deleteRestaurant(mRestaurant.getId());
-            //Change Icon
+            mimageButtonFavourite.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_border_black_24dp));
+
         } else {
             mDetailPresenter.saveRestaurant(mRestaurant);
-            //change Icon
+            mimageButtonFavourite.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_black_24dp));
         }
 
     }

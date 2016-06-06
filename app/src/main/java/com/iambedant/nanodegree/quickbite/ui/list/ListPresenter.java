@@ -43,12 +43,18 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
     }
 
 
-    public void loadInitialData(int SELECTION_TYPE) {
+    public void loadInitialData(int SELECTION_TYPE, String cuisineId) {
 
         getMvpView().controlLoading(true);
         HashMap<String, String> params = new HashMap<String, String>();
+
         params.put(Constants.LAT_KEY, mDataManager.getLat());
         params.put(Constants.LON_KEY, mDataManager.getLon());
+
+        if(cuisineId!= null && !cuisineId.isEmpty()){
+            params.put(Constants.CUISINE_ID, cuisineId);
+        }
+
         switch (SELECTION_TYPE) {
             case Constants.TYPE_DINNER:
                 params.put(Constants.CATEGORY_KEY, "2");

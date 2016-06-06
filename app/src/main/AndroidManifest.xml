@@ -65,7 +65,8 @@
             android:name=".ui.review.FullReview"
             android:theme="@style/App.Review" />
 
-        <activity android:name=".ui.searchCuisines.CuisineSearch" />
+        <activity android:name=".ui.searchCuisines.CuisineSearch"
+            android:theme="@style/App.Search"/>
     </application>
 
 </manifest>

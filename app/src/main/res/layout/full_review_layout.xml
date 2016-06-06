@@ -55,9 +55,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <Space
-                android:layout_width="1dp"
-                android:layout_height="@dimen/review_header_height" />
+            <LinearLayout
+                android:padding="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/review_header_height"
+                android:background="@color/transparent"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:transitionName="@string/reviewer_transition_name"
+                    android:layout_width="80dp"
+                    android:visibility="invisible"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_bg" />
+
+                <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:font="SourceSansPro-Semibold"
+                    tools:text="Mr John Doe" />
+
+                <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:font="SourceSansPro-Light"
+                    tools:text="@string/foodie_level" />
+
+                <Button
+                    android:id="@+id/btn_view_profile_fake"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_gravity="center_horizontal"
+                    android:text="PROFILE" />
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/content"
                 android:padding="@dimen/padding_small"

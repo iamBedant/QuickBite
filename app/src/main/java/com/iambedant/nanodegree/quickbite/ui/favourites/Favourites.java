@@ -37,7 +37,9 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
         ButterKnife.bind(this);
         mContext = this;
         setUpToolbar();
-        getLoaderManager().initLoader(0, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+
+        getLoaderManager().initLoader(FAVOURITE_LOADER, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+
         mFavouriteAdapter = new FavouriteAdapter(mContext);
 
     }

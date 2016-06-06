@@ -2,14 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="52dp"
+    android:background="@color/light_grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
+    android:id="@+id/item"
     android:foreground="@drawable/mid_grey_ripple"
     android:orientation="horizontal">
 
     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
         android:layout_width="wrap_content"
+        android:id="@+id/tv_main_text"
         android:layout_height="wrap_content"
         app:font="SourceSansPro-Light"
         android:layout_marginTop="15dp"
@@ -21,6 +24,6 @@
 
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:background="@color/scrim"
+        android:background="@color/hint_disabled_dark"
         android:layout_height="1dp"/>
 </RelativeLayout>

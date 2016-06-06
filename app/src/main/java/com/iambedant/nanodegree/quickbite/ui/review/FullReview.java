@@ -3,9 +3,12 @@ package com.iambedant.nanodegree.quickbite.ui.review;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.iambedant.nanodegree.quickbite.R;
@@ -18,6 +21,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 public class FullReview extends BaseActivity implements ReviewMvpView {
 
@@ -38,6 +42,9 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
 
     @Bind(R.id.btn_view_profile)
     Button mButtonProfile;
+
+    @Bind(R.id.btn_view_profile_fake)
+    Button mButtonProfileFake;
 
     @Bind(R.id.iv_profile_pic)
     ImageView mImageViewProfile;
@@ -73,11 +80,22 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
         mTextViewFoodieLevel.setText(mReview.getUser().getFoodieLevel());
         mTextViewReview.setText(mReview.getReviewText());
 
+
+        mButtonProfileFake.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return mButtonProfile.dispatchTouchEvent(event);
+            }
+        });
+
     }
 
     @OnClick(R.id.btn_view_profile)
     public void openReviewerProfile(){
-
+        Toast.makeText(mContext,"This is from Click event",Toast.LENGTH_SHORT).show();
     }
-
+    @OnTouch(R.id.btn_view_profile)
+    public void openReviewProfileTouch(){
+        Toast.makeText(mContext,"This is from touch event",Toast.LENGTH_SHORT).show();
+    }
 }
