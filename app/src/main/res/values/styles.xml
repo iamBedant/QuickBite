@@ -70,6 +70,15 @@
 
     <style name="App.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="restaurant_section_name">
+        <item name="android:textColor">@color/dribbble_super_dark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+
+
     <style name="readable_text">
         <item name="android:textSize">14sp</item>
         <item name="android:padding">@dimen/padding_small</item>

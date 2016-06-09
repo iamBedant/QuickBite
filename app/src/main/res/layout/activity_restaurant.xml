@@ -6,24 +6,40 @@
     android:fitsSystemWindows="true"
     android:transitionName="@string/transition_name_layout">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="200dp">
 
-    </android.support.v7.widget.Toolbar>
+        <com.iambedant.nanodegree.quickbite.ui.views.FourThreeImageView
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:transitionName="image" />
 
-    <com.iambedant.nanodegree.quickbite.ui.views.FourThreeImageView
-        android:id="@+id/container"
-        android:transitionName="image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/scrim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:alpha="@integer/one"
+            android:background="@color/transparent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
 
 
     <include
         layout="@layout/restaurant_layout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"></include>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/transparent"
+        android:layout_height="?attr/actionBarSize"
+        android:alpha="@integer/one">
+
+    </android.support.v7.widget.Toolbar>
 
 
 </FrameLayout>

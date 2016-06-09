@@ -11,6 +11,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,13 +76,21 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     @Bind(R.id.img_btn_favourite)
     ImageButton mimageButtonFavourite;
 
+    @Bind(R.id.scrim)
+    ImageView mScrim;
+
 
     Activity host;
 
     Restaurant_ mRestaurant;
+
+    Boolean isReviewLoaded = false;
+
     Context mContext;
     @Inject
     DetailPresenter mDetailPresenter;
+
+    ArrayList<UserReview> mListUserReviews;
 
 
     @Override
@@ -103,12 +113,21 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
         mapFragment.getMapAsync(this);
-        bindUi();
+
+
         if (savedInstanceState == null) {
             initApiCall();
         } else {
-
+            mRestaurant = savedInstanceState.getParcelable(Constants.BUNDLE_SELECTED_RESTAURANT);
+            if (savedInstanceState.getBoolean(Constants.BUNDLE_LOADED_REVIEW)) {
+                ArrayList<UserReview> reviewList = savedInstanceState.getParcelableArrayList(Constants.BUNDLE_LOADED_REVIEW);
+                showReviews(reviewList);
+            } else {
+                initApiCall();
+            }
         }
+
+        bindUi();
 
     }
 
@@ -121,25 +140,42 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(Constants.BUNDLE_IS_DATA_LOADED, isReviewLoaded);
+        if (isReviewLoaded) {
+            outState.putParcelableArrayList(Constants.BUNDLE_LOADED_REVIEW, mListUserReviews);
+        } else {
+            outState.putParcelable(Constants.BUNDLE_SELECTED_RESTAURANT, mRestaurant);
+        }
+    }
+
     private void bindUi() {
         Glide.with(this)
                 .load(mRestaurant.getFeaturedImage())
                 .override(480, 400)
-//                .listener(new RequestListener<String, GlideDrawable>() {
-//                    @Override
-//                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                       startPostponedEnterTransition();
-//                        return true;
-//                    }
-//                })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .priority(Priority.IMMEDIATE)
                 .into(mImageViewCover);
+
+
+        //todo: set the color using pallete APi
+
+        mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        mScrim.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        mScrim.setAlpha(0);
+        //todo: use setImageAlpha() for API level 16 and above
+
+        //todo: Add Scroll Listnr to increase the alpha of Toolbar and scrim
+
+        mImageViewCover.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                scrollChange();
+            }
+        });
 
 
         if (mDetailPresenter.isRestaurantPresent(mRestaurant.getId())) {
@@ -157,15 +193,44 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         mTextViewCuisines.setText(mRestaurant.getCuisines());
         if (mRestaurant.getHasOnlineDelivery() == 0) {
             mTextViewDelivery.setText(R.string.delivery_available_text);
-            // mTextViewDelivery.setTextColor(ContextCompact.);
+            mTextViewDelivery.setTextColor(ContextCompat.getColor(mContext, R.color.color_available));
             if (mRestaurant.getIsDeliveringNow() == 1) {
                 mButtonOrderNow.setVisibility(View.VISIBLE);
             }
 
         } else {
             mTextViewDelivery.setText(R.string.delivery_not_available);
+            mTextViewDelivery.setTextColor(ContextCompat.getColor(mContext, R.color.colorTextSecondary));
         }
     }
+
+    public void scrollChange() {
+        final int scrollOrigin = mImageViewCover.getMeasuredHeight();
+        final int scrimStart = 100;
+
+        final float factor = (float) 1;
+        mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if ((scrollY) >= scrimStart) {
+                    Float f = factor * (scrollY - (scrimStart));
+
+                    if(f>255){
+                        f=(float)255;
+                    }
+                    mScrim.getBackground().setAlpha(Math.round(f));
+                    mToolbar.getBackground().setAlpha(Math.round(f));
+                } else {
+                    mScrim.getBackground().setAlpha(0);
+                    mToolbar.getBackground().setAlpha(0);
+                }
+
+            }
+        });
+
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -181,9 +246,12 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
     @Override
     public void showReviews(List<UserReview> mListReview) {
+        // mListUserReviews.clear();
         for (UserReview review : mListReview) {
             addReviewLayout(review);
         }
+        // mListUserReviews = (ArrayList<UserReview>) mListReview;
+
     }
 
 

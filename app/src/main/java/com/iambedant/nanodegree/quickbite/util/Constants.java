@@ -44,7 +44,9 @@ public class Constants {
     public static final String BUNDLE_IS_DATA_LOADED= "bundle_is_data_loaded";
     public static final String BUNDLE_LIST_RESTAURANTS = "bundle_list_restaurant";
     public static final String BUNDLE_SELECTED_CUISINE = "bundle_selected_cuisine";
-    public static final String BUNDLE_SELECTION_TYPE = "bundle_selected_cuisine";
+    public static final String BUNDLE_SELECTION_TYPE = "bundle_selection_type";
+    public static final String BUNDLE_LOADED_REVIEW = "bundle_loaded_review";
+    public static final String BUNDLE_SELECTED_RESTAURANT = "bundle_selected_restaurant";
 
     public static final int ERROR_TYPE_NETWORK =1;
     public static final int ERROR_TYPE_NO_DATA =2;

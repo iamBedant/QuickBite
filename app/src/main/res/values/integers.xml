@@ -18,6 +18,7 @@
 <resources>
     <integer name="rapid_animation">120</integer>
     <integer name="fab_expand_duration">368</integer>
+    <integer name="zero">0</integer>
     <integer name="one">1</integer>
     <integer name="two">2</integer>
     <integer name="three">3</integer>

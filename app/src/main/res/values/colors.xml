@@ -29,4 +29,5 @@
     <color name="color_bar">#A6554444</color>
     <color name="color_coffee">#A6b9a0a0</color>
     <color name="color_favourite">#A6221c1c</color>
+    <color name="color_available">#1f751f</color>
 </resources>

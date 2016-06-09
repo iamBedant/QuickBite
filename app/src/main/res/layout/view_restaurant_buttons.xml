@@ -1,0 +1,48 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_medium"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:id="@+id/img_btn_direction"
+            style="@style/QuickBiteTappable"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/c_d_get_direction_button"
+            android:src="@drawable/ic_directions_car_black_24dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:id="@+id/img_btn_favourite"
+            style="@style/QuickBiteTappable"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/c_d_add_to_my_favourite_button"
+            android:src="@drawable/ic_favorite_border_black_24dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:id="@+id/img_btn_zomato"
+            style="@style/QuickBiteTappable"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/c_d_view_on_zomato_button"
+            android:src="@drawable/common_google_signin_btn_icon_dark_normal" />
+    </RelativeLayout>
+</LinearLayout>

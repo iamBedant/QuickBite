@@ -5,11 +5,15 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import javax.inject.Inject;
 
@@ -22,10 +26,13 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     private FavouriteAdapter mFavouriteAdapter;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-
+    @Bind(R.id.progressbar)
+    ProgressBar mProgressBar;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
     Context mContext;
+
+    private final String TAG = Favourites.class.getSimpleName();
 
     private static final int FAVOURITE_LOADER = 0;
 
@@ -37,10 +44,12 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
         ButterKnife.bind(this);
         mContext = this;
         setUpToolbar();
-
-        getLoaderManager().initLoader(FAVOURITE_LOADER, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+        getSupportLoaderManager().initLoader(FAVOURITE_LOADER, null,this);
 
         mFavouriteAdapter = new FavouriteAdapter(mContext);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mFavouriteAdapter);
 
     }
 
@@ -61,16 +70,21 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Logger.d(TAG, "Loader Created");
         return mFavouritePresenter.getFavouriteRestaurants();
+
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Logger.d(TAG, "Loader Finished");
+        mProgressBar.setVisibility(View.GONE);
         mFavouriteAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        Logger.d(TAG, "Loader Restarted");
         mFavouriteAdapter.swapCursor(null);
     }
 
