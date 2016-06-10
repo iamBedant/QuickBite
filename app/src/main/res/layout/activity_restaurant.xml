@@ -16,13 +16,17 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:transitionName="image" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/toolbar_scrim"/>
 
         <ImageView
             android:id="@+id/scrim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:alpha="@integer/one"
+            android:alpha="1"
             android:background="@color/transparent"
             android:scaleType="centerCrop" />
     </FrameLayout>
@@ -35,10 +39,19 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        style="@style/Widget.QuickBite.HomeToolbar"
         android:background="@color/transparent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_height="?attr/actionBarSize"
-        android:alpha="@integer/one">
-
+        android:alpha="1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                android:id="@+id/tv_toolbar_title"
+                app:font="SourceSansPro-Regular"
+                style="@style/toolbar_text" />
+        </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
 

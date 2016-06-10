@@ -51,7 +51,7 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
         params.put(Constants.LAT_KEY, mDataManager.getLat());
         params.put(Constants.LON_KEY, mDataManager.getLon());
 
-        if(cuisineId!= null && !cuisineId.isEmpty()){
+        if (cuisineId != null && !cuisineId.isEmpty()) {
             params.put(Constants.CUISINE_ID, cuisineId);
         }
 
@@ -92,12 +92,11 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
                     @Override
                     public void onNext(SearchResult searchResult) {
-                        Logger.i(TAG,"Search successfull");
+                        Logger.i(TAG, "Search successfull");
                         getMvpView().controlLoading(false);
-                        if(searchResult.getRestaurants().size()>0){
+                        if (searchResult.getRestaurants().size() > 0) {
                             getMvpView().showRestaurants(searchResult.getRestaurants());
-                        }
-                        else {
+                        } else {
                             getMvpView().showErrorView(Constants.ERROR_TYPE_NO_DATA);
                         }
 
@@ -107,4 +106,31 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
     }
 
+    public void setUpToolBar(int SELECTION_TYPE) {
+
+        String title;
+
+        switch (SELECTION_TYPE) {
+            case Constants.TYPE_DINNER:
+               title = "DINNER";
+                break;
+            case Constants.TYPE_TAKE_AWAY:
+                title = "TAKE AWAY";
+                break;
+            case Constants.TYPE_BREAKFAST:
+                title = "BREAKFAST";
+                break;
+            case Constants.TYPE_COFFEE:
+                title = "COFFEE";
+                break;
+            case Constants.TYPE_BAR:
+                title = "BAR";
+                break;
+            default:
+                title = "";
+                break;
+        }
+
+        getMvpView().setUpToolbar(title);
+    }
 }

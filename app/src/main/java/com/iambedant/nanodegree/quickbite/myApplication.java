@@ -17,10 +17,7 @@ public class myApplication extends Application  {
     public void onCreate() {
         super.onCreate();
         Firebase.setAndroidContext(this);
-//        if (BuildConfig.DEBUG) {
-//            Timber.plant(new Timber.DebugTree());
-//            Fabric.with(this, new Crashlytics());
-//        }
+
     }
 
     public static myApplication get(Context context) {

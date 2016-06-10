@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
@@ -38,6 +40,9 @@ public class ListActivity extends BaseActivity implements ListMvpView {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     Boolean isLoadingComplete = false;
+
+    @Bind(R.id.tv_toolbar_title)
+    TextView mTextViewToolBarTitle;
 
     @Bind(R.id.root)
     CoordinatorLayout mRootLayout;
@@ -75,7 +80,6 @@ public class ListActivity extends BaseActivity implements ListMvpView {
         ButterKnife.bind(this);
         mContext = this;
         mListPresenter.attachView(this);
-        setUpToolbar();
         initRecyclerView();
 
         if (getIntent() != null) {
@@ -84,6 +88,8 @@ public class ListActivity extends BaseActivity implements ListMvpView {
             }
         }
 
+
+        mListPresenter.setUpToolBar(SELECTION_TYPE);
 
         if (savedInstanceState == null) {
             initApiCall();
@@ -174,13 +180,21 @@ public class ListActivity extends BaseActivity implements ListMvpView {
         super.onDestroy();
         mListPresenter.detachView();
     }
-
-    private void setUpToolbar() {
+    @Override
+    public void setUpToolbar(String title) {
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            mTextViewToolBarTitle.setText(title);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
 
     }
@@ -216,7 +230,13 @@ public class ListActivity extends BaseActivity implements ListMvpView {
     @Override
     public void showRestaurants(List<Restaurant> mRestaurantList) {
         isLoadingComplete = true;
-        mListAdapter.setItems(mRestaurantList);
+        if( mRestaurantList.size()>0){
+            mListAdapter.setItems(mRestaurantList);
+        }else {
+            Toast.makeText(mContext, "Restaurant for this cat is not avalable", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     @Override

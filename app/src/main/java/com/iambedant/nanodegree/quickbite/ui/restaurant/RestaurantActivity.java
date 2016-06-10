@@ -37,10 +37,10 @@ import com.iambedant.nanodegree.quickbite.ui.detail.DetailMvpView;
 import com.iambedant.nanodegree.quickbite.ui.detail.DetailPresenter;
 import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
 import com.iambedant.nanodegree.quickbite.util.Constants;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -78,7 +78,8 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
     @Bind(R.id.scrim)
     ImageView mScrim;
-
+    @Bind(R.id.tv_toolbar_title)
+    TextView mTextViewToolBarTitle;
 
     Activity host;
 
@@ -114,7 +115,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
         mapFragment.getMapAsync(this);
 
-
+        setUpToolbar();
         if (savedInstanceState == null) {
             initApiCall();
         } else {
@@ -130,6 +131,25 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         bindUi();
 
     }
+
+    private void setUpToolbar() {
+
+        if (mToolbar != null) {
+
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            mTextViewToolBarTitle.setText(mRestaurant.getName());
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
+    }
+
 
     public void initApiCall() {
         if (NetworkUtil.isNetworkConnected(mContext)) {
@@ -161,18 +181,14 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 .into(mImageViewCover);
 
 
-        //todo: set the color using pallete APi
-
-        mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        mScrim.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        mScrim.setAlpha(0);
-        //todo: use setImageAlpha() for API level 16 and above
-
-        //todo: Add Scroll Listnr to increase the alpha of Toolbar and scrim
-
         mImageViewCover.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                //todo: set the color using pallete APi
+                mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                mScrim.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                mScrim.getBackground().setAlpha(0);
+                mToolbar.getBackground().setAlpha(0);
                 scrollChange();
             }
         });
@@ -188,7 +204,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
 
         mTextViewAddress.setText(mRestaurant.getLocation().getAddress());
-        mTextViewCosts.setText("Rs " + mRestaurant.getAverageCostForTwo() + "For two people(Approx) ");
+        mTextViewCosts.setText("Rs " + mRestaurant.getAverageCostForTwo() + "For two people (Approx) ");
 
         mTextViewCuisines.setText(mRestaurant.getCuisines());
         if (mRestaurant.getHasOnlineDelivery() == 0) {
@@ -205,19 +221,39 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
     public void scrollChange() {
-        final int scrollOrigin = mImageViewCover.getMeasuredHeight();
-        final int scrimStart = 100;
+        final int scrollOrigin = (int) (200 * getResources().getDisplayMetrics().density);
+        final int toolbarHeight = (mToolbar.getMeasuredHeight());
+        final int scrimStart = scrollOrigin / 2;
+        final int scrimGap = (scrollOrigin - toolbarHeight) - scrimStart;
 
-        final float factor = (float) 1;
+
+        final float factor = (float) 255 / scrimGap;
         mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                int dy = scrollY - oldScrollY;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    if (scrollY > oldScrollY) {
+                        //Scrolling Up
+                        mImageViewCover.setTranslationY(Math.max(-scrollOrigin, mImageViewCover.getTranslationY() -dy/2));
+                    } else {
+                        //Scrolling Down
+                        mImageViewCover.setTranslationY(Math.min(0,mImageViewCover.getTranslationY()-dy/2));
+                    }
+                }
+
+
+                Logger.d(TAG, (scrollY) + " " + (scrollOrigin - toolbarHeight));
 
                 if ((scrollY) >= scrimStart) {
                     Float f = factor * (scrollY - (scrimStart));
 
-                    if(f>255){
-                        f=(float)255;
+                    if (f > 255) {
+                        f = (float) 255;
+                        getSupportActionBar().setElevation(16);
+                    } else {
+                        getSupportActionBar().setElevation(0);
                     }
                     mScrim.getBackground().setAlpha(Math.round(f));
                     mToolbar.getBackground().setAlpha(Math.round(f));
@@ -232,6 +268,10 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
 
+    private static int statusBarHeight(android.content.res.Resources res) {
+        return (int) (24 * res.getDisplayMetrics().density);
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -245,12 +285,10 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
     @Override
-    public void showReviews(List<UserReview> mListReview) {
-        // mListUserReviews.clear();
+    public void showReviews(ArrayList<UserReview> mListReview) {
         for (UserReview review : mListReview) {
             addReviewLayout(review);
         }
-        // mListUserReviews = (ArrayList<UserReview>) mListReview;
 
     }
 

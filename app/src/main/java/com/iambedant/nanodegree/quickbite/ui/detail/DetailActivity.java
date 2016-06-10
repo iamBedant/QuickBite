@@ -35,7 +35,7 @@ import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -235,12 +235,6 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
         mDetailPresenter.detachView();
     }
 
-    @Override
-    public void showReviews(List<UserReview> mListReview) {
-        for (UserReview review : mListReview) {
-            addReviewLayout(review);
-        }
-    }
 
 
 
@@ -284,5 +278,12 @@ public class DetailActivity extends BaseActivity implements DetailMvpView, View.
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(Double.parseDouble(mRestaurant.getLocation().getLatitude()), Double.parseDouble(mRestaurant.getLocation().getLongitude())))
                 .title(mRestaurant.getName()));
+    }
+
+    @Override
+    public void showReviews(ArrayList<UserReview> mListReview) {
+        for (UserReview review : mListReview) {
+            addReviewLayout(review);
+        }
     }
 }

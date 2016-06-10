@@ -9,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
@@ -20,7 +22,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class Favourites extends BaseActivity implements FavouriteMvpView, LoaderManager.LoaderCallbacks<Cursor> {
+public class Favourites extends BaseActivity implements FavouriteMvpView, LoaderManager.LoaderCallbacks<Cursor>, ClickCallBack {
     @Inject
     FavouritePresenter mFavouritePresenter;
     private FavouriteAdapter mFavouriteAdapter;
@@ -30,7 +32,12 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     ProgressBar mProgressBar;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @Bind(R.id.search)
+    ImageButton mSearchButton;
     Context mContext;
+
+    @Bind(R.id.tv_toolbar_title)
+    TextView mTextViewToolBarTitle;
 
     private final String TAG = Favourites.class.getSimpleName();
 
@@ -42,11 +49,12 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
         setContentView(R.layout.activity_list);
         getActivityComponent().inject(this);
         ButterKnife.bind(this);
+        mFavouritePresenter.attachView(this);
         mContext = this;
         setUpToolbar();
-        getSupportLoaderManager().initLoader(FAVOURITE_LOADER, null,this);
+        getSupportLoaderManager().initLoader(FAVOURITE_LOADER, null, this);
 
-        mFavouriteAdapter = new FavouriteAdapter(mContext);
+        mFavouriteAdapter = new FavouriteAdapter(mContext, this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mFavouriteAdapter);
@@ -56,9 +64,18 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     private void setUpToolbar() {
 
         if (mToolbar != null) {
+
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            mTextViewToolBarTitle.setText("FAVOURITES");
+            mSearchButton.setVisibility(View.GONE);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
 
     }
@@ -88,4 +105,19 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
         mFavouriteAdapter.swapCursor(null);
     }
 
+    @Override
+    public void favouriteIconClicked(String id) {
+        mFavouritePresenter.deleteRestaurant(id);
+
+    }
+
+    @Override
+    public void directionClicked(Double lon, Double lat) {
+        //todo: Open Map  intent wth  Direction
+    }
+
+    @Override
+    public void zomatoClicked(String id) {
+        // TODO: Open Zomato Intent
+    }
 }

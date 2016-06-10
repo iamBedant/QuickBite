@@ -8,7 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Generated;
 
@@ -26,7 +25,7 @@ public class Reviews implements Parcelable {
     private Integer reviewsShown;
     @SerializedName("user_reviews")
     @Expose
-    private List<UserReview> userReviews = new ArrayList<UserReview>();
+    private ArrayList<UserReview> userReviews = new ArrayList<UserReview>();
     @SerializedName("Respond to reviews via Zomato Dashboard")
     @Expose
     private String RespondToReviewsViaZomatoDashboard;
@@ -90,7 +89,7 @@ public class Reviews implements Parcelable {
      * @return
      *     The userReviews
      */
-    public List<UserReview> getUserReviews() {
+    public ArrayList<UserReview> getUserReviews() {
         return userReviews;
     }
 
@@ -99,7 +98,7 @@ public class Reviews implements Parcelable {
      * @param userReviews
      *     The user_reviews
      */
-    public void setUserReviews(List<UserReview> userReviews) {
+    public void setUserReviews(ArrayList<UserReview> userReviews) {
         this.userReviews = userReviews;
     }
 

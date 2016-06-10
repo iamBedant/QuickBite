@@ -26,9 +26,11 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     private Cursor mCursor;
     final private Context mContext;
     private final String TAG = FavouriteAdapter.class.getSimpleName();
+    ClickCallBack mClickcallBack;
     // final private FavouriteAdapterOnClickHandler mClickHandler;
 
-    public FavouriteAdapter(Context context) {
+    public FavouriteAdapter(Context context, ClickCallBack clickCallBack) {
+        mClickcallBack = clickCallBack;
         mContext = context;
     }
 
@@ -41,13 +43,15 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     }
 
     @Override
-    public void onBindViewHolder(FavouriteAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(FavouriteAdapterViewHolder holder, final int position) {
         mCursor.moveToPosition(position);
 
-        int columnIndexName = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME);
+
+        final int columnIndexId = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ID);
+        final int columnIndexName = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME);
         int columnIndexRating = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE);
-        int columnIndexLat = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT);
-        int columnIndexLong = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG);
+        final int columnIndexLat = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT);
+        final int columnIndexLong = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG);
         int columnIndexAddress = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS);
         int columnIndexCoverImage = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE);
         int columnIndexCuisine = mCursor.getColumnIndex(DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE);
@@ -65,24 +69,26 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         holder.mImageButtonDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo: Open Map intent with long and lat
-                Logger.d(TAG,"Get Direction Clicked");
+                mCursor.moveToPosition(position);
+                Logger.d(TAG,"Deleting -->"+mCursor.getString(columnIndexName));
+                mClickcallBack.directionClicked(mCursor.getDouble(columnIndexLat),mCursor.getDouble(columnIndexLong));
             }
         });
         holder.mImageButtonFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCursor.moveToPosition(position);
                 Logger.d(TAG,"Favourite Clicked");
-                //todo Remove from Favourite,
-                //Remove from Recyclerview,
-                //Remove from Firebase as well,
+                mClickcallBack.favouriteIconClicked(mCursor.getString(columnIndexId));
             }
         });
         holder.mImageButtonZomato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCursor.moveToPosition(position);
+
                 Logger.d(TAG,"Zomato Clicked");
-                //todo open zomato Intent
+                mClickcallBack.zomatoClicked(mCursor.getString(columnIndexId));
             }
         });
     }
@@ -93,7 +99,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         return mCursor.getCount();
     }
 
-    public class FavouriteAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class FavouriteAdapterViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.tv_name)
         TextView mTextViewName;
         @Bind(R.id.tv_rating)
@@ -119,8 +125,14 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             super(view);
             ButterKnife.bind(this, view);
         }
+        
 
 
+    }
+
+
+    public Cursor getCursor(){
+        return mCursor;
     }
 
 
