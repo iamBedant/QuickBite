@@ -1,4 +1,4 @@
-package com.iambedant.nanodegree.quickbite.ui.detail;
+package com.iambedant.nanodegree.quickbite.ui.restaurant;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
@@ -20,18 +20,18 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Kuliza-193 on 4/15/2016.
  */
-public class DetailPresenter extends BasePresenter<DetailMvpView> {
+public class RestaurantPresenter extends BasePresenter<RestaurantMvpView> {
     private final DataManager mDataManager;
     private Subscription mSubscription;
-    private final String TAG = DetailPresenter.class.getSimpleName();
+    private final String TAG = RestaurantPresenter.class.getSimpleName();
 
     @Inject
-    public DetailPresenter(DataManager dataManager) {
+    public RestaurantPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(DetailMvpView mvpView) {
+    public void attachView(RestaurantMvpView mvpView) {
         super.attachView(mvpView);
     }
 

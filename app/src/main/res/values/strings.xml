@@ -61,4 +61,5 @@
     <string name="title_activity_full_review">FullReview</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="reviewer_transition_name">reviewer_image</string>
+    <string name="no_review">Sorry !!! No Review Found</string>
 </resources>

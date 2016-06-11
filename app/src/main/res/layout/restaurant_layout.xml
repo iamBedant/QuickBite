@@ -172,9 +172,17 @@
                     android:id="@+id/ll_review"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+                    <ProgressBar
+                        android:id="@+id/pb_review_loader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
 
                 <Button
+                    android:id="@+id/btn_show_all_review"
+                    android:visibility="gone"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

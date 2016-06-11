@@ -29,12 +29,8 @@
             android:syncable="true" />
 
 
-        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.Login.LoginActivity" />
-        <activity
-            android:name=".ui.detail.DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:theme="@style/App.DetailsTest" />
+
         <activity
             android:name=".ui.SplashScreen.SplashScreen"
             android:theme="@style/App.SplashScreen">
@@ -65,8 +61,9 @@
             android:name=".ui.review.FullReview"
             android:theme="@style/App.Review" />
 
-        <activity android:name=".ui.searchCuisines.CuisineSearch"
-            android:theme="@style/App.Search"/>
+        <activity
+            android:name=".ui.searchCuisines.CuisineSearch"
+            android:theme="@style/App.Search" />
     </application>
 
 </manifest>

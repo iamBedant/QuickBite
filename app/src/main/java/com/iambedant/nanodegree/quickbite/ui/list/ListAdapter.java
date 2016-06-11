@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseAdapter;
-import com.iambedant.nanodegree.quickbite.ui.main.RestaurantAdapter;
 import com.iambedant.nanodegree.quickbite.ui.restaurant.RestaurantActivity;
 import com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView;
 import com.iambedant.nanodegree.quickbite.util.Constants;
@@ -29,7 +28,7 @@ import java.util.List;
 public class ListAdapter extends BaseAdapter<Restaurant, RestaurantItemView> {
 
     private static final boolean DEFAULT_ANIMATION_ENABLED = true;
-    private String TAG = RestaurantAdapter.class.getSimpleName();
+    private String TAG = ListAdapter.class.getSimpleName();
     private boolean animationEnabled = DEFAULT_ANIMATION_ENABLED;
     protected List<Restaurant> mRestaurantList = new ArrayList<>();
     Activity host;

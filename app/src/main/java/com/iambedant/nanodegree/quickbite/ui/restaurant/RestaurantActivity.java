@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
@@ -16,11 +19,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,11 +39,10 @@ import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.UserReview;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
-import com.iambedant.nanodegree.quickbite.ui.detail.DetailActivity;
-import com.iambedant.nanodegree.quickbite.ui.detail.DetailMvpView;
-import com.iambedant.nanodegree.quickbite.ui.detail.DetailPresenter;
 import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
+import com.iambedant.nanodegree.quickbite.util.ColorUtils;
 import com.iambedant.nanodegree.quickbite.util.Constants;
+import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
@@ -50,8 +56,8 @@ import butterknife.OnClick;
 
 import static com.iambedant.nanodegree.quickbite.R.id.map;
 
-public class RestaurantActivity extends BaseActivity implements DetailMvpView, View.OnClickListener, OnMapReadyCallback {
-    private String TAG = DetailActivity.class.getSimpleName();
+public class RestaurantActivity extends BaseActivity implements RestaurantMvpView, View.OnClickListener, OnMapReadyCallback {
+    private String TAG = RestaurantActivity.class.getSimpleName();
 
 
     @Bind(R.id.container)
@@ -60,6 +66,9 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     Toolbar mToolbar;
     @Bind(R.id.ll_review)
     LinearLayout mLinearlayoutReviewContainer;
+
+    @Bind(R.id.pb_review_loader)
+    ProgressBar mProgressBarReviewLoader;
 
     @Bind(R.id.tv_cuisines)
     TextView mTextViewCuisines;
@@ -89,7 +98,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
     Context mContext;
     @Inject
-    DetailPresenter mDetailPresenter;
+    RestaurantPresenter mDetailPresenter;
 
     ArrayList<UserReview> mListUserReviews;
 
@@ -176,6 +185,38 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         Glide.with(this)
                 .load(mRestaurant.getFeaturedImage())
                 .override(480, 400)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        final Bitmap bitmap = GlideUtils.getBitmap(resource);
+//                        final int twentyFourDip = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                                24, mContext.getResources().getDisplayMetrics());
+                        Palette.from(bitmap)
+                                // .setRegion(0, 0, bitmap.getWidth() - 1, twentyFourDip)
+                                .generate(new Palette.PaletteAsyncListener() {
+                                    @Override
+                                    public void onGenerated(Palette palette) {
+//                                        final Palette.Swatch topColor =
+//                                                ColorUtils.getMostPopulousSwatch(palette);
+
+                                        int mutedDark = palette.getDarkMutedColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            getWindow().setStatusBarColor(ColorUtils.getDarkerColor(mutedDark));
+                                            mToolbar.setBackgroundColor(mutedDark);
+                                            mScrim.setBackgroundColor(mutedDark);
+                                        }
+                                    }
+                                });
+
+
+                        return false;
+                    }
+                })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .priority(Priority.IMMEDIATE)
                 .into(mImageViewCover);
@@ -185,8 +226,7 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
             @Override
             public void onGlobalLayout() {
                 //todo: set the color using pallete APi
-                mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-                mScrim.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+
                 mScrim.getBackground().setAlpha(0);
                 mToolbar.getBackground().setAlpha(0);
                 scrollChange();
@@ -236,16 +276,12 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     if (scrollY > oldScrollY) {
                         //Scrolling Up
-                        mImageViewCover.setTranslationY(Math.max(-scrollOrigin, mImageViewCover.getTranslationY() -dy/2));
+                        mImageViewCover.setTranslationY(Math.max(-scrollOrigin, mImageViewCover.getTranslationY() - dy / 2));
                     } else {
                         //Scrolling Down
-                        mImageViewCover.setTranslationY(Math.min(0,mImageViewCover.getTranslationY()-dy/2));
+                        mImageViewCover.setTranslationY(Math.min(0, mImageViewCover.getTranslationY() - dy / 2));
                     }
                 }
-
-
-                Logger.d(TAG, (scrollY) + " " + (scrollOrigin - toolbarHeight));
-
                 if ((scrollY) >= scrimStart) {
                     Float f = factor * (scrollY - (scrimStart));
 
@@ -268,10 +304,6 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
     }
 
 
-    private static int statusBarHeight(android.content.res.Resources res) {
-        return (int) (24 * res.getDisplayMetrics().density);
-    }
-
     @Override
     public void onClick(View v) {
 
@@ -284,16 +316,34 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
         mDetailPresenter.detachView();
     }
 
+    @Bind(R.id.btn_show_all_review)
+    Button mButtonShowAllReview;
+
     @Override
     public void showReviews(ArrayList<UserReview> mListReview) {
-        for (UserReview review : mListReview) {
-            addReviewLayout(review);
+        mProgressBarReviewLoader.setVisibility(View.GONE);
+        if (mListReview.size() > 0) {
+            for (UserReview review : mListReview) {
+                addReviewLayout(review);
+            }
+        } else {
+            addNoReviewLayout();
         }
 
     }
 
 
+    private void addNoReviewLayout(){
+        mButtonShowAllReview.setVisibility(View.GONE);
+        View noReviewView = getLayoutInflater().inflate(R.layout.no_data_found, null, false);
+        TextView mTextViewMessage = (TextView) noReviewView.findViewById(R.id.tv_text);
+        mTextViewMessage.setText(R.string.no_review);
+        mLinearlayoutReviewContainer.addView(noReviewView);
+
+    }
+
     private void addReviewLayout(final UserReview review) {
+        mButtonShowAllReview.setVisibility(View.VISIBLE);
 
         View reviewView = getLayoutInflater().inflate(R.layout.item_review, null, false);
 
@@ -331,6 +381,20 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
                 .override(480, 400)
                 .into(mImageViewProfilepic);
         mLinearlayoutReviewContainer.addView(reviewView);
+
+
+        mButtonShowAllReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] url  = mRestaurant.getUrl().split("\\?");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse( url[0]+"/reviews"));
+
+                Logger.d(TAG,url[0]);
+                startActivity(browserIntent);
+
+            }
+        });
     }
 
     @Override
@@ -362,11 +426,16 @@ public class RestaurantActivity extends BaseActivity implements DetailMvpView, V
 
     @OnClick(R.id.img_btn_direction)
     public void getDirectionToTheRestaurant() {
-
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr=" + mRestaurant.getLocation().getLatitude() + "," + mRestaurant.getLocation().getLongitude()));
+        startActivity(intent);
     }
 
     @OnClick(R.id.img_btn_zomato)
     public void openZomato() {
-        //TODO: Open Zomato Intent
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, mRestaurant.getUrl());
+        sharingIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sharingIntent, "Share This Restaurant with your Friend"));
     }
 }

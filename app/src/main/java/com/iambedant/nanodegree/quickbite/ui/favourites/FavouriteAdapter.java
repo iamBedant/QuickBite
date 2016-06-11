@@ -125,7 +125,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             super(view);
             ButterKnife.bind(this, view);
         }
-        
+
 
 
     }
