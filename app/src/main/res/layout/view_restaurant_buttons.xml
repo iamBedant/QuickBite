@@ -1,5 +1,6 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="@dimen/margin_medium"
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -16,6 +17,11 @@
             android:layout_centerVertical="true"
             android:contentDescription="@string/c_d_get_direction_button"
             android:src="@drawable/ic_directions_car_black_24dp" />
+        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:layout_below="@id/img_btn_direction"
+            android:text="@string/direction"
+            app:font="SourceSansPro-Light"
+            style="@style/button_text" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -30,6 +36,11 @@
             android:layout_centerVertical="true"
             android:contentDescription="@string/c_d_add_to_my_favourite_button"
             android:src="@drawable/ic_favorite_border_black_24dp" />
+        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:layout_below="@id/img_btn_favourite"
+            android:text="@string/favourite_btn"
+            app:font="SourceSansPro-Light"
+            style="@style/button_text" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,6 +54,11 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/c_d_view_on_zomato_button"
-            android:src="@drawable/ic_share_black_24dp" />
+            android:src="@drawable/ic_format_align_left_black_24dp" />
+        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+            android:layout_below="@id/img_btn_zomato"
+            android:text="@string/menu"
+            app:font="SourceSansPro-Light"
+            style="@style/button_text" />
     </RelativeLayout>
 </LinearLayout>

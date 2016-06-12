@@ -2,8 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/root"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.iambedant.nanodegree.quickbite.ui.list.ListActivity">
@@ -20,42 +20,53 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
             <RelativeLayout
-                android:paddingRight="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/transparent"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:paddingRight="@dimen/padding_small">
+
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_toolbar_title"
-                    app:font="SourceSansPro-Regular"
-                    style="@style/toolbar_text" />
+                    style="@style/toolbar_text"
+                    app:font="SourceSansPro-Regular" />
+
+
                 <ImageButton
                     android:id="@+id/search"
                     style="@style/QuickBiteTappable"
                     android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_zoom_in_black_24dp"/>
+                    android:src="@drawable/ic_zoom_in_black_24dp" />
+
+                <ImageButton
+                    android:visibility="gone"
+                    android:id="@+id/imb_btn_clear_filter"
+                    style="@style/QuickBiteTappable"
+                    android:layout_toLeftOf="@id/search"
+                    android:src="@drawable/ic_clear_black_24dp" />
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="insideOverlay"
         android:orientation="vertical"
-        app:spanCount="3"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:spanCount="3">
 
     </android.support.v7.widget.RecyclerView>
+
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -71,9 +82,10 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_email" />
 
-    <View
+    <RelativeLayout
         android:id="@+id/error_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
 
 </android.support.design.widget.CoordinatorLayout>

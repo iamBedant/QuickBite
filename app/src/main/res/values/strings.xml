@@ -62,4 +62,10 @@
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="reviewer_transition_name">reviewer_image</string>
     <string name="no_review">Sorry !!! No Review Found</string>
+    <string name="direction">DIRECTION</string>
+    <string name="favourite_btn">FAVOURITE</string>
+    <string name="menu">MENU</string>
+    <string name="no_network_available">No Network Available</string>
+    <string name="no_restaurant_found">Sorry No Restaurant found for this category</string>
+    <string name="retry_btn">RETRY</string>
 </resources>

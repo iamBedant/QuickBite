@@ -13,6 +13,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -43,7 +44,6 @@ import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
 import com.iambedant.nanodegree.quickbite.util.ColorUtils;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
-import com.iambedant.nanodegree.quickbite.util.Logger;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.ArrayList;
@@ -333,9 +333,11 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
     }
 
 
-    private void addNoReviewLayout(){
+    private void addNoReviewLayout() {
         mButtonShowAllReview.setVisibility(View.GONE);
         View noReviewView = getLayoutInflater().inflate(R.layout.no_data_found, null, false);
+        Button mButtonAction = (Button) noReviewView.findViewById(R.id.btn_action);
+        mButtonAction.setVisibility(View.GONE);
         TextView mTextViewMessage = (TextView) noReviewView.findViewById(R.id.tv_text);
         mTextViewMessage.setText(R.string.no_review);
         mLinearlayoutReviewContainer.addView(noReviewView);
@@ -387,10 +389,8 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
             @Override
             public void onClick(View v) {
 
-                String[] url  = mRestaurant.getUrl().split("\\?");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse( url[0]+"/reviews"));
-
-                Logger.d(TAG,url[0]);
+                String[] url = mRestaurant.getUrl().split("\\?");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url[0] + "/reviews"));
                 startActivity(browserIntent);
 
             }
@@ -433,9 +433,34 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
 
     @OnClick(R.id.img_btn_zomato)
     public void openZomato() {
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, mRestaurant.getUrl());
-        sharingIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sharingIntent, "Share This Restaurant with your Friend"));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRestaurant.getMenuUrl()));
+        startActivity(browserIntent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.restaurant_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.share) {
+
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, mRestaurant.getUrl());
+            sharingIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sharingIntent, "Share This Restaurant with your Friend"));
+
+        }
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -47,10 +47,12 @@ public class Constants {
     public static final String BUNDLE_SELECTION_TYPE = "bundle_selection_type";
     public static final String BUNDLE_LOADED_REVIEW = "bundle_loaded_review";
     public static final String BUNDLE_SELECTED_RESTAURANT = "bundle_selected_restaurant";
+    public static final String BUNDLE_IS_CUISINE_FILTER_APPLIED = "bundle_is_cuisine_filter_applied";
 
     public static final int ERROR_TYPE_NETWORK =1;
     public static final int ERROR_TYPE_NO_DATA =2;
     public static final int ERROR_TYPE_DEFAULT =999;
+
 
     public static String SEARCH_TERM="_search_term";
 

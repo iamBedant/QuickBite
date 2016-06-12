@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
+import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -86,19 +88,24 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
                     @Override
                     public void onError(Throwable e) {
                         getMvpView().controlLoading(false);
-                        Logger.e(TAG, "On Error Called->" + e.toString());
-                        getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            Response response = httpException.response();
+                            getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                        } else {
+                            getMvpView().showErrorView(Constants.ERROR_TYPE_NETWORK);
+                        }
+
                     }
 
                     @Override
                     public void onNext(SearchResult searchResult) {
                         Logger.i(TAG, "Search successfull");
                         getMvpView().controlLoading(false);
-                        if (searchResult.getRestaurants().size() > 0) {
-                            getMvpView().showRestaurants(searchResult.getRestaurants());
-                        } else {
-                            getMvpView().showErrorView(Constants.ERROR_TYPE_NO_DATA);
-                        }
+
+                        getMvpView().showRestaurants(searchResult.getRestaurants());
+
 
                     }
                 });
@@ -112,7 +119,7 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
         switch (SELECTION_TYPE) {
             case Constants.TYPE_DINNER:
-               title = "DINNER";
+                title = "DINNER";
                 break;
             case Constants.TYPE_TAKE_AWAY:
                 title = "TAKE AWAY";

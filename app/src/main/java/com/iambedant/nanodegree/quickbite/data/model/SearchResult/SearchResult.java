@@ -8,7 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Generated;
 
@@ -26,7 +25,7 @@ public class SearchResult implements Parcelable {
     private Integer resultsShown;
     @SerializedName("restaurants")
     @Expose
-    private List<Restaurant> restaurants = new ArrayList<Restaurant>();
+    private ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 
     /**
      *
@@ -87,7 +86,7 @@ public class SearchResult implements Parcelable {
      * @return
      *     The restaurants
      */
-    public List<Restaurant> getRestaurants() {
+    public ArrayList<Restaurant> getRestaurants() {
         return restaurants;
     }
 
@@ -96,7 +95,7 @@ public class SearchResult implements Parcelable {
      * @param restaurants
      *     The restaurants
      */
-    public void setRestaurants(List<Restaurant> restaurants) {
+    public void setRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
 
