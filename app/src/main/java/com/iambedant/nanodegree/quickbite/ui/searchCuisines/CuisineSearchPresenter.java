@@ -40,9 +40,9 @@ public class CuisineSearchPresenter extends BasePresenter<CuisineSearchMvpView> 
 
     }
 
-    public void getCuisines() {
+    public void getCuisines(String queryString) {
 
-        Cursor mCursor = mDataManager.getAllCuisines();
+        Cursor mCursor = mDataManager.getCuisines(queryString);
 
         List<Cuisine_> mCuisinesList = new ArrayList<>();
 
@@ -53,6 +53,7 @@ public class CuisineSearchPresenter extends BasePresenter<CuisineSearchMvpView> 
         while (mCursor.moveToNext()) {
             mCuisinesList.add(new Cuisine_(mCursor.getInt(columnIndexcuisineId), mCursor.getString(columnIndexCuisine)));
         }
+        mCursor.close();
         getMvpView().displayCuisines(mCuisinesList);
     }
 

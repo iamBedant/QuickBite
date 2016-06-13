@@ -126,6 +126,7 @@ public class ProviderHelper {
         } else {
             isPresent = false;
         }
+        cursor.close();
         return isPresent;
     }
 
@@ -158,6 +159,14 @@ public class ProviderHelper {
         return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
                 null,
                 null,
+                null,
+                null);
+    }
+
+    public Cursor getCuisines(String queryString) {
+        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
+                null,
+                DataContract.CuisinesEntry.COLUMN_CUISINE_NAME + " LIKE '"+queryString+"'",
                 null,
                 null);
     }

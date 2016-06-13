@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/root_layout"
+    android:background="@color/search_background"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
@@ -15,7 +16,7 @@
 
         <ImageView
             android:id="@+id/back"
-            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:src="@drawable/ic_arrow_back_black"
             style="@style/BackButton" />
         <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
             android:id="@+id/searchview"
@@ -24,7 +25,7 @@
             app:font="SourceSansPro-Light"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/back"
-            android:hint="Start Typing Here..."
+            android:hint="@string/type_a_cuisine"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
@@ -35,6 +36,7 @@
         android:background="@color/white">
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

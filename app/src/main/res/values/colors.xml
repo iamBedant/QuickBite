@@ -9,6 +9,7 @@
     <color name="colorTextSecondary">#808080</color>
     <color name="background_light">#fafafa</color>
     <color name="hint_disabled_dark">#43000000</color>
+    <color name="search_background">#99000000</color>
     <color name="scrim">#99323232</color>
     <color name="light_grey">#fff5f5f5</color>
 

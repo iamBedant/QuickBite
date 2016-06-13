@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "891977396102",
+    "firebase_url": "https://quickbite-1324.firebaseio.com",
+    "project_id": "quickbite-1324",
+    "storage_bucket": "quickbite-1324.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891977396102:android:7e75531a3d8a2fc4",
+        "android_client_info": {
+          "package_name": "com.iambedant.nanodegree.quickbite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891977396102-otpkihh065g8qjevbtknfmerk4034dnd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iambedant.nanodegree.quickbite",
+            "certificate_hash": "A448B820419DD6793811ADB54BD24DAE241611C3"
+          }
+        },
+        {
+          "client_id": "891977396102-g980h4jh5qv3a43nqqk9af85pa1o7qi2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA820714bUVnvmhA9hOSWDC98i3CE0GkOo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891977396102-g980h4jh5qv3a43nqqk9af85pa1o7qi2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

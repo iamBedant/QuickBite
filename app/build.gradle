@@ -33,7 +33,7 @@ dependencies {
     final PLAY_SERVICES_VERSION = '8.4.0'
     final SUPPORT_LIBRARY_VERSION = '23.4.0'
     final RETROFIT_VERSION = '2.0.1'
-    final GOOGLE_PLAY_VERSION = '8.4.0'
+    final GOOGLE_PLAY_VERSION = '9.0.2'
     final FIREBASE_VERSION = '2.5.2'
     final DAGGER_VERSION = '2.0.2'
     def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
@@ -66,3 +66,4 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.0.0'
 }
+apply plugin: 'com.google.gms.google-services'

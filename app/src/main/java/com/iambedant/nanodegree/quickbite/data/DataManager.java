@@ -173,9 +173,9 @@ public class DataManager {
         return mProviderHelper.isRestaurantPresent(id);
     }
 
-    public Cursor getAllCuisines() {
+    public Cursor getCuisines(String queryString) {
         Cursor mCursor = null;
-        mCursor = mProviderHelper.getAllCuisines();
+        mCursor = mProviderHelper.getCuisines(queryString);
         return mCursor;
     }
 }

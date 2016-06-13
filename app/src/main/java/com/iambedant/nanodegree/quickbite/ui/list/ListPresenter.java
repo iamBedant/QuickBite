@@ -5,12 +5,12 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
+import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
-import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Observer;
@@ -91,8 +91,14 @@ public class ListPresenter extends BasePresenter<ListMvpView> {
 
                         if (e instanceof HttpException) {
                             HttpException httpException = (HttpException) e;
-                            Response response = httpException.response();
-                            getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                            if (NetworkUtil.isHttpStatusCode(e, 500)) {
+                                //todo: add server error
+                                getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                            } else if (NetworkUtil.isHttpStatusCode(e, 400)) {
+                                //todo: add bad request error
+                                getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                            }
+
                         } else {
                             getMvpView().showErrorView(Constants.ERROR_TYPE_NETWORK);
                         }

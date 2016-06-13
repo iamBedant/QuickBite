@@ -1,15 +1,20 @@
 package com.iambedant.nanodegree.quickbite.ui.searchCuisines;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -25,6 +30,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.R.attr.value;
 
 /**
  * Created by Kuliza-193 on 6/1/2016.
@@ -48,6 +55,9 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
+    @Bind(R.id.back)
+    ImageView mImageViewBack;
+
     @Bind(R.id.searchview)
     EditText mSearchView;
     Context mContext;
@@ -64,12 +74,41 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
         mContext = this;
         mCuisineSearchPresenter.attachView(this);
         initRecyclerView();
-        mCuisineSearchPresenter.getCuisines();
+
         callCircularReveal();
+
+        mSearchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String queryString = mSearchView.getText().toString().trim();
+
+                mCuisineSearchPresenter.getCuisines(queryString + "%");
+
+            }
+        });
+
+        mImageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                ((Activity)mContext).setResult(Activity.RESULT_CANCELED, intent);
+                ((Activity)mContext).finish();
+            }
+        });
 
     }
 
-    public void callCircularReveal(){
+    public void callCircularReveal() {
         mFrameLayoutRoot.setVisibility(View.INVISIBLE);
 
         ViewTreeObserver viewTreeObserver = mFrameLayoutRoot.getViewTreeObserver();
@@ -87,19 +126,21 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
 
     private void circularRevealActivity() {
 
-//        int cx = rootLayout.getWidth() / 2;
-//        int cy = rootLayout.getHeight() / 2;
-
         int cx = loc[0];
         int cy = loc[1];
 
         float finalRadius = Math.max(mFrameLayoutRoot.getWidth(), mFrameLayoutRoot.getHeight());
 
         // create the animator for this view (the start radius is zero)
+        Animator circularReveal;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        circularReveal = ViewAnimationUtils.createCircularReveal(mFrameLayoutRoot, cx, cy, 0, finalRadius);
+//        } else {
+//            //Create a simple animator for pre lollipop
+//            circularReveal = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.);
+//        }
 
 
-
-        Animator circularReveal = ViewAnimationUtils.createCircularReveal(mFrameLayoutRoot, cx, cy, 0, finalRadius);
         circularReveal.setInterpolator(AnimUtils.getFastOutLinearInInterpolator(CuisineSearch
                 .this));
         circularReveal.setDuration(1000);
@@ -119,6 +160,7 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
 
     @Override
     public void displayCuisines(List<Cuisine_> cuisine) {
+        mAdapter.clearItems();
         mProgressBarLoading.setVisibility(View.GONE);
         mAdapter.setItems(cuisine);
     }

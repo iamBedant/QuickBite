@@ -41,11 +41,11 @@
                     android:src="@drawable/ic_zoom_in_black_24dp" />
 
                 <ImageButton
-                    android:visibility="gone"
                     android:id="@+id/imb_btn_clear_filter"
                     style="@style/QuickBiteTappable"
                     android:layout_toLeftOf="@id/search"
-                    android:src="@drawable/ic_clear_black_24dp" />
+                    android:src="@drawable/ic_clear_black_24dp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -73,14 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
 
     <RelativeLayout
         android:id="@+id/error_view"
