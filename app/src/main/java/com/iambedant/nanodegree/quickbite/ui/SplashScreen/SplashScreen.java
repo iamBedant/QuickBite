@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -34,7 +35,10 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.home.Home;
 import com.iambedant.nanodegree.quickbite.util.Constants;
@@ -58,6 +62,9 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     private final int REQUEST_GOOGLE_PLAY_SERVICES = 2;
     private final int REQUEST_CHECK_SETTINGS = 3;
     LocationSettingsRequest.Builder builder;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,15 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         getActivityComponent().inject(this);
         mContext = this;
         mSplashPresenter.attachView(this);
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+            }
+        };
+
         if (checkPlayServices()) {
             Logger.d(TAG, "play service found");
             onActivityResult(REQUEST_GOOGLE_PLAY_SERVICES, Activity.RESULT_OK, null);
@@ -147,11 +163,10 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation == null) {
                 Logger.d(TAG, "Location Null");
-                if(mGoogleApiClient.isConnected()) {
+                if (mGoogleApiClient.isConnected()) {
                     Logger.d(TAG, "Client Connected");
                     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequestHighAccuracy, this);
-                }
-                else {
+                } else {
                     Logger.d(TAG, "Client not connected");
                     mGoogleApiClient.connect();
                 }
@@ -213,15 +228,17 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     @Override
     protected void onStart() {
         super.onStart();
-        Logger.d(TAG,"On Start Called");
+        Logger.d(TAG, "On Start Called");
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
+        mAuth.addAuthStateListener(mAuthListener);
+
     }
 
     @Override
     protected void onPause() {
-        Logger.d(TAG,"On Pause Called");
+        Logger.d(TAG, "On Pause Called");
         super.onPause();
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
@@ -231,18 +248,26 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        Logger.d(TAG,"On Destroy Called");
+        Logger.d(TAG, "On Destroy Called");
         mGoogleApiClient.disconnect();
         mSplashPresenter.detachView();
     }
 
     @Override
     public void gotoManinScreen() {
-        Intent intent = new Intent(mContext, Home.class);
-        startActivity(intent);
-        finish();
+        if (user != null) {
+            Intent intent = new Intent(mContext, Home.class);
+            startActivity(intent);
+            finish();
+            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+        } else {
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            Log.d(TAG, "onAuthStateChanged:signed_out");
+        }
     }
 
     @Override
@@ -271,7 +296,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
-        Logger.d(TAG," Now Connected");
+        Logger.d(TAG, " Now Connected");
         if (mLocationRequestHighAccuracy == null) {
             createLocationRequest();
         }
@@ -352,11 +377,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         mLocationRequestHighAccuracy.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequestHighAccuracy.setInterval(Constants.LOCATION_INTERVAL_MILLISECONDS);
         mLocationRequestHighAccuracy.setFastestInterval(Constants.LOCATION_INTERVAL_MILLISECONDS / 10);
-
-//        mLocationRequestBalancedPowerAccuracy = new LocationRequest();
-//        mLocationRequestBalancedPowerAccuracy.setInterval(Constants.LOCATION_INTERVAL_MILLISECONDS);
-//        mLocationRequestBalancedPowerAccuracy.setFastestInterval(Constants.LOCATION_INTERVAL_MILLISECONDS / 100);
-//        mLocationRequestBalancedPowerAccuracy.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
 
@@ -377,5 +397,13 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     @Override
     public void onLocationChanged(Location location) {
         getLocation();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }

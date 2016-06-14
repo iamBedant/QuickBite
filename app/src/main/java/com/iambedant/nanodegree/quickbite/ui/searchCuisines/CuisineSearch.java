@@ -164,6 +164,12 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
         mProgressBarLoading.setVisibility(View.GONE);
         mAdapter.setItems(cuisine);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCuisineSearchPresenter.detachView();
+    }
 }
 
 

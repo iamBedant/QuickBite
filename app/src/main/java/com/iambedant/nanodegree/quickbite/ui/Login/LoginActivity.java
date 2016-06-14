@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         adapter.addFragment(new RegisterFragment(), "Sign Up");
         viewPager.setAdapter(adapter);
     }
+
     @Override
     public void showDataEmpty() {
 
@@ -57,9 +58,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-
         mLoginPresenter.detachView();
     }
 }

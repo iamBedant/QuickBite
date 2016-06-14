@@ -93,7 +93,14 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
     public void openReviewerProfile(){
         Toast.makeText(mContext,"This is from Click event",Toast.LENGTH_SHORT).show();
     }
-//    @OnTouch(R.id.btn_view_profile)
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mReviewPresenter.detachView();
+    }
+
+    //    @OnTouch(R.id.btn_view_profile)
 //    public void openReviewProfileTouch(){
 //        Toast.makeText(mContext,"This is from touch event",Toast.LENGTH_SHORT).show();
 //    }

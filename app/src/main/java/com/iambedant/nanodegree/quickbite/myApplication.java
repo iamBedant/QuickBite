@@ -3,10 +3,10 @@ package com.iambedant.nanodegree.quickbite;
 import android.app.Application;
 import android.content.Context;
 
-import com.firebase.client.Firebase;
 import com.iambedant.nanodegree.quickbite.injection.component.ApplicationComponent;
 import com.iambedant.nanodegree.quickbite.injection.component.DaggerApplicationComponent;
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
+import com.squareup.leakcanary.LeakCanary;
 
 
 public class myApplication extends Application  {
@@ -16,7 +16,7 @@ public class myApplication extends Application  {
     @Override
     public void onCreate() {
         super.onCreate();
-        Firebase.setAndroidContext(this);
+        LeakCanary.install(this);
 
     }
 

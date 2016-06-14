@@ -46,4 +46,11 @@ public class ApplicationModule {
         return QuickBiteAPIClient.Creator.newQuickBiteAPIClient();
     }
 
+//    @Provides
+//    @Singleton
+//    FirebaseDatabase provideFireBaseDataBase(){
+//        return  FirebaseDatabase.getInstance();
+//    }
+//
+
 }

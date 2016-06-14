@@ -3,11 +3,7 @@ package com.iambedant.nanodegree.quickbite.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.v4.content.Loader;
-import android.util.Log;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
@@ -15,7 +11,6 @@ import com.iambedant.nanodegree.quickbite.data.model.Cuisines.Cuisines;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
-import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
@@ -38,16 +33,14 @@ public class DataManager {
 
     private final PreferencesHelper mPreferencesHelper;
     private final EventPosterHelper mEventPoster;
-    private final FireBaseClient mFireBaseClient;
     private final QuickBiteAPIClient mQuickBiteApiClient;
     private final ProviderHelper mProviderHelper;
 
 
     @Inject
-    public DataManager(PreferencesHelper preferencesHelper, EventPosterHelper eventPosterHelper, FireBaseClient fireBaseClient, QuickBiteAPIClient quickBiteAPIClient, ProviderHelper providerHelper) {
+    public DataManager(PreferencesHelper preferencesHelper, EventPosterHelper eventPosterHelper, QuickBiteAPIClient quickBiteAPIClient, ProviderHelper providerHelper) {
         mPreferencesHelper = preferencesHelper;
         mEventPoster = eventPosterHelper;
-        mFireBaseClient = fireBaseClient;
         mQuickBiteApiClient = quickBiteAPIClient;
         mProviderHelper = providerHelper;
     }
@@ -70,37 +63,13 @@ public class DataManager {
 
     public Boolean createCustomUser(final String email, final String password) {
         final Boolean status = false;
-        mFireBaseClient.getmFireBaseRef().createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                loginUser(email, password);
-            }
 
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                // there was an error
-
-                Log.d("FireBase", firebaseError.toString());
-            }
-        });
 
         return status;
     }
 
     public void loginUser(String email, String password) {
-        mFireBaseClient.getmFireBaseRef().authWithPassword(email, password, new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-                Log.d("FireBase", "SuccessfullyLoggedIn--->" + authData.getUid());
-            }
 
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                // there was an error
-                Log.d("FireBase", "error Logging in");
-            }
-        });
     }
 
     public Observable<SearchResult> getSearchData(Map<String, String> queryParams) {

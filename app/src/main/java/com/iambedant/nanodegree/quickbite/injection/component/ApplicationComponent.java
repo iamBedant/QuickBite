@@ -6,7 +6,6 @@ import android.content.Context;
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.data.local.PreferencesHelper;
 import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
-import com.iambedant.nanodegree.quickbite.data.remote.FireBaseClient;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
@@ -25,11 +24,11 @@ public interface ApplicationComponent {
     @ApplicationContext
     Context context();
     Application application();
-    FireBaseClient fireBaseClient();
     QuickBiteAPIClient quickBiteAPIClient();
     PreferencesHelper preferencesHelper();
     ProviderHelper providerHelper();
     DataManager dataManager();
+//    FirebaseDatabase firebaseDatabase();
     Bus eventBus();
 
 }

@@ -69,4 +69,6 @@
     <string name="no_restaurant_found">Sorry No Restaurant found for this category</string>
     <string name="retry_btn">RETRY</string>
     <string name="type_a_cuisine">Type a cuisine..</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="sign_in">SIGN IN</string>
 </resources>

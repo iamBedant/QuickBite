@@ -176,7 +176,7 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mListPresenter.detachView();
     }

@@ -45,7 +45,7 @@ public class Home extends BaseActivity implements HomeMvpView {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
         mHomePresenter.detachView();

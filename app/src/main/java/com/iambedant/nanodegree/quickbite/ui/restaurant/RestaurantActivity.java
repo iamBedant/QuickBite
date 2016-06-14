@@ -310,7 +310,7 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
         mDetailPresenter.detachView();

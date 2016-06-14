@@ -120,4 +120,10 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     public void zomatoClicked(String id) {
         // TODO: Open Zomato Intent
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mFavouritePresenter.detachView();
+    }
 }

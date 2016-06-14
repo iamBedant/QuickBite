@@ -18,11 +18,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE-FIREBASE.txt'
-        exclude 'META-INF/NOTICE'
-    }
     buildTypes.each {
         it.buildConfigField 'String', 'MY_FIREBASE_URL', UniqueFirebaseUrl
         it.buildConfigField 'String', 'ZOMATO_API_KEY', ZomatoApiKey
@@ -34,7 +29,7 @@ dependencies {
     final SUPPORT_LIBRARY_VERSION = '23.4.0'
     final RETROFIT_VERSION = '2.0.1'
     final GOOGLE_PLAY_VERSION = '9.0.2'
-    final FIREBASE_VERSION = '2.5.2'
+    final FIREBASE_VERSION = '9.0.2'
     final DAGGER_VERSION = '2.0.2'
     def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
@@ -49,7 +44,8 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
-    compile "com.firebase:firebase-client-android:$FIREBASE_VERSION"
+    compile "com.google.firebase:firebase-auth:$FIREBASE_VERSION"
+    compile "com.google.firebase:firebase-database:$FIREBASE_VERSION"
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     //Required by Dagger2
     compile "com.google.android.gms:play-services-location:$GOOGLE_PLAY_VERSION"
@@ -65,5 +61,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }
 apply plugin: 'com.google.gms.google-services'
