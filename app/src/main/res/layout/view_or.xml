@@ -35,11 +35,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Facebook" />
 
     <Button
+        android:id="@+id/btn_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Google" />

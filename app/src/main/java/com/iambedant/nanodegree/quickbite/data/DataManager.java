@@ -101,7 +101,7 @@ public class DataManager {
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG, mRestaurant.getLocation().getLongitude());
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS, mRestaurant.getLocation().getAddress());
             values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE, mRestaurant.getUserRating().getAggregateRating());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getPriceRange());
+            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getAverageCostForTwo());
             mProviderHelper.saveSingleRestaurant(values);
         }
     }
@@ -146,5 +146,10 @@ public class DataManager {
         Cursor mCursor = null;
         mCursor = mProviderHelper.getCuisines(queryString);
         return mCursor;
+    }
+
+    public void addFavourites(ContentValues values) {
+        mProviderHelper.saveSingleRestaurant(values);
+
     }
 }

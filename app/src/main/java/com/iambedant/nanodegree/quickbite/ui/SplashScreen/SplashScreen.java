@@ -20,7 +20,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -36,7 +35,6 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
@@ -63,8 +61,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     private final int REQUEST_CHECK_SETTINGS = 3;
     LocationSettingsRequest.Builder builder;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +71,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         mSplashPresenter.attachView(this);
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-            }
-        };
 
         if (checkPlayServices()) {
             Logger.d(TAG, "play service found");
@@ -232,7 +222,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
-        mAuth.addAuthStateListener(mAuthListener);
 
     }
 
@@ -257,16 +246,14 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
 
     @Override
     public void gotoManinScreen() {
-        if (user != null) {
+        if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(mContext, Home.class);
             startActivity(intent);
             finish();
-            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
         } else {
             Intent intent = new Intent(mContext, LoginActivity.class);
             startActivity(intent);
             finish();
-            Log.d(TAG, "onAuthStateChanged:signed_out");
         }
     }
 
@@ -402,8 +389,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
     }
 }

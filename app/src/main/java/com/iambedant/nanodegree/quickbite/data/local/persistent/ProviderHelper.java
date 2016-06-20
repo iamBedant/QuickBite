@@ -51,7 +51,7 @@ public class ProviderHelper {
         }
     }
 
-    public void deleteAllCuisines(){
+    public void deleteAllCuisines() {
         mContentResolver.delete(DataContract.CuisinesEntry.CONTENT_URI,
                 null,
                 null);
@@ -61,8 +61,8 @@ public class ProviderHelper {
     //Right now I am on a boring flight and I forgot my earphones at home,
     //so writing this method in case I will need it in future.
 
-    public Cursor getSingleCuisine(String id){
-        Cursor cursor =mContentResolver.query(
+    public Cursor getSingleCuisine(String id) {
+        Cursor cursor = mContentResolver.query(
                 DataContract.CuisinesEntry.buildSingleCuisineUri(id),
                 null,
                 DataContract.CuisinesEntry.COLUMN_CUISINE_ID + " = ?",
@@ -74,6 +74,21 @@ public class ProviderHelper {
         return cursor;
     }
 
+    public Cursor getAllCuisines() {
+        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public Cursor getCuisines(String queryString) {
+        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
+                null,
+                DataContract.CuisinesEntry.COLUMN_CUISINE_NAME + " LIKE '" + queryString + "'",
+                null,
+                null);
+    }
 
 
 /*----------------------- Restaurant Helper Methods ---------------------------*/
@@ -141,7 +156,7 @@ public class ProviderHelper {
         return cursor;
     }
 
-    public Cursor getAllRestaurants(){
+    public Cursor getAllRestaurants() {
         Cursor cursor = mContentResolver.query(DataContract.RestaurantEntry.CONTENT_URI,
                 null,
                 null,
@@ -152,22 +167,12 @@ public class ProviderHelper {
     }
 
     public Loader<Cursor> getFavouriteRestaurants() {
-        return new CursorLoader(mContext,DataContract.RestaurantEntry.CONTENT_URI,null,null,null,null);
+        return new CursorLoader(mContext, DataContract.RestaurantEntry.CONTENT_URI, null, null, null, null);
     }
 
-    public Cursor getAllCuisines(){
-        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
-    }
-
-    public Cursor getCuisines(String queryString) {
-        return mContentResolver.query(DataContract.CuisinesEntry.CONTENT_URI,
-                null,
-                DataContract.CuisinesEntry.COLUMN_CUISINE_NAME + " LIKE '"+queryString+"'",
-                null,
-                null);
+    public void saveAllRestaurants(Vector<ContentValues> cVVector) {
+        ContentValues[] cvArray = new ContentValues[cVVector.size()];
+        cVVector.toArray(cvArray);
+        mContentResolver.bulkInsert(DataContract.RestaurantEntry.CONTENT_URI, cvArray);
     }
 }

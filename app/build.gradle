@@ -61,7 +61,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-
+    compile 'com.google.android.gms:play-services-auth:9.0.2'
+    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }

@@ -22,4 +22,5 @@ public class HomePresenter extends BasePresenter<HomeMvpView> {
     public void loadLastKnownLocation() {
         getMvpView().showLocation(mDataManager.getLastKnownLocation());
     }
+
 }
