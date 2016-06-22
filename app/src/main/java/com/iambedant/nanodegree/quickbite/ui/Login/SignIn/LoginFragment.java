@@ -126,8 +126,9 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
 
             }
         });
-       
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -289,4 +290,6 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.ViewSwitcher;
 
 import com.facebook.FacebookSdk;
 import com.iambedant.nanodegree.quickbite.R;
@@ -33,6 +38,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Bind(R.id.scrim)
     ImageView mImageViewScrim;
 
+    @Bind(R.id.iv_tab_header_signin)
+    ImageSwitcher mImageViewHeaderSignIn;
+
+
     Context mContext;
 
     @Inject
@@ -48,8 +57,26 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoginPresenter.attachView(this);
         mContext = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+
+        mImageViewHeaderSignIn.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView mImageView = new ImageView(getApplicationContext());
+                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                mImageView.setLayoutParams(new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                return mImageView;
+            }
+        });
+
+
+        mImageViewHeaderSignIn.setInAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        mImageViewHeaderSignIn.setOutAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_out));
+        mImageViewHeaderSignIn.setImageResource(R.drawable.login_bg);
         setupViewPager(mViewPagerContainer);
         mTablayoutContainer.setupWithViewPager(mViewPagerContainer);
+
 
     }
 
@@ -62,11 +89,21 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
+
                     final int composeColor = blendColors(ContextCompat.getColor(mContext, R.color.signin_scrim_color), ContextCompat.getColor(mContext, R.color.signup_scrim_color), positionOffset);
                     mImageViewScrim.setBackgroundColor(composeColor);
+
+
                 } else {
                     final int composeColor = blendColors(ContextCompat.getColor(mContext, R.color.signup_scrim_color), ContextCompat.getColor(mContext, R.color.signin_scrim_color), positionOffset);
                     mImageViewScrim.setBackgroundColor(composeColor);
+//                    if(positionOffset>=.5){
+//                        mImageViewHeaderSignIn.setImageResource(R.drawable.login_bg);
+//
+//                    }
+//                    else {
+
+//                    }
                 }
 
 
@@ -74,7 +111,12 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
             @Override
             public void onPageSelected(int position) {
+                if (position == 0) {
 
+                    mImageViewHeaderSignIn.setImageResource(R.drawable.login_bg);
+                } else {
+                    mImageViewHeaderSignIn.setImageResource(R.drawable.signup_bg);
+                }
             }
 
             @Override

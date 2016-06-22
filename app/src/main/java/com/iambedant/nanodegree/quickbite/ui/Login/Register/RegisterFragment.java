@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +14,43 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.data.model.Favourite;
 import com.iambedant.nanodegree.quickbite.data.model.User;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseFragment;
 import com.iambedant.nanodegree.quickbite.ui.home.Home;
+import com.iambedant.nanodegree.quickbite.util.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Kuliza-193 on 4/7/2016.
@@ -55,7 +77,7 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
     RegisterFragmentPresenter mRegisterFragmentPresenter;
 
     private DatabaseReference mDatabase;
-
+    private CallbackManager mCallbackManager;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -86,7 +108,47 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
 
             }
         });
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Logger.d(TAG, "facebook:onSuccess:" + loginResult);
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(mContext, "Login Cancel", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(mContext, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
         return view;
+    }
+
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            onAuthSuccessFacebook(task.getResult().getUser());
+
+                        }
+
+                    }
+                });
     }
 
     private boolean validateForm(String email, String password) {
@@ -140,6 +202,87 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
         ((Activity) mContext).finish();
     }
 
+
+
+
+    private void onAuthSuccessFacebook(FirebaseUser user) {
+        String username = user.getDisplayName();
+        writeNewUserFacebook(user.getUid(), username, user.getEmail());
+    }
+
+    private void writeNewUserFacebook(String userId, String name, String email) {
+        User user = new User(name, email);
+        mDatabase.child("users").child(userId).updateChildren(user.toMap());
+        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                getFavouriteRestaurants(mAuth.getCurrentUser());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getFavouriteRestaurants(FirebaseUser user) {
+        Logger.d(TAG, "getFavourite Restaurant Called");
+        final Query mQuery = mDatabase.child("users").child(user.getUid()).child("favourites");
+
+
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Logger.d(TAG, "ParsingHashMap");
+                HashMap<String, HashMap<String, String>> mMap = (HashMap<String, HashMap<String, String>>) dataSnapshot.getValue();
+
+                saveRestaurantsToLocalStorage(mMap);
+                mQuery.removeEventListener(this);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //todo: After Saving Restaurants Navigate to Homepage
+
+    }
+
+    public void saveRestaurantsToLocalStorage(HashMap<String, HashMap<String, String>> mMap) {
+        Logger.d(TAG, "Saving to local");
+        for (Map.Entry<String, HashMap<String, String>> entry : mMap.entrySet()) {
+
+            HashMap<String, String> favourite = entry.getValue();
+            mRegisterFragmentPresenter.AddFavourites(new Favourite(favourite.get("restaurantId"),
+                    favourite.get("restaurantName"),
+                    favourite.get("coverImage"),
+                    favourite.get("cuisine"),
+                    favourite.get("address"),
+                    favourite.get("lat"),
+                    favourite.get("lon"),
+                    favourite.get("rating"),
+                    Integer.parseInt(String.valueOf(favourite.get("price")))
+            ));
+        }
+
+        navigatiToHome();
+
+
+    }
+
+    public void navigatiToHome() {
+        Logger.d(TAG, "Navigating to home");
+        Intent intent = new Intent(mContext, Home.class);
+        getActivity().startActivity(intent);
+        getActivity().finish();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -160,6 +303,17 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
         User user = new User(name, email);
         mDatabase.child("users").child(userId).setValue(user);
     }
+
+    @OnClick(R.id.btn_google)
+    public void googleClicked() {
+
+    }
+
+    @OnClick(R.id.btn_facebook)
+    public void facebookClicked(){
+
+    }
+
 }
 
 

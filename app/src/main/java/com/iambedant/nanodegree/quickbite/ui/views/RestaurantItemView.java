@@ -67,23 +67,6 @@ public class RestaurantItemView extends CardView {
         set.setTarget(this);
     }
 
-//    public void setBookmarkButtonListener(OnClickListener listener) {
-//        bookmarkIcon.setVisibility(VISIBLE);
-//        bookmarkIcon.setOnClickListener(listener);
-//    }
-//
-//    public void setRemoveIconListener(OnClickListener listener) {
-//        removeIcon.setVisibility(VISIBLE);
-//        removeIcon.setOnClickListener(listener);
-//    }
-
-//    public void setBookmarked(boolean bookmarked) {
-//        if (bookmarked) {
-//            bookmarkIcon.setColorFilter(Color.YELLOW);
-//        } else {
-//            bookmarkIcon.setColorFilter(Color.WHITE);
-//        }
-//    }
 
     public void setName(String name) {
         mTextViewName.setText(name);

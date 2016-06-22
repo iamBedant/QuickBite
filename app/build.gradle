@@ -44,12 +44,17 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
-    compile "com.google.firebase:firebase-auth:$FIREBASE_VERSION"
-    compile "com.google.firebase:firebase-database:$FIREBASE_VERSION"
+
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     //Required by Dagger2
+
     compile "com.google.android.gms:play-services-location:$GOOGLE_PLAY_VERSION"
     compile "com.google.android.gms:play-services-maps:$GOOGLE_PLAY_VERSION"
+    compile "com.google.android.gms:play-services-auth:$FIREBASE_VERSION"
+    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+    compile "com.google.android.gms:play-services-auth:$FIREBASE_VERSION"
+    compile "com.google.firebase:firebase-auth:$FIREBASE_VERSION"
+    compile "com.google.firebase:firebase-database:$FIREBASE_VERSION"
 
     apt daggerCompiler
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
@@ -61,8 +66,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile 'com.google.android.gms:play-services-auth:9.0.2'
-    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }

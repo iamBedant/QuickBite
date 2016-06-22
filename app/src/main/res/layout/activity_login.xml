@@ -19,11 +19,11 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:id="@+id/htab_header"
+            <ImageSwitcher
+                android:id="@+id/iv_tab_header_signin"
                 android:layout_width="match_parent"
+                android:src="@drawable/login_bg"
                 android:layout_height="match_parent"
-                android:background="@drawable/login_bg"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />

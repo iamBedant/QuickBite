@@ -31,6 +31,6 @@
     <color name="color_coffee">#A6b9a0a0</color>
     <color name="color_favourite">#A6221c1c</color>
     <color name="color_available">#1f751f</color>
-    <color name="signin_scrim_color">#99008DD5</color>
-    <color name="signup_scrim_color">#99F56476</color>
+    <color name="signin_scrim_color">#9697774e</color>
+    <color name="signup_scrim_color">#96d35345</color>
 </resources>
