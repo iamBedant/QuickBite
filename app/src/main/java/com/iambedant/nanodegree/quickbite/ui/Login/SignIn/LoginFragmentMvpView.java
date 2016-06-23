@@ -7,4 +7,5 @@ import com.iambedant.nanodegree.quickbite.ui.base.MvpView;
  */
 public interface LoginFragmentMvpView extends MvpView {
 
+    void setError(int i, String required);
 }

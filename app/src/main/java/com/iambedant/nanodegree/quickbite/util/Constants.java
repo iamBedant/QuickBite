@@ -52,7 +52,8 @@ public class Constants {
     public static final int ERROR_TYPE_NETWORK =1;
     public static final int ERROR_TYPE_NO_DATA =2;
     public static final int ERROR_TYPE_DEFAULT =999;
-
+    public static final int LOGIN = 1;
+    public static final int REGISTER = 2;
 
     public static String SEARCH_TERM="_search_term";
 

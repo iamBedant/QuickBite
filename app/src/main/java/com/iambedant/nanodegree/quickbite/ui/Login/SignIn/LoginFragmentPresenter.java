@@ -1,12 +1,11 @@
 package com.iambedant.nanodegree.quickbite.ui.Login.SignIn;
 
-import android.content.ContentValues;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
-import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
-import com.iambedant.nanodegree.quickbite.data.model.Favourite;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
-import com.iambedant.nanodegree.quickbite.util.Logger;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -32,26 +31,41 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
         super.detachView();
     }
 
-    public void AddFavourites(final Favourite mRestaurant) {
-        Logger.d(TAG, "Adding Favourite");
-       if(!mDataManager.isRestaurantPresent(mRestaurant.getRestaurantId())) {
-           Logger.d(TAG, "Previously Not Present");
-            ContentValues values = new ContentValues();
 
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ID, mRestaurant.getRestaurantId());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME, mRestaurant.getRestaurantName());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE, mRestaurant.getCoverImage());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE, mRestaurant.getCuisine());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT, mRestaurant.getLat());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG, mRestaurant.getLon());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS, mRestaurant.getAddress());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE, mRestaurant.getRating());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getPrice());
+    public void writeNewUser(String uid, String username, String email) {
+        mDataManager.writeNewUser(uid, username, email, Constants.REGISTER);
+    }
+
+    private boolean validateForm(String email, String password) {
+        boolean valid = true;
 
 
-            mDataManager.addFavourites(values);
+        if (TextUtils.isEmpty(email)) {
+            getMvpView().setError(0, "Required");
+
+            valid = false;
+        } else {
+
         }
 
+
+        if (TextUtils.isEmpty(password)) {
+            getMvpView().setError(1, "Required");
+            valid = false;
+        } else {
+
+        }
+
+        return valid;
+    }
+
+    public void signIn(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+        if (!validateForm(email, password)) {
+            return;
+        }
+
+        mDataManager.firebaseLogin(email, password);
 
     }
 }

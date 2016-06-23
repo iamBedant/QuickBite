@@ -1,12 +1,10 @@
 package com.iambedant.nanodegree.quickbite.ui.Login.Register;
 
-import android.content.ContentValues;
+import android.text.TextUtils;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
-import com.iambedant.nanodegree.quickbite.data.local.persistent.DataContract;
-import com.iambedant.nanodegree.quickbite.data.model.Favourite;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
-import com.iambedant.nanodegree.quickbite.util.Logger;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -32,31 +30,40 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
         super.detachView();
     }
 
-    public void createCustomUser(String email, String pasword) {
-        mDataManager.createCustomUser(email, pasword);
-    }
 
-    public void AddFavourites(final Favourite mRestaurant) {
-        Logger.d(TAG, "Adding Favourite");
-        if (!mDataManager.isRestaurantPresent(mRestaurant.getRestaurantId())) {
-            Logger.d(TAG, "Previously Not Present");
-            ContentValues values = new ContentValues();
-
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ID, mRestaurant.getRestaurantId());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_NAME, mRestaurant.getRestaurantName());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_COVER_IMAGE, mRestaurant.getCoverImage());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_CUISINE, mRestaurant.getCuisine());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LAT, mRestaurant.getLat());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_LONG, mRestaurant.getLon());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_ADDRESS, mRestaurant.getAddress());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_RATINGE, mRestaurant.getRating());
-            values.put(DataContract.RestaurantEntry.COLUMN_RESTAURANT_PRICE, mRestaurant.getPrice());
+    private boolean validateForm(String email, String password) {
+        boolean valid = true;
 
 
-            mDataManager.addFavourites(values);
+        if (TextUtils.isEmpty(email)) {
+            getMvpView().setError(0, "Required");
+            valid = false;
+        } else {
+
         }
 
 
+        if (TextUtils.isEmpty(password)) {
+            getMvpView().setError(0, "Required");
+            valid = false;
+        } else {
+
+        }
+
+        return valid;
+    }
+
+    public void createAccount(String email, String password, String name) {
+
+        if (!validateForm(email, password)) {
+            return;
+        }
+        mDataManager.createFirebaseUser(email, password, name);
+
+    }
+
+    public void writeNewUser(String uid, String displayName, String email) {
+        mDataManager.writeNewUser(uid, displayName, email, Constants.REGISTER);
     }
 }
 
