@@ -45,6 +45,14 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
+    public Boolean isLoggedIn(){
+        Boolean isLoggedIn = false;
+        if(mDataManager.getCurrentUser()!=null){
+            isLoggedIn = true;
+        }
+        return isLoggedIn;
+    }
+
     public void loadCuisineslData(Double lat, Double lon) {
 
         HashMap<String, String> params = new HashMap<String, String>();

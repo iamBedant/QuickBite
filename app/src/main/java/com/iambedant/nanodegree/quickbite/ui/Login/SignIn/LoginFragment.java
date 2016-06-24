@@ -20,6 +20,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -28,8 +29,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseFragment;
-import com.iambedant.nanodegree.quickbite.ui.home.Home;
 import com.iambedant.nanodegree.quickbite.util.Logger;
+import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.Arrays;
 
@@ -57,6 +58,7 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
     private FirebaseAuth mAuth;
     Context mContext;
     private CallbackManager mCallbackManager;
+    private GoogleApiClient mGoogleApiClient;
 
     @Inject
     LoginFragmentPresenter mLoginFragmentPresenter;
@@ -102,9 +104,11 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
         mButtonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // mRegisterFragmentPresenter.createCustomUser(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString());
-                mLoginFragmentPresenter.signIn(mEditTextEmail.getText().toString().trim(), mEditTextPassword.getText().toString().trim());
-
+                if(NetworkUtil.isNetworkConnected(mContext)) {
+                    mLoginFragmentPresenter.signIn(mEditTextEmail.getText().toString().trim(), mEditTextPassword.getText().toString().trim());
+                }else {
+                    //todo: Show Network error
+                }
             }
         });
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -132,24 +136,23 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
     }
 
 
-    //TODO: This part will be inside EventBus onEvent Methode
-    public void navigatiToHome() {
-        Logger.d(TAG, "Navigating to home");
-        Intent intent = new Intent(mContext, Home.class);
-        getActivity().startActivity(intent);
-        getActivity().finish();
-    }
-
 
     @OnClick(R.id.btn_facebook)
     public void facebookClicked() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
-
+        if(NetworkUtil.isNetworkConnected(mContext)) {
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+        }else {
+            //todo: use utility to show
+        }
     }
 
     @OnClick(R.id.btn_google)
     public void googleClicked() {
-
+        if(NetworkUtil.isNetworkConnected(mContext)) {
+         //todo: Google Login to be implemented
+        }else {
+            //todo: use utility to show
+        }
     }
 
     @Override

@@ -34,7 +34,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.firebase.auth.FirebaseAuth;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
@@ -60,7 +59,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     private final int REQUEST_GOOGLE_PLAY_SERVICES = 2;
     private final int REQUEST_CHECK_SETTINGS = 3;
     LocationSettingsRequest.Builder builder;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         getActivityComponent().inject(this);
         mContext = this;
         mSplashPresenter.attachView(this);
-        mAuth = FirebaseAuth.getInstance();
+
 
 
         if (checkPlayServices()) {
@@ -246,7 +244,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
 
     @Override
     public void gotoManinScreen() {
-        if (mAuth.getCurrentUser() != null) {
+        if (mSplashPresenter.isLoggedIn()) {
             Intent intent = new Intent(mContext, Home.class);
             startActivity(intent);
             finish();

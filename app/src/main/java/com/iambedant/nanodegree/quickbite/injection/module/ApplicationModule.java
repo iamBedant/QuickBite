@@ -8,7 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
-import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Singleton;
 
@@ -39,8 +40,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    Bus provideEventBus() {
-        return new Bus();
+    EventBus provideEventBus() {
+        return new EventBus();
     }
 
     @Provides

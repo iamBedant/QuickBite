@@ -63,7 +63,7 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
     }
 
     public void writeNewUser(String uid, String displayName, String email) {
-        mDataManager.writeNewUser(uid, displayName, email, Constants.REGISTER);
+        mDataManager.writeNewUser(uid, displayName, email, Constants.LOGIN);
     }
 }
 

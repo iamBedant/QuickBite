@@ -2,6 +2,7 @@ package com.iambedant.nanodegree.quickbite.ui.Login;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,9 +17,16 @@ import android.widget.ViewSwitcher;
 
 import com.facebook.FacebookSdk;
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.events.EventLoginSuccessfull;
 import com.iambedant.nanodegree.quickbite.ui.Login.Register.RegisterFragment;
 import com.iambedant.nanodegree.quickbite.ui.Login.SignIn.LoginFragment;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
+import com.iambedant.nanodegree.quickbite.ui.home.Home;
+import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
+import com.iambedant.nanodegree.quickbite.util.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
@@ -40,7 +48,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Bind(R.id.iv_tab_header_signin)
     ImageSwitcher mImageViewHeaderSignIn;
-
+    //
+    @Inject
+    EventPosterHelper mEventPosterHelper;
 
     Context mContext;
 
@@ -57,7 +67,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mLoginPresenter.attachView(this);
         mContext = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
-
+        EventBus.getDefault().register(this);
 
         mImageViewHeaderSignIn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -150,5 +160,19 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void onDestroy() {
         super.onDestroy();
         mLoginPresenter.detachView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(EventLoginSuccessfull event) {
+        Logger.d(TAG, "This is inside the event Bus !!!");
+        if (event.isSuccessfull) {
+            Logger.d(TAG, "This is inside the event Bus !!!, Login SuccessFull");
+            Intent intent = new Intent(mContext, Home.class);
+            startActivity(intent);
+            finish();
+        }else {
+            Logger.d(TAG,event.message);
+        }
     }
 }

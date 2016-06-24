@@ -11,7 +11,8 @@ import com.iambedant.nanodegree.quickbite.data.local.persistent.ProviderHelper;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.injection.ApplicationContext;
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
-import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Singleton;
 
@@ -41,6 +42,6 @@ public interface ApplicationComponent {
     DatabaseReference dtabaseReference();
 
     //    FirebaseDatabase firebaseDatabase();
-    Bus eventBus();
+    EventBus eventBus();
 
 }

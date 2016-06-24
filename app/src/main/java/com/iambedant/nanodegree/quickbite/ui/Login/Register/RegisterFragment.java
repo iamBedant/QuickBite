@@ -2,7 +2,6 @@ package com.iambedant.nanodegree.quickbite.ui.Login.Register;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -28,7 +27,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseFragment;
-import com.iambedant.nanodegree.quickbite.ui.home.Home;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import javax.inject.Inject;
@@ -135,14 +133,6 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
 
                     }
                 });
-    }
-
-
-    public void navigatiToHome() {
-        Logger.d(TAG, "Navigating to home");
-        Intent intent = new Intent(mContext, Home.class);
-        getActivity().startActivity(intent);
-        getActivity().finish();
     }
 
     @Override

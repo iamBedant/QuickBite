@@ -33,7 +33,7 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
 
 
     public void writeNewUser(String uid, String username, String email) {
-        mDataManager.writeNewUser(uid, username, email, Constants.REGISTER);
+        mDataManager.writeNewUser(uid, username, email, Constants.LOGIN);
     }
 
     private boolean validateForm(String email, String password) {

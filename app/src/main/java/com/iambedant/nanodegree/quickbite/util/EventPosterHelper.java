@@ -3,7 +3,8 @@ package com.iambedant.nanodegree.quickbite.util;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -12,14 +13,14 @@ import javax.inject.Inject;
  */
 public class EventPosterHelper {
 
-    private final Bus mBus;
+    private final EventBus mBus;
 
     @Inject
-    public EventPosterHelper(Bus bus) {
+    public EventPosterHelper(EventBus bus) {
         mBus = bus;
     }
 
-    public Bus getBus() {
+    public EventBus getBus() {
         return mBus;
     }
 

@@ -26,9 +26,12 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.model.User;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
+import com.iambedant.nanodegree.quickbite.events.EventLoginSuccessfull;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 import com.iambedant.nanodegree.quickbite.util.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,10 +86,6 @@ public class DataManager {
         };
     }
 
-
-    public void loginUser(String email, String password) {
-
-    }
 
     public Observable<SearchResult> getSearchData(Map<String, String> queryParams) {
         return mQuickBiteApiClient.getSearchResult(queryParams);
@@ -182,8 +181,7 @@ public class DataManager {
                 if (TYPE == Constants.LOGIN) {
                     getFavouriteRestaurants(mAuth.getCurrentUser().getUid());
                 } else {
-                    //Invoke
-                    Logger.d(TAG, "Register Successfull");
+                   EventBus.getDefault().post(new EventLoginSuccessfull(true,""));
                 }
 
             }
@@ -235,9 +233,8 @@ public class DataManager {
             }
         }
         Logger.d(TAG, "Invoking event Bus");
-        //Invoke The Event Bus to notify UI(Login Frgment);
-
-    }
+        EventBus.getDefault().post(new EventLoginSuccessfull(true, ""));
+ }
 
     public void AddFavourites(final Favourite mRestaurant) {
         Logger.d(TAG, "Adding Favourite");
@@ -271,7 +268,7 @@ public class DataManager {
                         if (task.isSuccessful()) {
                             getFavouriteRestaurants(task.getResult().getUser().getUid());
                         } else {
-
+                            EventBus.getDefault().post(new EventLoginSuccessfull(false, task.getException().getMessage()));
                         }
                     }
                 });
@@ -286,7 +283,7 @@ public class DataManager {
                             writeNewUser(task.getResult().getUser().getUid(), name, task.getResult().getUser().getEmail(), Constants.REGISTER);
                         } else {
                             Logger.d(TAG, "Failed");
-                            //TODO: Use Event Bus to comminucate with UI
+                            EventBus.getDefault().post(new EventLoginSuccessfull(false, task.getException().getMessage()));
                         }
                     }
                 });
