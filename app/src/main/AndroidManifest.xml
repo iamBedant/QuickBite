@@ -72,6 +72,24 @@
         <activity
             android:name=".ui.searchCuisines.CuisineSearch"
             android:theme="@style/App.Search" />
+
+
+
+        <!-- Widget Receiver -->
+        <receiver android:name=".ui.widget.WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_favourite_info" />
+        </receiver>
+
+        <!-- Widget service -->
+        <service
+            android:name=".ui.widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

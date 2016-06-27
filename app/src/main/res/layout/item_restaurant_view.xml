@@ -33,7 +33,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin">
 
-            <TextView
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 android:textSize="@dimen/text_size_large"
                 tools:text="4.5" />
 
-            <TextView
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:textSize="@dimen/text_size_medium"
                 tools:text="@string/restaurant_name" />
 
-            <TextView
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/cuisine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:textSize="@dimen/text_size_small"
                 tools:text="@string/cuisine" />
 
-            <TextView
+            <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

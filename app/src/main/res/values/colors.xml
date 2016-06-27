@@ -6,6 +6,7 @@
     <color name="colorSeparator">#efefef</color>
     <color name="white">#ffffff</color>
     <color name="off_white">#efefef</color>
+    <color name="off_whitex">#d9d8d8</color>
     <color name="colorTextSecondary">#808080</color>
     <color name="background_light">#fafafa</color>
     <color name="hint_disabled_dark">#43000000</color>
