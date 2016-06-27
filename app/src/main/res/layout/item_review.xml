@@ -23,7 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
             android:layout_toRightOf="@id/iv_profile_pic"
+            android:layout_toEndOf="@id/iv_profile_pic"
             android:orientation="vertical">
 
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
@@ -48,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:font="SourceSansPro-Semibold"
             tools:text="@string/tools_rating" />
@@ -74,6 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_below="@id/tv_review"
             android:text="@string/see_more" />
 

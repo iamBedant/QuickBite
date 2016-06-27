@@ -24,7 +24,7 @@
                 android:id="@+id/tv_user_name"
                 android:layout_marginTop="@dimen/padding_username_home"
                 android:layout_width="wrap_content"
-                android:text="Hi, Bedant"
+                android:text="@string/welcome_dummy_text"
                 android:textSize="@dimen/text_size_home_text_size"
                 app:font="SourceSansPro-Light"
                 android:layout_gravity="center_horizontal"
@@ -50,8 +50,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:textColor="@color/location_text_color"
                 app:font="SourceSansPro-Regular"
                 tools:text="@string/location_dummy_text" />
@@ -64,6 +66,7 @@
                 android:textColor="@color/location_text_color"
                 app:font="SourceSansPro-Light"
                 android:layout_marginRight="@dimen/margin_xsmall"
+                android:layout_marginEnd="@dimen/margin_xsmall"
                 android:text="@string/you_are_at" />
         </RelativeLayout>
 

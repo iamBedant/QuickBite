@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/padding_small"
-            android:paddingRight="@dimen/padding_small">
+            android:paddingStart="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_small">
 
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/tv_name"
@@ -48,24 +50,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
             app:font="SourceSansPro-Light"
-            android:paddingRight="@dimen/padding_small" />
+            android:paddingRight="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_small"/>
 
         <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
             app:font="SourceSansPro-Light"
-            android:paddingRight="@dimen/padding_small" />
+            android:paddingRight="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_small"/>
 
         <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
             app:font="SourceSansPro-Light"
-            android:paddingRight="@dimen/padding_small" />
+            android:paddingRight="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_small"/>
 
         <include layout="@layout/view_restaurant_buttons" />
 

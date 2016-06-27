@@ -18,7 +18,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="@dimen/margin_medium"
-        android:textSize="18sp"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textSize="@dimen/text_size_item"
         tools:text="Cafe Amarican" />
     <View
 

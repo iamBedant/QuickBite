@@ -29,7 +29,9 @@
             android:maxWidth="@dimen/max_width_detail_layout"
             android:orientation="vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/padding_small">
 
             <include layout="@layout/view_restaurant_buttons" />
@@ -58,6 +60,7 @@
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         android:id="@+id/tv_cuisines"
                         android:layout_toRightOf="@id/tv_cuisines_display"
+
                         app:font="SourceSansPro-Regular"
                         tools:text="Cafe Amarican"
                         style="@style/restaurant_right_text" />
@@ -77,6 +80,7 @@
                         android:id="@+id/tv_cost"
                         style="@style/restaurant_right_text"
                         android:layout_toRightOf="@id/tv_cost_display"
+                        android:layout_toEndOf="@id/tv_cost_display"
                         app:font="SourceSansPro-Regular"
                         tools:text="250(for 2 people)" />
                 </RelativeLayout>
@@ -95,6 +99,7 @@
                         android:id="@+id/tv_delivery"
                         style="@style/restaurant_right_text"
                         android:layout_toRightOf="@id/tv_delivery_display"
+                        android:layout_toEndOf="@id/tv_delivery_display"
                         app:font="SourceSansPro-Regular"
                         tools:text="Available" />
 
@@ -105,6 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:text="ORDER NOW"
                         android:textColor="@color/colorAccent"
                         android:visibility="gone" />

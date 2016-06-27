@@ -26,7 +26,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
                 android:orientation="horizontal"
-                android:paddingRight="@dimen/padding_small">
+                android:paddingRight="@dimen/padding_small"
+                android:paddingEnd="@dimen/padding_small">
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_toolbar_title"
@@ -38,6 +39,7 @@
                     android:id="@+id/search"
                     style="@style/QuickBiteTappable"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_zoom_in_black_24dp" />
 
                 <ImageButton
