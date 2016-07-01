@@ -2,6 +2,8 @@ package com.iambedant.nanodegree.quickbite.ui.restaurant;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,12 +41,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.UserReview;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
+import com.iambedant.nanodegree.quickbite.events.RestaurantAddOrDeleteSuccessful;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.review.FullReview;
+import com.iambedant.nanodegree.quickbite.ui.widget.WidgetProvider;
 import com.iambedant.nanodegree.quickbite.util.ColorUtils;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.GlideUtils.GlideUtils;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -110,9 +118,7 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
 
-
-        //   postponeEnterTransition();
-
+EventBus.getDefault().register(this);
         mContext = this;
         host = this;
         mDetailPresenter.attachView(this);
@@ -308,11 +314,22 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
     public void onClick(View v) {
 
     }
+    @Subscribe
+    public void onEvent(RestaurantAddOrDeleteSuccessful event) {
+        Logger.d(TAG, "This is inside the event Bus !!!");
+        if (event.isSuccessfull) {
+           updateAllWidgets();
+        }else {
+
+        }
+    }
+
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        EventBus.getDefault().unregister(this);
         mDetailPresenter.detachView();
     }
 
@@ -463,4 +480,24 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void updateAllWidgets() {
+//      Intent i = new Intent(mContext, WidgetProvider.class);
+//        i.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//        mContext.sendBroadcast(i);
+
+
+        ////Second
+
+
+
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context, WidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList);
+    }
+
+
 }

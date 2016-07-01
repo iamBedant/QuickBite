@@ -104,5 +104,4 @@ public class SplashPresenter extends BasePresenter<SplashMvpView> {
         mDataManager.saveCurrentLocation(lat,lon,locality);
     }
 
-
 }

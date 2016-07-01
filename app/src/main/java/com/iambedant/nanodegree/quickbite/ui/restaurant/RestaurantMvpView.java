@@ -10,5 +10,6 @@ import java.util.ArrayList;
  */
 public interface RestaurantMvpView extends MvpView {
     void showReviews(ArrayList<UserReview> mListReview);
+    void updateAllWidgets();
 
 }

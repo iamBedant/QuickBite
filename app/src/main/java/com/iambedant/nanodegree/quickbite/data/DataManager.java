@@ -27,6 +27,7 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.model.User;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.events.EventLoginSuccessfull;
+import com.iambedant.nanodegree.quickbite.events.RestaurantAddOrDeleteSuccessful;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 import com.iambedant.nanodegree.quickbite.util.Logger;
@@ -181,7 +182,7 @@ public class DataManager {
                 if (TYPE == Constants.LOGIN) {
                     getFavouriteRestaurants(mAuth.getCurrentUser().getUid());
                 } else {
-                   EventBus.getDefault().post(new EventLoginSuccessfull(true,""));
+                    EventBus.getDefault().post(new EventLoginSuccessfull(true, ""));
                 }
 
             }
@@ -234,7 +235,7 @@ public class DataManager {
         }
         Logger.d(TAG, "Invoking event Bus");
         EventBus.getDefault().post(new EventLoginSuccessfull(true, ""));
- }
+    }
 
     public void AddFavourites(final Favourite mRestaurant) {
         Logger.d(TAG, "Adding Favourite");
@@ -289,5 +290,29 @@ public class DataManager {
                 });
     }
 
+    public String deleteRestaurantFromFirebase(final String restaurantId) {
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("favourites").child(restaurantId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                deleteFavouriteRestaurant(restaurantId);
+                EventBus.getDefault().post(new RestaurantAddOrDeleteSuccessful(true));
+            }
+        });
+        return "hello";
+    }
 
+    public void writeNewPost(String userId, final Restaurant_ mRestaurant) {
+
+        Favourite favourite = new Favourite(mRestaurant.getId(), mRestaurant.getName(), mRestaurant.getFeaturedImage(), mRestaurant.getCuisines(), mRestaurant.getLocation().getAddress(), mRestaurant.getLocation().getLatitude(), mRestaurant.getLocation().getLongitude(), mRestaurant.getUserRating().getAggregateRating(), mRestaurant.getAverageCostForTwo());
+        Map<String, Object> postValues = favourite.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/users/" + userId + "/favourites/" + mRestaurant.getId(), postValues);
+        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                saveFavouriteRestaurant(mRestaurant);
+                EventBus.getDefault().post(new RestaurantAddOrDeleteSuccessful(true));
+            }
+        });
+    }
 }

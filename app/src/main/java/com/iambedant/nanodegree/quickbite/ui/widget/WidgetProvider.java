@@ -11,15 +11,18 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.iambedant.nanodegree.quickbite.R;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 
 public class WidgetProvider extends AppWidgetProvider {
 
-	public static final String ACTION_TOAST = "com.dharmangsoni.widgets.ACTION_TOAST";
-	public static final String EXTRA_STRING = "com.dharmangsoni.widgets.EXTRA_STRING";
+	public static final String ACTION_TOAST = "com.iambedant.nanodegree.quickbite.ui.widget.ACTION_TOAST";
+	public static final String EXTRA_STRING = "com.iambedant.nanodegree.quickbite.ui.widget.EXTRA_STRING";
+	String TAG = WidgetProvider.class.getSimpleName();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
 		if (intent.getAction().equals(ACTION_TOAST)) {
 			String item = intent.getExtras().getString(EXTRA_STRING);
 			Toast.makeText(context, item, Toast.LENGTH_LONG).show();
@@ -32,6 +35,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
 		for (int widgetId : appWidgetIds) {
+			Logger.d(TAG,"Inside onUpdate");
 			RemoteViews mView = initViews(context, appWidgetManager, widgetId);
 
 			// Adding collection list item handler

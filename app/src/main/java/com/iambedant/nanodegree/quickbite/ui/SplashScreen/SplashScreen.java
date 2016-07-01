@@ -67,9 +67,6 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
         getActivityComponent().inject(this);
         mContext = this;
         mSplashPresenter.attachView(this);
-
-
-
         if (checkPlayServices()) {
             Logger.d(TAG, "play service found");
             onActivityResult(REQUEST_GOOGLE_PLAY_SERVICES, Activity.RESULT_OK, null);

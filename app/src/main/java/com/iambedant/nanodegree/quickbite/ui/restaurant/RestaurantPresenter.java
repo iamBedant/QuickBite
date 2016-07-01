@@ -9,7 +9,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iambedant.nanodegree.quickbite.data.DataManager;
-import com.iambedant.nanodegree.quickbite.data.model.Favourite;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.Reviews;
 import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
@@ -17,7 +16,6 @@ import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -60,15 +58,15 @@ public class RestaurantPresenter extends BasePresenter<RestaurantMvpView> {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Favourite user = dataSnapshot.getValue(Favourite.class);
-                        if (user == null) {
+                        // Favourite user = dataSnapshot.getValue(Favourite.class);
+                        if (userId == null) {
 
                             Logger.e(TAG, "User " + userId + " is unexpectedly null");
 
                         } else {
-                            writeNewPost(userId, mRestaurant);
+                            mDataManager.writeNewPost(userId, mRestaurant);
                         }
-                       mDataManager.saveFavouriteRestaurant(mRestaurant);
+
 
                     }
 
@@ -82,20 +80,12 @@ public class RestaurantPresenter extends BasePresenter<RestaurantMvpView> {
     }
 
 
-    private void writeNewPost(String userId, Restaurant_ mRestaurant) {
 
-
-        String key = mDatabase.child("users").child(userId).child("favourites").push().getKey();
-        Favourite favourite = new Favourite(mRestaurant.getId(), mRestaurant.getName(), mRestaurant.getFeaturedImage(), mRestaurant.getCuisines(), mRestaurant.getLocation().getAddress(), mRestaurant.getLocation().getLatitude(), mRestaurant.getLocation().getLongitude(), mRestaurant.getUserRating().getAggregateRating(), mRestaurant.getAverageCostForTwo());
-        Map<String, Object> postValues = favourite.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/users/"+userId+"/favourites/"+key, postValues);
-        mDatabase.updateChildren(childUpdates);
-    }
 
 
     public void deleteRestaurant(String id) {
-        mDataManager.deleteFavouriteRestaurant(id);
+        mDataManager.deleteRestaurantFromFirebase(id);
+         getMvpView().updateAllWidgets();
     }
 
 
