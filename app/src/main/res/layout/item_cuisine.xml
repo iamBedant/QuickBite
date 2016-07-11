@@ -6,6 +6,7 @@
     android:background="@color/light_grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
+    android:contentDescription="@string/single_cuisine_layout"
     android:id="@+id/item"
     android:foreground="@drawable/mid_grey_ripple"
     android:orientation="horizontal">
@@ -13,6 +14,7 @@
     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
         android:layout_width="wrap_content"
         android:id="@+id/tv_main_text"
+        android:contentDescription="@string/cuisine_name"
         android:layout_height="wrap_content"
         app:font="SourceSansPro-Light"
         android:layout_marginTop="15dp"

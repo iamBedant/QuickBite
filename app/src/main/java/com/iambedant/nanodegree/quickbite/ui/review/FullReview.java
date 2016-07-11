@@ -2,19 +2,18 @@ package com.iambedant.nanodegree.quickbite.ui.review;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.data.model.Reviews.Review;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.util.Constants;
+import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import javax.inject.Inject;
 
@@ -24,6 +23,8 @@ import butterknife.OnClick;
 
 public class FullReview extends BaseActivity implements ReviewMvpView {
 
+
+    public String TAG = FullReview.class.getSimpleName();
     @Inject
     ReviewPrsenter mReviewPresenter;
     Context mContext;
@@ -42,9 +43,6 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
     @Bind(R.id.btn_view_profile)
     Button mButtonProfile;
 
-    @Bind(R.id.btn_view_profile_fake)
-    Button mButtonProfileFake;
-
     @Bind(R.id.iv_profile_pic)
     ImageView mImageViewProfile;
 
@@ -57,12 +55,14 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
         getActivityComponent().inject(this);
         ButterKnife.bind(this);
         mContext = this;
+        initChromeCustomTab();
         host = this;
         if (getIntent().hasExtra(Constants.CURRENT_REVIEW)) {
             mReview = getIntent().getParcelableExtra(Constants.CURRENT_REVIEW);
         }
         mReviewPresenter.attachView(this);
         bindUi();
+
 
 
     }
@@ -79,19 +79,16 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
         mTextViewFoodieLevel.setText(mReview.getUser().getFoodieLevel());
         mTextViewReview.setText(mReview.getReviewText());
 
-
-        mButtonProfileFake.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return mButtonProfile.dispatchTouchEvent(event);
-            }
-        });
-
     }
 
     @OnClick(R.id.btn_view_profile)
     public void openReviewerProfile(){
-        Toast.makeText(mContext,"This is from Click event",Toast.LENGTH_SHORT).show();
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mReview.getUser().getProfileUrl()));
+//        startActivity(browserIntent);
+//
+        Logger.d(TAG,"User Profile");
+        launchUrl(mContext,mReview.getUser().getProfileUrl());
+
     }
 
     @Override
@@ -100,8 +97,12 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
         mReviewPresenter.detachView();
     }
 
-    //    @OnTouch(R.id.btn_view_profile)
-//    public void openReviewProfileTouch(){
-//        Toast.makeText(mContext,"This is from touch event",Toast.LENGTH_SHORT).show();
-//    }
+
+
+    public void launchUrl(Context mContext, String url) {
+        Logger.d(TAG,url);
+        customTabsIntent.launchUrl((Activity) mContext, Uri.parse(url));
+
+    }
+
 }

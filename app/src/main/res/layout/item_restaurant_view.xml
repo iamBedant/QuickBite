@@ -16,6 +16,7 @@
 
         <ImageView
             android:id="@+id/container"
+            android:contentDescription="@string/restaurant_featured_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/light_grey"
@@ -39,6 +40,7 @@
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/restaurant_description"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/white"
@@ -47,6 +49,7 @@
 
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/name"
+                android:contentDescription="@string/restaurant_name_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -64,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name"
-
+                android:contentDescription="@string/restaurant_cuisines"
                 android:layout_marginTop="@dimen/margin_xxsmall"
                 android:textColor="@color/off_white"
                 android:textSize="@dimen/text_size_small"
@@ -74,6 +77,7 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/address_"
                 android:layout_below="@id/cuisine"
                 android:layout_marginTop="@dimen/margin_xxsmall"
                 android:ellipsize="end"

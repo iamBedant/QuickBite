@@ -12,6 +12,7 @@
 
         <ImageView
             android:id="@+id/iv_cover_image"
+            android:contentDescription="@string/restaurant_featured_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"

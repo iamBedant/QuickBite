@@ -1,7 +1,9 @@
 package com.iambedant.nanodegree.quickbite.ui.favourites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -113,12 +115,15 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
 
     @Override
     public void directionClicked(Double lon, Double lat) {
-        //todo: Open Map  intent wth  Direction
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr=" + lat + "," + lon));
+        startActivity(intent);
     }
 
     @Override
     public void zomatoClicked(String id) {
-        // TODO: Open Zomato Intent
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRestaurant.getMenuUrl()));
+//        startActivity(browserIntent);
     }
 
     @Override
@@ -126,4 +131,5 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
         super.onDestroy();
         mFavouritePresenter.detachView();
     }
+
 }

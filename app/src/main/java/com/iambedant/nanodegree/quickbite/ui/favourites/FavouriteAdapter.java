@@ -2,12 +2,14 @@ package com.iambedant.nanodegree.quickbite.ui.favourites;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -61,8 +63,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         holder.mTextViewAddress.setText(mCursor.getString(columnIndexAddress));
         holder.mTextViewCuisines.setText(mCursor.getString(columnIndexCuisine));
         holder.mTextViewRating.setText(mCursor.getFloat(columnIndexRating) + "");
+        holder.mRelativeLayoutMenu.setVisibility(View.GONE);
         //todo: Add Localization for Price 
-        holder.mTextViewPrice.setText("Rs. "+mCursor.getInt(columnIndexrice) + " For two People (Approx)");
+        holder.mTextViewPrice.setText("Rs. " + mCursor.getInt(columnIndexrice) + " For two People (Approx)");
         Glide.with(mContext)
                 .load(mCursor.getString(columnIndexCoverImage))
                 .into(holder.mImageViewCover);
@@ -70,15 +73,16 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             @Override
             public void onClick(View v) {
                 mCursor.moveToPosition(position);
-                Logger.d(TAG,"Deleting -->"+mCursor.getString(columnIndexName));
-                mClickcallBack.directionClicked(mCursor.getDouble(columnIndexLat),mCursor.getDouble(columnIndexLong));
+                Logger.d(TAG, "Deleting -->" + mCursor.getString(columnIndexName));
+                mClickcallBack.directionClicked(mCursor.getDouble(columnIndexLat), mCursor.getDouble(columnIndexLong));
             }
         });
+        holder.mImageButtonFavourite.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_black_24dp));
         holder.mImageButtonFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCursor.moveToPosition(position);
-                Logger.d(TAG,"Favourite Clicked");
+                Logger.d(TAG, "Favourite Clicked");
                 mClickcallBack.favouriteIconClicked(mCursor.getString(columnIndexId));
             }
         });
@@ -87,7 +91,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             public void onClick(View v) {
                 mCursor.moveToPosition(position);
 
-                Logger.d(TAG,"Zomato Clicked");
+                Logger.d(TAG, "Zomato Clicked");
                 mClickcallBack.zomatoClicked(mCursor.getString(columnIndexId));
             }
         });
@@ -99,7 +103,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         return mCursor.getCount();
     }
 
-    public class FavouriteAdapterViewHolder extends RecyclerView.ViewHolder{
+    public class FavouriteAdapterViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.tv_name)
         TextView mTextViewName;
         @Bind(R.id.tv_rating)
@@ -118,6 +122,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         @Bind(R.id.iv_cover_image)
         ImageView mImageViewCover;
 
+        @Bind(R.id.menu_layout)
+        RelativeLayout mRelativeLayoutMenu;
+
         @Bind(R.id.tv_price)
         TextView mTextViewPrice;
 
@@ -127,11 +134,10 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         }
 
 
-
     }
 
 
-    public Cursor getCursor(){
+    public Cursor getCursor() {
         return mCursor;
     }
 

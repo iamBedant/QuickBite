@@ -2,6 +2,7 @@
 <com.iambedant.nanodegree.quickbite.ui.views.RestaurantItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_margin="@dimen/margin_small"
+    android:contentDescription="@string/restaurant_item"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 

@@ -23,4 +23,12 @@ public class HomePresenter extends BasePresenter<HomeMvpView> {
         getMvpView().showLocation(mDataManager.getLastKnownLocation());
     }
 
+    public void saveLocation(Double lat, Double lon, String subLocality) {
+        mDataManager.saveCurrentLocation(lat,lon,subLocality);
+        getMvpView().showLocation(subLocality);
+    }
+
+    public void getUserName() {
+        mDataManager.getUserName();
+    }
 }

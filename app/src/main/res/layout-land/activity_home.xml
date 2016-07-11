@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/background_image"
                 android:foreground="@drawable/scrim"
                 android:scaleType="centerCrop"
                 android:src="@drawable/home_bg" />
@@ -39,6 +40,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:contentDescription="@string/user_current_location"
                         android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:textColor="@color/location_text_color"
                         app:font="SourceSansPro-Regular"
@@ -62,6 +64,7 @@
                 android:id="@+id/tv_user_name"
                  android:layout_width="wrap_content"
                 android:text="Hi, Bedant"
+                android:contentDescription="@string/user_name_"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:textSize="@dimen/text_size_home_text_size"
                 app:font="SourceSansPro-Light"

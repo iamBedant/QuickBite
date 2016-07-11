@@ -16,12 +16,14 @@
 
         <ImageView
             android:id="@+id/back"
+            android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back_black"
             style="@style/BackButton" />
         <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
             android:id="@+id/searchview"
             android:iconifiedByDefault="false"
             android:layout_width="match_parent"
+            android:contentDescription="@string/type_cuisine_edittext"
             app:font="SourceSansPro-Light"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/back"
@@ -38,6 +40,7 @@
         <ProgressBar
             android:visibility="gone"
             android:id="@+id/progress"
+            android:contentDescription="@string/progress_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -45,6 +48,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
+            android:contentDescription="Recycler View"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

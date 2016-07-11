@@ -54,6 +54,7 @@ public class Constants {
     public static final int ERROR_TYPE_DEFAULT =999;
     public static final int LOGIN = 1;
     public static final int REGISTER = 2;
+    public static final int ERROR_LOGIN = 3;
 
     public static String SEARCH_TERM="_search_term";
 

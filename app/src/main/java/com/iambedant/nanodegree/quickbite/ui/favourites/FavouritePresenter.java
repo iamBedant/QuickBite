@@ -39,8 +39,8 @@ public class FavouritePresenter extends BasePresenter<FavouriteMvpView> {
 
     }
 
-    public void deleteRestaurant(String Id){
-        mDataManager.deleteFavouriteRestaurant(Id);
+    public void deleteRestaurant(String id){
+        mDataManager.deleteRestaurantFromFirebase(id);
     }
 
 

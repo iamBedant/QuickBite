@@ -78,5 +78,6 @@
     <dimen name="btn_padding">12dp</dimen>
     <dimen name="review_header_height">200dp</dimen>
     <dimen name="text_size_item">18sp</dimen>
+    <dimen name="fb_button_height">52dp</dimen>
 
 </resources>

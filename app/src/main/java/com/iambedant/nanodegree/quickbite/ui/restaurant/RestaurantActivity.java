@@ -117,8 +117,8 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
         setContentView(R.layout.activity_restaurant);
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
-
-EventBus.getDefault().register(this);
+        initChromeCustomTab();
+        EventBus.getDefault().register(this);
         mContext = this;
         host = this;
         mDetailPresenter.attachView(this);
@@ -314,16 +314,16 @@ EventBus.getDefault().register(this);
     public void onClick(View v) {
 
     }
+
     @Subscribe
     public void onEvent(RestaurantAddOrDeleteSuccessful event) {
         Logger.d(TAG, "This is inside the event Bus !!!");
         if (event.isSuccessfull) {
-           updateAllWidgets();
-        }else {
+            updateAllWidgets();
+        } else {
 
         }
     }
-
 
 
     @Override
@@ -407,8 +407,9 @@ EventBus.getDefault().register(this);
             public void onClick(View v) {
 
                 String[] url = mRestaurant.getUrl().split("\\?");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url[0] + "/reviews"));
-                startActivity(browserIntent);
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url[0] + "/reviews"));
+//                startActivity(browserIntent);
+                launchUrl(mContext, url[0] + "/reviews");
 
             }
         });
@@ -450,8 +451,7 @@ EventBus.getDefault().register(this);
 
     @OnClick(R.id.img_btn_zomato)
     public void openZomato() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRestaurant.getMenuUrl()));
-        startActivity(browserIntent);
+        launchUrl(mContext, mRestaurant.getMenuUrl());
     }
 
     @Override
@@ -491,7 +491,6 @@ EventBus.getDefault().register(this);
         ////Second
 
 
-
         Context context = getApplicationContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisWidget = new ComponentName(context, WidgetProvider.class);
@@ -499,5 +498,10 @@ EventBus.getDefault().register(this);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList);
     }
 
+    public void launchUrl(Context mContext, String url) {
+        Logger.d(TAG, url);
+        customTabsIntent.launchUrl((Activity) mContext, Uri.parse(url));
+
+    }
 
 }

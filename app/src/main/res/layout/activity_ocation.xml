@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.picklocation.LocationActivity">
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/search_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/white"-->
+        <!--android:elevation="4dp">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/back"-->
+            <!--style="@style/BackButton"-->
+            <!--android:src="@drawable/ic_arrow_back_black" />-->
+
+        <!--<com.iambedant.nanodegree.quickbite.ui.views.FontEditText-->
+            <!--android:id="@+id/searchview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@id/back"-->
+            <!--android:hint="@string/start_typing_your_location"-->
+            <!--android:iconifiedByDefault="false"-->
+            <!--app:font="SourceSansPro-Light" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/search_bar">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+</RelativeLayout>

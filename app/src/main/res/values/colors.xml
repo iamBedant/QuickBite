@@ -34,4 +34,6 @@
     <color name="color_available">#1f751f</color>
     <color name="signin_scrim_color">#9697774e</color>
     <color name="signup_scrim_color">#96d35345</color>
+
+    <color name="facebook">#3b5998</color>
 </resources>

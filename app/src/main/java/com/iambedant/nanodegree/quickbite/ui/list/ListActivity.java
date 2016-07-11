@@ -296,6 +296,7 @@ public class ListActivity extends BaseActivity implements ListMvpView {
                 mButtonAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mRelativeLayoutError.removeAllViewsInLayout();
                         initApiCall();
                     }
                 });

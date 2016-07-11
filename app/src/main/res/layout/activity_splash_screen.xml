@@ -6,6 +6,7 @@
 <ProgressBar
     android:layout_marginBottom="@dimen/loading_bar_bottom_margin"
     android:layout_width="wrap_content"
+    android:contentDescription="@string/progress_indicator"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|bottom"/>
 </FrameLayout>

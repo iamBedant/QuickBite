@@ -17,21 +17,23 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_image_height"
+                android:contentDescription="@string/background_image"
                 android:foreground="@drawable/scrim"
                 android:scaleType="centerCrop"
                 android:src="@drawable/home_bg" />
+
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/tv_user_name"
-                android:layout_marginTop="@dimen/padding_username_home"
                 android:layout_width="wrap_content"
-                android:text="@string/welcome_dummy_text"
-                android:textSize="@dimen/text_size_home_text_size"
-                app:font="SourceSansPro-Light"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/padding_username_home"
+                android:contentDescription="@string/user_name_"
                 android:textColor="@color/white"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/text_size_home_text_size"
+                app:font="SourceSansPro-Light" />
 
-            <include layout="@layout/home_content"/>
+            <include layout="@layout/home_content" />
 
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -45,15 +47,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageButton
+                android:id="@+id/btn_location"
+                style="@style/QuickBiteTappable"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_gps_not_fixed_black_24dp" />
+
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_toLeftOf="@id/btn_location"
+                android:contentDescription="@string/user_current_location"
                 android:textColor="@color/location_text_color"
                 app:font="SourceSansPro-Regular"
                 tools:text="@string/location_dummy_text" />
@@ -62,12 +72,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/tv_location"
-                android:textColor="@color/location_text_color"
-                app:font="SourceSansPro-Light"
-                android:layout_marginRight="@dimen/margin_xsmall"
                 android:layout_marginEnd="@dimen/margin_xsmall"
-                android:text="@string/you_are_at" />
+                android:layout_marginRight="@dimen/margin_xsmall"
+                android:layout_toLeftOf="@id/tv_location"
+                android:text="@string/you_are_at"
+                android:textColor="@color/location_text_color"
+                app:font="SourceSansPro-Light" />
         </RelativeLayout>
 
 

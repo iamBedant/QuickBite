@@ -2,6 +2,7 @@
 <com.iambedant.nanodegree.quickbite.ui.views.SearchItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:contentDescription="@string/cuisine_item"
     android:layout_height="wrap_content">
 
 </com.iambedant.nanodegree.quickbite.ui.views.SearchItemView>

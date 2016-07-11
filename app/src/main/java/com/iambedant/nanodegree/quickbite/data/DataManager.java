@@ -27,6 +27,7 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.model.User;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.events.EventLoginSuccessfull;
+import com.iambedant.nanodegree.quickbite.events.EventName;
 import com.iambedant.nanodegree.quickbite.events.RestaurantAddOrDeleteSuccessful;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
@@ -189,7 +190,7 @@ public class DataManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Logger.d(TAG,databaseError.getMessage());
             }
         });
 
@@ -281,6 +282,7 @@ public class DataManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            //TODO: Set User Display name (mAuth.getCurrentUser().updateProfile())
                             writeNewUser(task.getResult().getUser().getUid(), name, task.getResult().getUser().getEmail(), Constants.REGISTER);
                         } else {
                             Logger.d(TAG, "Failed");
@@ -288,6 +290,7 @@ public class DataManager {
                         }
                     }
                 });
+
     }
 
     public String deleteRestaurantFromFirebase(final String restaurantId) {
@@ -312,6 +315,28 @@ public class DataManager {
             public void onComplete(@NonNull Task<Void> task) {
                 saveFavouriteRestaurant(mRestaurant);
                 EventBus.getDefault().post(new RestaurantAddOrDeleteSuccessful(true));
+            }
+        });
+    }
+
+    public void getUserName() {
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String fullname = dataSnapshot.getValue(String.class);
+                String firstName = "User";
+                if(!fullname.trim().isEmpty()) {
+                    String[] splitNmae = fullname.split(" ");
+                     firstName = splitNmae[0];
+
+                }
+                EventBus.getDefault().post(new EventName(firstName));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

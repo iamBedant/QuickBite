@@ -20,9 +20,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -34,6 +38,8 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.Login.LoginActivity;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
@@ -58,6 +64,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private final int REQUEST_GOOGLE_PLAY_SERVICES = 2;
     private final int REQUEST_CHECK_SETTINGS = 3;
+    private static final int REQUEST_CODE_AUTOCOMPLETE = 4;
     LocationSettingsRequest.Builder builder;
 
     @Override
@@ -81,11 +88,37 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                 gApi.getErrorDialog(this, resultCode, REQUEST_GOOGLE_PLAY_SERVICES).show();
             } else {
                 //TODO: Manual Location Entry
+                //Calling Autocomplete Location
+                openAutocompleteActivity();
             }
             return false;
         }
         return true;
     }
+
+    private void openAutocompleteActivity() {
+        try {
+            // The autocomplete activity requires Google Play Services to be available. The intent
+            // builder checks this and throws an exception if it is not the case.
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(this);
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // Indicates that Google Play Services is either not installed or not up to date. Prompt
+            // the user to correct the issue.
+            GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),
+                    0 /* requestCode */).show();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Indicates that Google Play Services is not available and the problem is not easily
+            // resolvable.
+            String message = "Google Play Services is not available: " +
+                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+
+            Log.e(TAG, message);
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,16 +133,30 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
             case REQUEST_CHECK_SETTINGS:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
-                        // All required changes were successfully made
                         getLocation();
                         break;
                     case Activity.RESULT_CANCELED:
-                        // The user was asked to change settings, but chose not to
-                        // TODO: Manual location
+                        openAutocompleteActivity();
                         break;
                     default:
                         break;
                 }
+                break;
+
+            case REQUEST_CODE_AUTOCOMPLETE:
+                if (resultCode == RESULT_OK) {
+                    // Get the user's selected place from the Intent.
+                    Place place = PlaceAutocomplete.getPlace(this, data);
+                    Logger.i(TAG, "Place Selected: " + place.getName());
+                    handleLocation(place.getLatLng().latitude, place.getLatLng().longitude);
+
+                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                    Status status = PlaceAutocomplete.getStatus(this, data);
+                    Logger.e(TAG, "Error: Status = " + status.toString());
+                } else if (resultCode == RESULT_CANCELED) {
+                    showAlertForManualLocation(getString(R.string.sorry), getString(R.string.location_error_message),getString(R.string.location_positive),getString(R.string.location_negative));
+                }
+
                 break;
 
             default:
@@ -119,19 +166,20 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
 
 
     public void getLocation() {
+        Logger.d(TAG,"Inside GetLocation");
         if (ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext,
+//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                Logger.d(TAG,"Inside Explaination");
+//                // Show an expanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//
+//            } else {
 
                 // No explanation needed, we can request the permission.
 
@@ -142,7 +190,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
-            }
+//            }
         } else {
             Logger.d(TAG, "Getting Location");
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -202,7 +250,7 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                     buildGoogleApiClient();
                 } else {
                     Logger.d(TAG, "Permission Denied");
-                    //TODO: Menual Location Entry
+                    openAutocompleteActivity();
                 }
                 return;
             }
@@ -275,11 +323,32 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                 .show();
     }
 
+
+
+    public void showAlertForManualLocation(String title, String message, String positiveButton, String negativeButton) {
+        new AlertDialog.Builder(mContext)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        openAutocompleteActivity();
+                    }
+                })
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setIcon(R.drawable.ic_mood_bad_black_24dp)
+                .show();
+    }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
         Logger.d(TAG, " Now Connected");
         if (mLocationRequestHighAccuracy == null) {
+            Logger.d(TAG, " mLocationRequest Null");
             createLocationRequest();
         }
 
@@ -297,12 +366,14 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can initialize location
                         // requests here.
+                        Logger.d(TAG,"All location settings are satisfied. The client can initialize location");
                         getLocation();
 
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         // Location settings are not satisfied. But could be fixed by showing the user
                         // a dialog.
+                        Logger.d(TAG,"Location settings are not satisfied. But could be fixed by showing the user");
                         try {
                             // Show the dialog by calling startResolutionForResult(),
                             // and check the result in onActivityResult().
@@ -314,6 +385,8 @@ public class SplashScreen extends BaseActivity implements SplashMvpView, GoogleA
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+
+                        Logger.d(TAG,"Location settings are not satisfied. However, we have no way to fix the");
                         // Location settings are not satisfied. However, we have no way to fix the
                         // settings so we won't show the dialog.
 

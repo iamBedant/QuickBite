@@ -2,7 +2,8 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,39 +20,50 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name" />
+                    android:contentDescription="@string/user_name_"
+                    android:hint="@string/name"
+                    app:font="SourceSansPro-Regular" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email" />
+
+                    android:contentDescription="@string/email_edittext"
+                    android:hint="@string/email"
+                    app:font="SourceSansPro-Regular" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password" />
+
+                    android:contentDescription="@string/password_edit_text"
+                    android:hint="@string/password"
+                    app:font="SourceSansPro-Regular" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:id="@+id/signup"
+                style="@style/ButtonBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/sign_up_button"
                 android:text="@string/sign_up" />
 
             <include layout="@layout/view_or" />

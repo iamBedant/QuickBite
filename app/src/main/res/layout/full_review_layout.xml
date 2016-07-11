@@ -7,47 +7,7 @@
     android:layout_height="match_parent"
     android:maxWidth="@dimen/max_width_detail_layout"
     android:orientation="vertical">
-    <LinearLayout
-        android:padding="@dimen/padding_small"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/review_header_height"
-        android:background="@color/light_grey"
-        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profile_pic"
-            android:transitionName="@string/reviewer_transition_name"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            android:src="@drawable/home_bg" />
-
-        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:font="SourceSansPro-Semibold"
-            tools:text="Mr John Doe" />
-
-        <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
-            android:id="@+id/tv_foodie_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:font="SourceSansPro-Light"
-            tools:text="@string/foodie_level" />
-
-        <Button
-            android:id="@+id/btn_view_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_gravity="center_horizontal"
-            android:text="PROFILE" />
-
-    </LinearLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -59,38 +19,41 @@
                 android:padding="@dimen/padding_small"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/review_header_height"
-                android:background="@color/transparent"
+                android:background="@color/light_grey"
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_pic"
                     android:transitionName="@string/reviewer_transition_name"
                     android:layout_width="80dp"
-                    android:visibility="invisible"
+                    android:contentDescription="@string/user_display_pic"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerCrop"
                     android:src="@drawable/home_bg" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
-                    android:visibility="invisible"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
+                    android:contentDescription="@string/user_name"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     app:font="SourceSansPro-Semibold"
                     tools:text="Mr John Doe" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
-                    android:visibility="invisible"
+                    android:id="@+id/tv_foodie_level"
                     android:layout_width="wrap_content"
+                    android:contentDescription="@string/user_foodie_level"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     app:font="SourceSansPro-Light"
                     tools:text="@string/foodie_level" />
 
                 <Button
-                    android:id="@+id/btn_view_profile_fake"
-                    android:visibility="invisible"
+                    android:id="@+id/btn_view_profile"
                     android:layout_width="wrap_content"
+                    android:contentDescription="@string/view_user_profile_button"
                     android:layout_height="wrap_content"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_gravity="center_horizontal"
@@ -109,7 +72,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:font="SourceSansPro-Semibold"
-                    tools:text="@string/lorem_ipsum"
+                    android:contentDescription="@string/user_review"
+                     tools:text="@string/lorem_ipsum"
                     android:id="@+id/tv_review"
                     style="@style/readable_text" />
             </LinearLayout>

@@ -15,6 +15,7 @@
 
         <RelativeLayout
             android:id="@+id/rl_dinner"
+android:contentDescription="@string/dine_out_button"
             android:layout_width="0dp"
             android:layout_height="@dimen/home_page_button_height"
             android:layout_weight="1"
@@ -36,6 +37,7 @@
         <RelativeLayout
             android:id="@+id/rl_lunch"
             android:layout_width="@dimen/zero_dp"
+            android:contentDescription="@string/take_away_button"
             android:layout_height="@dimen/home_page_button_height"
             android:layout_weight="1"
             android:background="@color/color_lunch"
@@ -57,6 +59,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_breakfast"
+        android:contentDescription="@string/breakfast_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_page_button_height"
         android:background="@color/color_breakfast"
@@ -82,6 +85,7 @@
         <RelativeLayout
             android:id="@+id/rl_bar"
             android:layout_width="0dp"
+            android:contentDescription="@string/bar_button"
             android:layout_height="@dimen/home_page_button_height"
             android:layout_weight="1"
             android:background="@color/color_bar"
@@ -102,6 +106,7 @@
         <RelativeLayout
             android:id="@+id/rl_coffee"
             android:layout_width="@dimen/zero_dp"
+ android:contentDescription="@string/coffee_button"
             android:layout_height="@dimen/home_page_button_height"
             android:layout_weight="2"
             android:background="@color/color_coffee"
@@ -121,6 +126,7 @@
 
     </LinearLayout>
     <RelativeLayout
+        android:contentDescription="@string/fav_button"
         android:id="@+id/rl_favourite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_page_button_height"
