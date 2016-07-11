@@ -1,41 +1,24 @@
 package com.iambedant.nanodegree.quickbite.ui.Login.Register;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
 import com.iambedant.nanodegree.quickbite.R;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseFragment;
-import com.iambedant.nanodegree.quickbite.util.Logger;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Kuliza-193 on 4/7/2016.
@@ -54,15 +37,14 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
     @Bind(R.id.tv_name)
     EditText mEditTextName;
 
-    private FirebaseAuth mAuth;
     Context mContext;
+    private OnFragmentInteractionListener mListener;
 
     public static String TAG = RegisterFragment.class.getSimpleName();
     @Inject
     RegisterFragmentPresenter mRegisterFragmentPresenter;
 
 
-    private CallbackManager mCallbackManager;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -71,7 +53,6 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         mContext = getActivity();
     }
 
@@ -92,48 +73,12 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
             }
         });
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        mCallbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(mCallbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Logger.d(TAG, "facebook:onSuccess:" + loginResult);
-                        handleFacebookAccessToken(loginResult.getAccessToken());
 
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(mContext, "Login Cancel", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        Toast.makeText(mContext, exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
         return view;
     }
 
 
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-                        if (task.isSuccessful()) {
-                            mRegisterFragmentPresenter.writeNewUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail());
 
-
-                        }
-
-                    }
-                });
-    }
 
     @Override
     public void onDestroy() {
@@ -154,12 +99,12 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
 
     @OnClick(R.id.btn_google)
     public void googleClicked() {
-
+        mListener.onSignInGoogleClecked();
     }
 
     @OnClick(R.id.btn_facebook)
     public void facebookClicked() {
-
+        mListener.onSignInFbClicked();
     }
 
     @Override
@@ -171,6 +116,57 @@ public class RegisterFragment extends BaseFragment implements RegisterFragmentMv
             case 1:
                 //show password Error
                 break;
+        }
+    }
+
+    @Override
+    public void createFirebaseAccount(String email, String password, String name) {
+        mListener.onSignUpClicked(email,password,name);
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onSignUpClicked(String email, String password, String name);
+
+        void onSignInFbClicked();
+
+        void onSignInGoogleClecked();
+
+    }
+
+    protected void onAttachToContext(Context context) {
+        Activity activity = (Activity) context;
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @TargetApi(23)
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onAttachToContext(context);
+    }
+
+    /*
+    * Deprecated on API 23
+    * Use onAttachToContext instead
+    */
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            onAttachToContext(activity);
         }
     }
 }

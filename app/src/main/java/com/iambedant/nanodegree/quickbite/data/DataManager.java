@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -190,7 +191,7 @@ public class DataManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Logger.d(TAG,databaseError.getMessage());
+                Logger.d(TAG, databaseError.getMessage());
             }
         });
 
@@ -282,7 +283,9 @@ public class DataManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //TODO: Set User Display name (mAuth.getCurrentUser().updateProfile())
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name).build();
+                            mAuth.getCurrentUser().updateProfile(profileUpdates);
                             writeNewUser(task.getResult().getUser().getUid(), name, task.getResult().getUser().getEmail(), Constants.REGISTER);
                         } else {
                             Logger.d(TAG, "Failed");
@@ -320,24 +323,14 @@ public class DataManager {
     }
 
     public void getUserName() {
-        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String fullname = dataSnapshot.getValue(String.class);
-                String firstName = "User";
-                if(!fullname.trim().isEmpty()) {
-                    String[] splitNmae = fullname.split(" ");
-                     firstName = splitNmae[0];
 
-                }
-                EventBus.getDefault().post(new EventName(firstName));
+        String fullname = mAuth.getCurrentUser().getDisplayName();
+        String firstName = "User";
+        if (!fullname.trim().isEmpty()) {
+            String[] splitNmae = fullname.split(" ");
+            firstName = splitNmae[0];
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        }
+        EventBus.getDefault().post(new EventName(firstName));
     }
 }

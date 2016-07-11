@@ -2,6 +2,7 @@ package com.iambedant.nanodegree.quickbite.ui.Login;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
+import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -28,4 +29,15 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
     }
 
+    public void writeNewUser(String uid, String username, String email) {
+        mDataManager.writeNewUser(uid, username, email, Constants.LOGIN);
+    }
+
+    public void createFirebaseAccount(String email, String password, String name) {
+        mDataManager.createFirebaseUser(email, password, name);
+    }
+
+    public void signInToFirebase(String email, String password) {
+        mDataManager.firebaseLogin(email, password);
+    }
 }

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
-import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -58,12 +57,11 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
         if (!validateForm(email, password)) {
             return;
         }
-        mDataManager.createFirebaseUser(email, password, name);
+
+        getMvpView().createFirebaseAccount(email,password,name);
+
 
     }
 
-    public void writeNewUser(String uid, String displayName, String email) {
-        mDataManager.writeNewUser(uid, displayName, email, Constants.LOGIN);
-    }
 }
 

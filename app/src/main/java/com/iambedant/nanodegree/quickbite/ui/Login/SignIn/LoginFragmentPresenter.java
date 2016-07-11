@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
-import com.iambedant.nanodegree.quickbite.util.Constants;
 
 import javax.inject.Inject;
 
@@ -32,9 +31,7 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
     }
 
 
-    public void writeNewUser(String uid, String username, String email) {
-        mDataManager.writeNewUser(uid, username, email, Constants.LOGIN);
-    }
+
 
     private boolean validateForm(String email, String password) {
         boolean valid = true;
@@ -65,7 +62,7 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
             return;
         }
 
-        mDataManager.firebaseLogin(email, password);
+        getMvpView().signInFirebase(email,password);
 
     }
 }
