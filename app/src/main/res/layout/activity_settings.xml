@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/htab_maincontent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.iambedant.nanodegree.quickbite.ui.settings.Settings">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.QuickBite.HomeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="1"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                    android:id="@+id/tv_toolbar_title"
+                    style="@style/toolbar_text"
+                    app:font="SourceSansPro-Regular" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_change_name"
+                    style="@style/clickable_relative_layout">
+
+                    <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                        style="@style/settings_text_style"
+                        android:drawableLeft="@drawable/ic_name"
+                        android:drawablePadding="@dimen/margin_medium"
+                        android:text="@string/change_name"
+                        app:font="SourceSansPro-Regular" />
+
+                    <View style="@style/view_thin_line" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:visibility="gone">
+
+                    <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
+                        android:id="@+id/et_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:hint="Name"
+                        android:textSize="20sp"
+                        app:font="SourceSansPro-Light" />
+
+                    <Button
+                        android:id="@+id/btn_update_name"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="UPDATE" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_change_password"
+                    style="@style/clickable_relative_layout">
+
+                    <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                        style="@style/settings_text_style"
+                        android:drawableLeft="@drawable/ic_password"
+                        android:drawablePadding="@dimen/margin_medium"
+                        android:text="@string/change_password"
+                        app:font="SourceSansPro-Regular" />
+
+                    <View style="@style/view_thin_line" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin">
+
+                        <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
+                            android:id="@+id/et_old_pwd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="3"
+                            android:hint="Old Password"
+                            android:textSize="20sp"
+                            app:font="SourceSansPro-Light" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="UPDATE"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin">
+
+                        <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
+                            android:id="@+id/et_new_pwd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="3"
+                            android:hint="New Password"
+                            android:textSize="20sp"
+                            app:font="SourceSansPro-Light" />
+
+                        <Button
+                            android:id="@+id/btn_update_pwd"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="UPDATE" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_logout"
+                    style="@style/clickable_relative_layout">
+
+                    <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
+                        style="@style/settings_text_style"
+                        android:drawableLeft="@drawable/ic_logout"
+                        android:drawablePadding="@dimen/margin_medium"
+                        android:text="@string/logout"
+                        app:font="SourceSansPro-Regular" />
+
+                    <View style="@style/view_thin_line" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

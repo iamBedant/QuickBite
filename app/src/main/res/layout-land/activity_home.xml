@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -23,6 +24,7 @@
                 android:foreground="@drawable/scrim"
                 android:scaleType="centerCrop"
                 android:src="@drawable/home_bg" />
+
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
@@ -31,6 +33,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageButton
                         android:id="@+id/btn_location"
                         style="@style/QuickBiteTappable"
@@ -50,37 +53,41 @@
                         android:contentDescription="@string/user_current_location"
                         android:textColor="@color/location_text_color"
                         app:font="SourceSansPro-Regular"
-                        tools:text="@string/location_dummy_text"/>
-
+                        tools:text="@string/location_dummy_text" />
 
 
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/tv_location"
-                        android:textColor="@color/location_text_color"
-                        app:font="SourceSansPro-Light"
-                        android:layout_marginRight="@dimen/margin_xsmall"
                         android:layout_marginEnd="@dimen/margin_xsmall"
-                        android:text="@string/you_are_at"/>
+                        android:layout_marginRight="@dimen/margin_xsmall"
+                        android:layout_toLeftOf="@id/tv_location"
+                        android:text="@string/you_are_at"
+                        android:textColor="@color/location_text_color"
+                        app:font="SourceSansPro-Light" />
                 </RelativeLayout>
 
 
             </android.support.v7.widget.Toolbar>
+
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/tv_user_name"
-                 android:layout_width="wrap_content"
-                android:text="Hi, Bedant"
-                android:contentDescription="@string/user_name_"
-                android:layout_marginBottom="@dimen/margin_small"
-                android:textSize="@dimen/text_size_home_text_size"
-                app:font="SourceSansPro-Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/user_name_"
+                android:paddingBottom="@dimen/card_radius"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/card_radius"
+                android:text="Hi, Bedant"
                 android:textColor="@color/white"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/text_size_home_text_size"
+                app:font="SourceSansPro-Light" />
         </FrameLayout>
-
 
 
         <android.support.v4.widget.NestedScrollView
@@ -88,7 +95,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <include layout="@layout/home_content"
+            <include
+                layout="@layout/home_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

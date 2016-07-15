@@ -59,4 +59,7 @@ public class Constants {
     public static String SEARCH_TERM="_search_term";
 
 
+    public static int FIREBASE = 1;
+    public static int GOOGLE = 2;
+    public static int FACEBOOK = 3;
 }

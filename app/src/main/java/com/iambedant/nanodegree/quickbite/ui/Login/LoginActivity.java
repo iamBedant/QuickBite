@@ -2,11 +2,13 @@ package com.iambedant.nanodegree.quickbite.ui.Login;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -44,6 +46,7 @@ import com.iambedant.nanodegree.quickbite.ui.Login.Register.RegisterFragment;
 import com.iambedant.nanodegree.quickbite.ui.Login.SignIn.LoginFragment;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.home.Home;
+import com.iambedant.nanodegree.quickbite.util.DialogFactory;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
@@ -78,6 +81,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
     EventPosterHelper mEventPosterHelper;
 
     Context mContext;
+    ProgressDialog mProgressBar;
 
     @Inject
     LoginPresenter mLoginPresenter;
@@ -96,6 +100,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
         ButterKnife.bind(this);
         mLoginPresenter.attachView(this);
         mContext = this;
+        mProgressBar = DialogFactory.createProgressDialog(mContext, "Please Wait ...");
         FacebookSdk.sdkInitialize(getApplicationContext());
         EventBus.getDefault().register(this);
         mAuth = FirebaseAuth.getInstance();
@@ -167,7 +172,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
                         if (task.isSuccessful()) {
                             mLoginPresenter.writeNewUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail());
                         } else {
-                            //TODO: Move this part to Activity and show user a toast or a snack msg
+                            mProgressBar.dismiss();
+                            showSnack(task.getException().getMessage());
                         }
 
                     }
@@ -251,12 +257,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
     public void onEvent(EventLoginSuccessfull event) {
         Logger.d(TAG, "This is inside the event Bus !!!");
         if (event.isSuccessfull) {
+            mProgressBar.dismiss();
             Logger.d(TAG, "This is inside the event Bus !!!, Login SuccessFull");
             Intent intent = new Intent(mContext, Home.class);
             startActivity(intent);
             finish();
         } else {
-            Logger.d(TAG, event.message);
+            showSnack(event.message);
         }
     }
 
@@ -295,7 +302,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(mContext, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+        showSnack(getString(R.string.play_services_error));
+
     }
 
     private void signIn() {
@@ -305,12 +313,23 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
 
     @Override
     public void onSignInClicked(String email, String password) {
-        mLoginPresenter.signInToFirebase(email, password);
+        if (NetworkUtil.isNetworkConnected(mContext)) {
+            mProgressBar.show();
+            mLoginPresenter.signInToFirebase(email, password);
+        } else {
+            showSnack(getString(R.string.network_not_available));
+        }
+
     }
 
     @Override
     public void onSignUpClicked(String email, String password, String name) {
-        mLoginPresenter.createFirebaseAccount(email, password, name);
+        if (NetworkUtil.isNetworkConnected(mContext)) {
+            mProgressBar.show();
+            mLoginPresenter.createFirebaseAccount(email, password, name);
+        } else {
+            showSnack(getString(R.string.network_not_available));
+        }
 
 
     }
@@ -318,9 +337,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
     @Override
     public void onSignInFbClicked() {
         if (NetworkUtil.isNetworkConnected(mContext)) {
+            mProgressBar.show();
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         } else {
-            //todo: use utility to show
+            showSnack(getString(R.string.network_not_available));
         }
     }
 
@@ -328,10 +348,16 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, GoogleA
     public void onSignInGoogleClecked() {
 
         if (NetworkUtil.isNetworkConnected(mContext)) {
-            //todo: Google Login to be implemented
+            mProgressBar.show();
             signIn();
         } else {
-            //todo: use utility to show
+
         }
+    }
+
+    public void showSnack(String message) {
+        Snackbar.make(findViewById(R.id.htab_maincontent), message, Snackbar.LENGTH_LONG)
+                .setActionTextColor(Color.RED)
+                .show();
     }
 }

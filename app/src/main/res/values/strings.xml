@@ -118,4 +118,14 @@
     <string name="rating">Rating</string>
     <string name="see_more_button">See More Button</string>
     <string name="action_button">Action Button</string>
+    <string name="network_not_available">Network Not Available</string>
+    <string name="play_services_error">Google Play Services error</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_name">Change Name</string>
+    <string name="name_updated">Name is updated</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="password_updated">Password Updated Successfully</string>
+    <string name="settings">SETTINGS</string>
+
 </resources>

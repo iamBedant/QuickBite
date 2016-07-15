@@ -175,4 +175,19 @@ public class ProviderHelper {
         cVVector.toArray(cvArray);
         mContentResolver.bulkInsert(DataContract.RestaurantEntry.CONTENT_URI, cvArray);
     }
+
+    private void deleteAllRestaurants() {
+        mContentResolver.delete(DataContract.RestaurantEntry.CONTENT_URI,
+                null,
+                null);
+
+
+    }
+
+    public void clear() {
+        deleteAllCuisines();
+        deleteAllRestaurants();
+    }
+
+
 }

@@ -283,10 +283,10 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
     private void addErrorLayout(int errorType) {
 
-        View noReviewView = getLayoutInflater().inflate(R.layout.no_data_found, null, false);
-        TextView mTextViewMessage = (TextView) noReviewView.findViewById(R.id.tv_text);
-        Button mButtonAction = (Button) noReviewView.findViewById(R.id.btn_action);
-        ImageView mImageView = (ImageView) noReviewView.findViewById(R.id.iv_error_image);
+        View errorView = getLayoutInflater().inflate(R.layout.no_data_found, null, false);
+        TextView mTextViewMessage = (TextView) errorView.findViewById(R.id.tv_text);
+        Button mButtonAction = (Button) errorView.findViewById(R.id.btn_action);
+        ImageView mImageView = (ImageView) errorView.findViewById(R.id.iv_error_image);
 
         switch (errorType) {
             case Constants.ERROR_TYPE_NETWORK:
@@ -318,7 +318,7 @@ public class ListActivity extends BaseActivity implements ListMvpView {
 
         }
 
-        mRelativeLayoutError.addView(noReviewView);
+        mRelativeLayoutError.addView(errorView);
 
 
     }

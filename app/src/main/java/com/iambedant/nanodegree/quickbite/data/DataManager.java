@@ -8,9 +8,12 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +31,10 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.SearchResult;
 import com.iambedant.nanodegree.quickbite.data.model.User;
 import com.iambedant.nanodegree.quickbite.data.remote.QuickBiteAPIClient;
 import com.iambedant.nanodegree.quickbite.events.EventLoginSuccessfull;
+import com.iambedant.nanodegree.quickbite.events.EventLogout;
 import com.iambedant.nanodegree.quickbite.events.EventName;
+import com.iambedant.nanodegree.quickbite.events.EventNameSuccessfull;
+import com.iambedant.nanodegree.quickbite.events.EventPasswordUpdate;
 import com.iambedant.nanodegree.quickbite.events.RestaurantAddOrDeleteSuccessful;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.EventPosterHelper;
@@ -333,4 +339,79 @@ public class DataManager {
         }
         EventBus.getDefault().post(new EventName(firstName));
     }
+
+    public void logoutUser() {
+        mPreferencesHelper.clear();
+        mProviderHelper.clear();
+        mAuth.signOut();
+        EventBus.getDefault().post(new EventLogout(true));
+    }
+
+    public void updateName(String name) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name).build();
+        mAuth.getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                EventBus.getDefault().post(new EventNameSuccessfull(task.isSuccessful()));
+            }
+        });
+    }
+
+    public void updatePassword(String oldPassword, final String newPassword) {
+
+
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(mAuth.getCurrentUser().getEmail(), oldPassword);
+        mAuth.getCurrentUser().reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            updateNewPassword(newPassword);
+                        } else {
+                            EventBus.getDefault().post(new EventPasswordUpdate(false, task.getException().getMessage()));
+                        }
+                    }
+                });
+
+
+    }
+
+    public int getProviderType() {
+        int type = 0;
+        String providerId = "";
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                providerId = profile.getProviderId();
+            }
+            ;
+        }
+        if (providerId.equals("password")) {
+            type = Constants.FIREBASE;
+        } else if (providerId.equals("google.com")) {
+            type = Constants.GOOGLE;
+        } else if (providerId.equals("facebook.com")) {
+            type = Constants.FACEBOOK;
+        }
+        return type;
+    }
+
+
+    private void updateNewPassword(String newPassword) {
+        mAuth.getCurrentUser().updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            EventBus.getDefault().post(new EventPasswordUpdate(true, ""));
+                        } else {
+                            EventBus.getDefault().post(new EventPasswordUpdate(false, task.getException().getMessage()));
+                        }
+                    }
+                });
+    }
+
 }

@@ -14,11 +14,13 @@ import com.iambedant.nanodegree.quickbite.data.model.SearchResult.Restaurant_;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
+import com.iambedant.nanodegree.quickbite.util.NetworkUtil;
 
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -106,6 +108,19 @@ public class RestaurantPresenter extends BasePresenter<RestaurantMvpView> {
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(TAG, "On Error Called->" + e.toString());
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            if (NetworkUtil.isHttpStatusCode(e, 500)) {
+                                //todo: add server error
+                                getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                            } else if (NetworkUtil.isHttpStatusCode(e, 400)) {
+                                //todo: add bad request error
+                                getMvpView().showErrorView(Constants.ERROR_TYPE_DEFAULT);
+                            }
+
+                        } else {
+                            getMvpView().showErrorView(Constants.ERROR_TYPE_NETWORK);
+                        }
                     }
 
                     @Override

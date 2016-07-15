@@ -1,6 +1,5 @@
 package com.iambedant.nanodegree.quickbite.ui.base;
 
-import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsCallback;
@@ -22,7 +21,6 @@ import com.iambedant.nanodegree.quickbite.util.customChrome.CustomTabsHelper;
 public class BaseActivity extends AppCompatActivity {
     public String TAG = BaseActivity.class.getSimpleName();
     private ActivityComponent mActivityComponent;
-    private ProgressDialog mProgressDialog;
 
     CustomTabsClient mClient;
     CustomTabsSession mCustomTabsSession;
@@ -75,28 +73,11 @@ public class BaseActivity extends AppCompatActivity {
         return mCustomTabsSession;
     }
 
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.please_wait));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        hideProgressDialog();
+
     }
 
 

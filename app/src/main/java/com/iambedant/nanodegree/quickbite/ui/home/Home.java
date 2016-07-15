@@ -20,6 +20,7 @@ import com.iambedant.nanodegree.quickbite.events.EventName;
 import com.iambedant.nanodegree.quickbite.ui.base.BaseActivity;
 import com.iambedant.nanodegree.quickbite.ui.favourites.Favourites;
 import com.iambedant.nanodegree.quickbite.ui.list.ListActivity;
+import com.iambedant.nanodegree.quickbite.ui.settings.Settings;
 import com.iambedant.nanodegree.quickbite.util.Constants;
 import com.iambedant.nanodegree.quickbite.util.Logger;
 
@@ -63,6 +64,13 @@ public class Home extends BaseActivity implements HomeMvpView {
         mContext = this;
         mHomePresenter.attachView(this);
         mHomePresenter.loadLastKnownLocation();
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mHomePresenter.getUserName();
     }
 
@@ -74,8 +82,8 @@ public class Home extends BaseActivity implements HomeMvpView {
     }
 
     @Subscribe
-    public void onEvent(EventName eventName){
-        mTextViewUserName.setText("Hi "+eventName.name);
+    public void onEvent(EventName eventName) {
+        mTextViewUserName.setText("Hi " + eventName.name);
     }
 
     @OnClick(R.id.rl_lunch)
@@ -202,6 +210,10 @@ public class Home extends BaseActivity implements HomeMvpView {
 
     }
 
-
+    @OnClick(R.id.tv_user_name)
+    public void openSettings() {
+        Intent intent = new Intent(mContext, Settings.class);
+        startActivity(intent);
+    }
 
 }

@@ -168,9 +168,10 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
 
     public void initApiCall() {
         if (NetworkUtil.isNetworkConnected(mContext)) {
+            mProgressBarReviewLoader.setVisibility(View.VISIBLE);
             mDetailPresenter.getReviews(mRestaurant.getId());
         } else {
-            //TODO: Show error on the Review Layout;
+            showErrorView(Constants.ERROR_TYPE_NETWORK);
         }
     }
 
@@ -496,6 +497,61 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
         ComponentName thisWidget = new ComponentName(context, WidgetProvider.class);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList);
+    }
+
+    @Override
+    public void showErrorView(int TYPE) {
+        mProgressBarReviewLoader.setVisibility(View.GONE);
+        switch (TYPE) {
+            case Constants.ERROR_TYPE_NETWORK:
+                addErrorLayout(Constants.ERROR_TYPE_NETWORK);
+                break;
+            case Constants.ERROR_TYPE_NO_DATA:
+                addErrorLayout(Constants.ERROR_TYPE_NO_DATA);
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+
+    private void addErrorLayout(int errorType) {
+
+        View errorView = getLayoutInflater().inflate(R.layout.no_data_found, null, false);
+        TextView mTextViewMessage = (TextView) errorView.findViewById(R.id.tv_text);
+        Button mButtonAction = (Button) errorView.findViewById(R.id.btn_action);
+        ImageView mImageView = (ImageView) errorView.findViewById(R.id.iv_error_image);
+
+        switch (errorType) {
+            case Constants.ERROR_TYPE_NETWORK:
+                mTextViewMessage.setText(getString(R.string.no_network_available));
+                mButtonAction.setText(getString(R.string.retry_btn));
+                mImageView.setImageResource(R.drawable.ic_cloud_off_black_24dp);
+                mButtonAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mLinearlayoutReviewContainer.removeAllViewsInLayout();
+                        initApiCall();
+                    }
+                });
+
+
+                break;
+            case Constants.ERROR_TYPE_NO_DATA:
+                mTextViewMessage.setText(getString(R.string.no_restaurant_found));
+                mButtonAction.setVisibility(View.GONE);
+                break;
+
+            default:
+
+                break;
+        }
+
+        mLinearlayoutReviewContainer.addView(errorView);
+
+
     }
 
     public void launchUrl(Context mContext, String url) {

@@ -12,4 +12,5 @@ public interface RestaurantMvpView extends MvpView {
     void showReviews(ArrayList<UserReview> mListReview);
     void updateAllWidgets();
 
+    void showErrorView(int errorTypeDefault);
 }
