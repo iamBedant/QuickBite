@@ -127,5 +127,12 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="password_updated">Password Updated Successfully</string>
     <string name="settings">SETTINGS</string>
+    <string name="name_">Name</string>
+    <string name="update">UPDATE</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="restaurant_cover_image">Restaurant Cover Image</string>
+    <string name="transition_name">image</string>
+    <string name="profile">Profile</string>
 
 </resources>

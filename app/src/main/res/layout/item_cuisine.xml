@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="@dimen/search_item_height"
     android:background="@color/light_grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
@@ -17,8 +17,8 @@
         android:contentDescription="@string/cuisine_name"
         android:layout_height="wrap_content"
         app:font="SourceSansPro-Light"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="@dimen/bottom_search_text"
+        android:layout_marginBottom="@dimen/bottom_search_text"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_medium"
         android:textSize="@dimen/text_size_item"
@@ -28,5 +28,5 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:background="@color/hint_disabled_dark"
-        android:layout_height="1dp"/>
+        android:layout_height="@dimen/one_dp"/>
 </RelativeLayout>

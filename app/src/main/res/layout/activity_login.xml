@@ -15,7 +15,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/htab_collapse_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
+            android:layout_height="@dimen/colapsing_toolbar_height"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -38,12 +38,12 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/htab_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="104dp"
+                android:layout_height="@dimen/toolbar_height"
                 android:gravity="top"
                 android:minHeight="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleMarginTop="13dp" />
+                app:titleMarginTop="@dimen/toolbar_margin_top" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
@@ -52,10 +52,10 @@
                 android:layout_gravity="bottom"
                 android:layout_margin="@dimen/margin_medium"
                 android:contentDescription="@string/tab_layout_for_displaying_login_and_signup_option"
-                android:elevation="4dp"
+                android:elevation="@dimen/card_radius"
                 app:layout_anchor="@+id/appbar"
                 app:tabIndicatorColor="@color/white"
-                app:tabIndicatorHeight="4dp"
+                app:tabIndicatorHeight="@dimen/card_radius"
                 app:tabMode="fixed" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

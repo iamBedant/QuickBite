@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/text_size_xsmall"
+    android:paddingBottom="@dimen/text_size_xsmall"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -15,21 +17,21 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="@integer/five"
             android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:textColor="#fff"/>
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tv_rating"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/one"
             android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="16sp"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"/>
 
     </LinearLayout>
 
@@ -38,16 +40,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:textSize="12sp"
-        android:textColor="#cdcdcd"/>
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@color/grey_light"/>
 
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:textSize="12sp"
-        android:textColor="#cdcdcd"/>
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@color/grey_light"/>
 
 
 </LinearLayout>

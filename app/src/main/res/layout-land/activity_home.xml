@@ -12,14 +12,14 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="@integer/one">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="@integer/one"
                 android:contentDescription="@string/background_image"
                 android:foreground="@drawable/scrim"
                 android:scaleType="centerCrop"
@@ -83,7 +83,6 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/card_radius"
-                android:text="Hi, Bedant"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_home_text_size"
                 app:font="SourceSansPro-Light" />
@@ -91,9 +90,9 @@
 
 
         <android.support.v4.widget.NestedScrollView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="@integer/one">
 
             <include
                 layout="@layout/home_content"

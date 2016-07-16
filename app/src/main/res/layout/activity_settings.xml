@@ -16,7 +16,6 @@
             style="@style/Widget.QuickBite.HomeToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:alpha="1"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -48,6 +47,7 @@
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         style="@style/settings_text_style"
                         android:drawableLeft="@drawable/ic_name"
+                        android:drawableStart="@drawable/ic_name"
                         android:drawablePadding="@dimen/margin_medium"
                         android:text="@string/change_name"
                         app:font="SourceSansPro-Regular" />
@@ -62,27 +62,29 @@
                     android:background="@color/light_grey"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:visibility="gone">
 
                     <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                         android:id="@+id/et_name"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/zero_dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="3"
-                        android:hint="Name"
-                        android:textSize="20sp"
+                        android:layout_weight="@integer/three"
+                        android:hint="@string/name_"
+                        android:textSize="@dimen/text_size_xlarge"
                         app:font="SourceSansPro-Light" />
 
                     <Button
                         android:id="@+id/btn_update_name"
                         style="@style/Widget.AppCompat.Button.Colored"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/zero_dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="UPDATE" />
+                        android:layout_weight="@integer/one"
+                        android:text="@string/update" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -92,6 +94,7 @@
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         style="@style/settings_text_style"
                         android:drawableLeft="@drawable/ic_password"
+                        android:drawableStart="@drawable/ic_password"
                         android:drawablePadding="@dimen/margin_medium"
                         android:text="@string/change_password"
                         app:font="SourceSansPro-Regular" />
@@ -113,24 +116,26 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin">
+                        android:paddingStart="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingEnd="@dimen/activity_horizontal_margin">
 
                         <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                             android:id="@+id/et_old_pwd"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/zero_dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="3"
-                            android:hint="Old Password"
-                            android:textSize="20sp"
+                            android:layout_weight="@integer/three"
+                            android:hint="@string/old_password"
+                            android:textSize="@dimen/text_size_xlarge"
                             app:font="SourceSansPro-Light" />
 
                         <Button
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/zero_dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="UPDATE"
+                            android:layout_weight="@integer/one"
+                            android:text="@string/update"
                             android:visibility="invisible" />
                     </LinearLayout>
 
@@ -139,26 +144,28 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin">
+                        android:paddingStart="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingEnd="@dimen/activity_horizontal_margin">
 
                         <com.iambedant.nanodegree.quickbite.ui.views.FontEditText
                             android:id="@+id/et_new_pwd"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/zero_dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="3"
-                            android:hint="New Password"
-                            android:textSize="20sp"
+                            android:layout_weight="@integer/three"
+                            android:hint="@string/new_password"
+                            android:textSize="@dimen/text_size_xlarge"
                             app:font="SourceSansPro-Light" />
 
                         <Button
                             android:id="@+id/btn_update_pwd"
                             style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/zero_dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="UPDATE" />
+                            android:layout_weight="@integer/one"
+                            android:text="@string/update" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -170,6 +177,7 @@
                     <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                         style="@style/settings_text_style"
                         android:drawableLeft="@drawable/ic_logout"
+                        android:drawableStart="@drawable/ic_logout"
                         android:drawablePadding="@dimen/margin_medium"
                         android:text="@string/logout"
                         app:font="SourceSansPro-Regular" />

@@ -8,15 +8,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="@dimen/image_view_height">
 
         <com.iambedant.nanodegree.quickbite.ui.views.FourThreeImageView
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="Restaurant Cover Image"
+            android:contentDescription="@string/restaurant_cover_image"
             android:scaleType="centerCrop"
-            android:transitionName="image" />
+            android:transitionName="@string/transition_name" />
         <View
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:alpha="1"
+            android:alpha="@integer/one"
             android:background="@color/transparent"
             android:scaleType="centerCrop" />
     </FrameLayout>
@@ -44,7 +44,7 @@
         android:background="@color/transparent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_height="?attr/actionBarSize"
-        android:alpha="1">
+        android:alpha="@integer/one">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

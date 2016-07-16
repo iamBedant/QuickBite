@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:elevation="4dp">
+        android:elevation="@dimen/card_radius">
 
         <ImageView
             android:id="@+id/back"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:padding="30dp" />
+            android:padding="@dimen/progress_bar_padding" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"

@@ -17,9 +17,9 @@
         <RelativeLayout
             android:id="@+id/rl_dinner"
             android:contentDescription="@string/dine_out_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="@dimen/home_page_button_height"
-            android:layout_weight="1"
+            android:layout_weight="@integer/one"
             android:background="@color/color_dinner"
             android:clickable="true"
             android:foreground="@drawable/mid_grey_ripple">
@@ -40,7 +40,7 @@
             android:contentDescription="@string/take_away_button"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="@dimen/home_page_button_height"
-            android:layout_weight="1"
+            android:layout_weight="@integer/one"
             android:background="@color/color_lunch"
             android:clickable="true"
             android:foreground="@drawable/mid_grey_ripple">
@@ -86,9 +86,9 @@
         <RelativeLayout
             android:id="@+id/rl_bar"
             android:contentDescription="@string/bar_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="@dimen/home_page_button_height"
-            android:layout_weight="1"
+            android:layout_weight="@integer/one"
             android:background="@color/color_bar"
             android:clickable="true"
             android:foreground="@drawable/mid_grey_ripple">
@@ -109,7 +109,7 @@
             android:contentDescription="@string/coffee_button"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="@dimen/home_page_button_height"
-            android:layout_weight="2"
+            android:layout_weight="@integer/two"
             android:background="@color/color_coffee"
             android:clickable="true"
             android:foreground="@drawable/mid_grey_ripple">

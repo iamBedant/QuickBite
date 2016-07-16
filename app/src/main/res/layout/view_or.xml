@@ -13,26 +13,26 @@
         android:orientation="horizontal">
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/one_dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="@integer/two"
             android:background="@color/colorSeparator" />
 
         <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/one"
             android:gravity="center"
             android:text="@string/or"
             android:textSize="@dimen/text_size_medium"
             app:font="SourceSansPro-Light" />
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/one_dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight="@integer/two"
             android:background="@color/colorSeparator" />
     </LinearLayout>
 

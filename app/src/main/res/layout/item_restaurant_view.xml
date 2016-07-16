@@ -5,7 +5,7 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#efefef"
+    android:background="@color/light_grey"
     android:transitionName="@string/transition_name_layout"
     android:clickable="true"
     android:foreground="@drawable/mid_grey_ripple">
@@ -18,7 +18,7 @@
             android:id="@+id/container"
             android:contentDescription="@string/restaurant_featured_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/image_view_height"
             android:background="@color/light_grey"
             android:foreground="@drawable/scrim"
             android:scaleType="centerCrop"
@@ -44,8 +44,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large"
-                tools:text="4.5" />
+                android:textSize="@dimen/text_size_large" />
 
             <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                 android:id="@+id/name"
@@ -81,7 +80,7 @@
                 android:layout_below="@id/cuisine"
                 android:layout_marginTop="@dimen/margin_xxsmall"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="@integer/one"
                 android:textColor="@color/off_white"
                 android:textSize="@dimen/text_size_small"
                 tools:text="@string/address" />

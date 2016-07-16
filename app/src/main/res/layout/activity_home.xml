@@ -33,6 +33,8 @@
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="@dimen/card_radius"
                 android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:contentDescription="@string/user_name_"
                 android:textColor="@color/white"

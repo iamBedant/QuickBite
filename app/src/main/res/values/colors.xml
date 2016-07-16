@@ -15,7 +15,7 @@
     <color name="light_grey">#fff5f5f5</color>
 
     <color name="devider">#99323232</color>
-
+    <color name="colorPrimary_transperent">#ee3c2e34</color>
     <color name="mid_grey">#40808080</color>
     <color name="dribbble">#fff06292</color>
     <color name="dribbble_super_dark">#ff33292d</color>
@@ -23,6 +23,8 @@
 
     <color name="location_text_color">#acacac</color>
     <color name="color_black">#45000000</color>
+
+    <color name="grey_light">#cdcdcd</color>
     
     
     <color name="color_dinner">#A6688e8c</color>

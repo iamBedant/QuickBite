@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     android:maxWidth="@dimen/max_width_detail_layout"
+    android:layout_marginTop="?attr/actionBarSize"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
@@ -25,9 +26,9 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_profile_pic"
                     android:transitionName="@string/reviewer_transition_name"
-                    android:layout_width="80dp"
+                    android:layout_width="@dimen/reviewer_image_hight"
                     android:contentDescription="@string/user_display_pic"
-                    android:layout_height="80dp"
+                    android:layout_height="@dimen/reviewer_image_hight"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerCrop"
                     android:src="@drawable/home_bg" />
@@ -38,8 +39,7 @@
                     android:contentDescription="@string/user_name"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    app:font="SourceSansPro-Semibold"
-                    tools:text="Mr John Doe" />
+                    app:font="SourceSansPro-Semibold" />
 
                 <com.iambedant.nanodegree.quickbite.ui.views.FontTextView
                     android:id="@+id/tv_foodie_level"
@@ -52,12 +52,12 @@
 
                 <Button
                     android:id="@+id/btn_view_profile"
+                    android:text="@string/profile"
                     android:layout_width="wrap_content"
                     android:contentDescription="@string/view_user_profile_button"
                     android:layout_height="wrap_content"
                     style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_gravity="center_horizontal"
-                    android:text="PROFILE" />
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
             <LinearLayout

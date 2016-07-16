@@ -158,7 +158,11 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        finishAfterTransition();
+                    } else {
+                        finish();
+                    }
                 }
             });
         }
@@ -476,7 +480,11 @@ public class RestaurantActivity extends BaseActivity implements RestaurantMvpVie
 
         }
         if (id == android.R.id.home) {
-            finish();
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);

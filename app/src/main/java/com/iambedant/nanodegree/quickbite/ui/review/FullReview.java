@@ -3,7 +3,10 @@ package com.iambedant.nanodegree.quickbite.ui.review;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +48,10 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
 
     @Bind(R.id.iv_profile_pic)
     ImageView mImageViewProfile;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.tv_toolbar_title)
+    TextView mToolbarTitle;
 
     Activity host;
 
@@ -63,14 +70,32 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
         mReviewPresenter.attachView(this);
         bindUi();
 
+        setUpToolbar();
 
+    }
 
+    public void setUpToolbar() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolbarTitle.setText(R.string.settings);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 
     public void bindUi() {
         Glide.with(host)
                 .load(mReview.getUser().getProfileImage())
-                .override(480,400)
+                .override(480, 400)
                 .into(mImageViewProfile);
 
         //todo: Add a slide animation to  Review Content
@@ -82,12 +107,12 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
     }
 
     @OnClick(R.id.btn_view_profile)
-    public void openReviewerProfile(){
+    public void openReviewerProfile() {
 //        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mReview.getUser().getProfileUrl()));
 //        startActivity(browserIntent);
 //
-        Logger.d(TAG,"User Profile");
-        launchUrl(mContext,mReview.getUser().getProfileUrl());
+        Logger.d(TAG, "User Profile");
+        launchUrl(mContext, mReview.getUser().getProfileUrl());
 
     }
 
@@ -98,9 +123,8 @@ public class FullReview extends BaseActivity implements ReviewMvpView {
     }
 
 
-
     public void launchUrl(Context mContext, String url) {
-        Logger.d(TAG,url);
+        Logger.d(TAG, url);
         customTabsIntent.launchUrl((Activity) mContext, Uri.parse(url));
 
     }
