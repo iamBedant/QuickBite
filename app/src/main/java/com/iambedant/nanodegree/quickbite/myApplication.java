@@ -6,7 +6,7 @@ import android.content.Context;
 import com.iambedant.nanodegree.quickbite.injection.component.ApplicationComponent;
 import com.iambedant.nanodegree.quickbite.injection.component.DaggerApplicationComponent;
 import com.iambedant.nanodegree.quickbite.injection.module.ApplicationModule;
-import com.squareup.leakcanary.LeakCanary;
+
 
 
 public class myApplication extends Application  {
@@ -16,7 +16,7 @@ public class myApplication extends Application  {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
     }
 
