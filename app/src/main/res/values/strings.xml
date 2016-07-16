@@ -134,5 +134,12 @@
     <string name="restaurant_cover_image">Restaurant Cover Image</string>
     <string name="transition_name">image</string>
     <string name="profile">Profile</string>
+    <string name="rupees">"Rs. "</string>
+    <string name="two_people">" For two People (Approx)"</string>
+    <string name="favo">FAVOURITES</string>
+    <string name="map_uri">http://maps.google.com/maps?daddr=</string>
+    <string name="google_play_error">"Google Play Services is not available: "</string>
+    <string name="im">im</string>
+    <string name="please_wait_">Please Wait ...</string>
 
 </resources>

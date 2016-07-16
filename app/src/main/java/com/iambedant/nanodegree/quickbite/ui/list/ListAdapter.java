@@ -79,7 +79,7 @@ public class ListAdapter extends BaseAdapter<Restaurant, RestaurantItemView> {
                 public void onClick(View v) {
                     Logger.d(TAG, "Inside Click Listenr");
                     Intent intent = new Intent(host, RestaurantActivity.class);
-                    intent.putExtra("im",restaurant.getRestaurant().getFeaturedImage());
+                    intent.putExtra(host.getString(R.string.im),restaurant.getRestaurant().getFeaturedImage());
                     intent.putExtra(Constants.CURRENT_RESTAURANT, restaurant.getRestaurant());
 
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

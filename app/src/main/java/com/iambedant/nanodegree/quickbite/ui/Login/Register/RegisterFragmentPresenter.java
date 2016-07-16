@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 /**
@@ -38,7 +41,10 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
             getMvpView().setError(0, "Required");
             valid = false;
         } else {
-
+            if(!isValidEmail(email)){
+                getMvpView().setError(0, "Required");
+                valid = false;
+            }
         }
 
 
@@ -51,6 +57,14 @@ public class RegisterFragmentPresenter extends BasePresenter<RegisterFragmentMvp
 
         return valid;
     }
+
+    public Boolean isValidEmail(String email){
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+
 
     public void createAccount(String email, String password, String name) {
 

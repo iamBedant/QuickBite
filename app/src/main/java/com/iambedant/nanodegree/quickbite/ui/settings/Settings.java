@@ -69,7 +69,7 @@ public class Settings extends BaseActivity implements SettingsMvpView {
         getActivityComponent().inject(this);
         ButterKnife.bind(this);
         mContext = this;
-        mProgressDialog = DialogFactory.createProgressDialog(mContext, "Please Wait ...");
+        mProgressDialog = DialogFactory.createProgressDialog(mContext, R.string.please_wait_);
         if (!(mSettingsPresenter.getProvider() == Constants.FIREBASE)) {
             mRelativeLayoutPassword.setVisibility(View.GONE);
         }

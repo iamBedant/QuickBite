@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -30,8 +32,6 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static android.R.attr.value;
 
 /**
  * Created by Kuliza-193 on 6/1/2016.
@@ -74,8 +74,11 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
         mContext = this;
         mCuisineSearchPresenter.attachView(this);
         initRecyclerView();
-
-        callCircularReveal();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            callCircularReveal();
+        }else {
+            mFrameLayoutRoot.setVisibility(View.VISIBLE);
+        }
 
         mSearchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,8 +104,8 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                ((Activity)mContext).setResult(Activity.RESULT_CANCELED, intent);
-                ((Activity)mContext).finish();
+                ((Activity) mContext).setResult(Activity.RESULT_CANCELED, intent);
+                ((Activity) mContext).finish();
             }
         });
 
@@ -133,12 +136,9 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
 
         // create the animator for this view (the start radius is zero)
         Animator circularReveal;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+
         circularReveal = ViewAnimationUtils.createCircularReveal(mFrameLayoutRoot, cx, cy, 0, finalRadius);
-//        } else {
-//            //Create a simple animator for pre lollipop
-//            circularReveal = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.);
-//        }
 
 
         circularReveal.setInterpolator(AnimUtils.getFastOutLinearInInterpolator(CuisineSearch
@@ -150,6 +150,9 @@ public class CuisineSearch extends BaseActivity implements CuisineSearchMvpView 
         circularReveal.start();
     }
 
+    private void reveal() {
+
+    }
 
     private void initRecyclerView() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext);

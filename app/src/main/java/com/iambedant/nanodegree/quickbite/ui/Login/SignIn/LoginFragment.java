@@ -126,7 +126,9 @@ public class LoginFragment extends BaseFragment implements LoginFragmentMvpView 
     @Override
     public void onDetach() {
         super.onDetach();
+        mLoginFragmentPresenter.detachView();
         mListener = null;
+
     }
 
 

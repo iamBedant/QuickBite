@@ -70,7 +70,7 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            mTextViewToolBarTitle.setText("FAVOURITES");
+            mTextViewToolBarTitle.setText(R.string.favo);
             mSearchButton.setVisibility(View.GONE);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,7 +116,7 @@ public class Favourites extends BaseActivity implements FavouriteMvpView, Loader
     @Override
     public void directionClicked(Double lon, Double lat) {
         Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?daddr=" + lat + "," + lon));
+                Uri.parse(getString(R.string.map_uri) + lat + "," + lon));
         startActivity(intent);
     }
 

@@ -162,7 +162,7 @@ public class Home extends BaseActivity implements HomeMvpView {
         } catch (GooglePlayServicesNotAvailableException e) {
             // Indicates that Google Play Services is not available and the problem is not easily
             // resolvable.
-            String message = "Google Play Services is not available: " +
+            String message = getString(R.string.google_play_error) +
                     GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
 
             Log.e(TAG, message);

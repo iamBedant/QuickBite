@@ -6,6 +6,9 @@ import android.util.Log;
 import com.iambedant.nanodegree.quickbite.data.DataManager;
 import com.iambedant.nanodegree.quickbite.ui.base.BasePresenter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 /**
@@ -42,7 +45,10 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
 
             valid = false;
         } else {
-
+            if(!isValidEmail(email)){
+                getMvpView().setError(0, "Required");
+                valid = false;
+            }
         }
 
 
@@ -55,6 +61,13 @@ public class LoginFragmentPresenter extends BasePresenter<LoginFragmentMvpView> 
 
         return valid;
     }
+
+    public Boolean isValidEmail(String email){
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
     public void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);

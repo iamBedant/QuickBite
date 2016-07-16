@@ -65,7 +65,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         holder.mTextViewRating.setText(mCursor.getFloat(columnIndexRating) + "");
         holder.mRelativeLayoutMenu.setVisibility(View.GONE);
         //todo: Add Localization for Price 
-        holder.mTextViewPrice.setText("Rs. " + mCursor.getInt(columnIndexrice) + " For two People (Approx)");
+        holder.mTextViewPrice.setText(mContext.getString(R.string.rupees) + mCursor.getInt(columnIndexrice) + mContext.getString(R.string.two_people));
         Glide.with(mContext)
                 .load(mCursor.getString(columnIndexCoverImage))
                 .into(holder.mImageViewCover);
